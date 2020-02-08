@@ -1,4 +1,5 @@
 #include <clang/Frontend/FrontendActions.h>
+#include <clang/Sema/SemaConsumer.h>
 
 #include "outputs.hpp"
 #include "consumer.hpp"
@@ -9,25 +10,9 @@ using namespace clang;
 class Action : public ASTFrontendAction {
 public:
   Action() {
-    out.header << "#ifndef __CWRAPPER_H\n"
-      "#define __CWRAPPER_H_\n"
-
-      "#include <stdbool.h>\n"
-      "#include <lasreader_las.hpp>\n"
-
-      "#ifdef __cplusplus\n"
-      "extern \"C\"{\n"
-      "#endif\n";
-
-    out.body
-        << "#include \"cwrapper.h\"\n"
-           "#ifdef __cplusplus\n"
-           "extern \"C\"{\n"
-           "#endif\n";
   }
 
   void EndSourceFileAction() override {
-
     StringRef headerFile("cwrapper.h");
     StringRef bodyFile("cwrapper.cpp");
 
@@ -45,25 +30,15 @@ public:
                    << '\n';
       exit(1);
     }
-
-    out.header << "#ifdef __cplusplus\n"
-                   "}\n"
-                   "#endif\n"
-                   "#endif /* CWRAPPER_H_ */\n";
-
-    out.body << "#ifdef __cplusplus\n"
-                 "}\n"
-                 "#endif\n";
-
-    out.header.flush();
-    out.body.flush();
-    HOS << out.headerString << "\n";
-    BOS << out.bodyString << "\n";
+    out.finish();
+    HOS << out.getHeader() << "\n";
+    BOS << out.getBody() << "\n";
   }
 
   std::unique_ptr<ASTConsumer>
   CreateASTConsumer(CompilerInstance &CI,
                     StringRef file) override {
+    out.start(file);
     return llvm::make_unique<Consumer>(out);
   }
 

@@ -6,6 +6,7 @@ fn main() {
 
     println!("cargo:rustc-link-search=native={}", dst.join("lib").display());
     println!("cargo:rustc-link-lib=static=laslib-wrapper");
+    println!("cargo:rerun-if-changed=wrapper/cwrapper.h");
 
     let header = dst.join("include").join("cwrapper.h");
     let bindings = bindgen::Builder::default()

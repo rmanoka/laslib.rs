@@ -1,1361 +1,1720 @@
 #include "cwrapper.h"
-#include "lasreader_las.hpp"
-
+#include "lib.hpp"
 #ifdef __cplusplus
 extern "C"{
 #endif
-WLASvlr_lastiling* LASvlr_lastiling_create(){
-    return reinterpret_cast<WLASvlr_lastiling*>( new LASvlr_lastiling());
-}
-WLASvlr_lasoriginal* LASvlr_lasoriginal_create(){
-    return reinterpret_cast<WLASvlr_lasoriginal*>( new LASvlr_lasoriginal());
-}
-_Bool LASitem_is_type(WLASitem* self, LASitem::Type t){
-    return reinterpret_cast<LASitem*>(self)->is_type(t);
-}
-const char * LASitem_get_name(WLASitem* self){
-    return reinterpret_cast<LASitem*>(self)->get_name();
-}
-_Bool LASzip_check_compressor(WLASzip* self, const unsigned short compressor){
-    return reinterpret_cast<LASzip*>(self)->check_compressor(compressor);
-}
-_Bool LASzip_check_coder(WLASzip* self, const unsigned short coder){
-    return reinterpret_cast<LASzip*>(self)->check_coder(coder);
-}
-_Bool LASzip_check_item(WLASzip* self, WLASitem* item){
-    return reinterpret_cast<LASzip*>(self)->check_item(reinterpret_cast<LASitem*>(item));
-}
-_Bool LASzip_check_items(WLASzip* self, const unsigned short num_items, WLASitem* items, const unsigned short point_size){
-    return reinterpret_cast<LASzip*>(self)->check_items(num_items, reinterpret_cast<LASitem*>(items), point_size);
-}
-_Bool LASzip_check(WLASzip* self, const unsigned short point_size){
-    return reinterpret_cast<LASzip*>(self)->check(point_size);
-}
-_Bool LASzip_setup(WLASzip* self, unsigned short * num_items, class LASitem ** items, const unsigned char point_type, const unsigned short point_size, const unsigned short compressor){
-    return reinterpret_cast<LASzip*>(self)->setup(num_items, items, point_type, point_size, compressor);
-}
-_Bool LASzip_is_standard(WLASzip* self, const unsigned short num_items, WLASitem* items, unsigned char * point_type, unsigned short * record_length){
-    return reinterpret_cast<LASzip*>(self)->is_standard(num_items, reinterpret_cast<LASitem*>(items), point_type, record_length);
-}
-_Bool LASzip_is_standard_1(WLASzip* self, unsigned char * point_type, unsigned short * record_length){
-    return reinterpret_cast<LASzip*>(self)->is_standard(point_type, record_length);
-}
-_Bool LASzip_unpack(WLASzip* self, const unsigned char * bytes, const int num){
-    return reinterpret_cast<LASzip*>(self)->unpack(bytes, num);
-}
-_Bool LASzip_pack(WLASzip* self, unsigned char *& bytes, int & num){
-    return reinterpret_cast<LASzip*>(self)->pack(bytes, num);
-}
-_Bool LASzip_request_compatibility_mode(WLASzip* self, const unsigned short requested_compatibility_mode){
-    return reinterpret_cast<LASzip*>(self)->request_compatibility_mode(requested_compatibility_mode);
-}
-_Bool LASzip_setup_1(WLASzip* self, const unsigned char point_type, const unsigned short point_size, const unsigned short compressor){
-    return reinterpret_cast<LASzip*>(self)->setup(point_type, point_size, compressor);
-}
-_Bool LASzip_setup_2(WLASzip* self, const unsigned short num_items, WLASitem* items, const unsigned short compressor){
-    return reinterpret_cast<LASzip*>(self)->setup(num_items, reinterpret_cast<LASitem*>(items), compressor);
-}
-_Bool LASzip_set_chunk_size(WLASzip* self, const unsigned int chunk_size){
-    return reinterpret_cast<LASzip*>(self)->set_chunk_size(chunk_size);
-}
-_Bool LASzip_request_version(WLASzip* self, const unsigned short requested_version){
-    return reinterpret_cast<LASzip*>(self)->request_version(requested_version);
-}
-const char * LASzip_get_error(WLASzip* self){
-    return reinterpret_cast<LASzip*>(self)->get_error();
-}
-WLASzip* LASzip_create(){
-    return reinterpret_cast<WLASzip*>( new LASzip());
-}
-void LASzip_destroy(WLASzip* self){
-     delete reinterpret_cast<LASzip*>(self);
-}
-F64 LASquantizer_get_x(WLASquantizer* self, const I32 X){
-    return reinterpret_cast<LASquantizer*>(self)->get_x(X);
-}
-F64 LASquantizer_get_y(WLASquantizer* self, const I32 Y){
-    return reinterpret_cast<LASquantizer*>(self)->get_y(Y);
-}
-F64 LASquantizer_get_z(WLASquantizer* self, const I32 Z){
-    return reinterpret_cast<LASquantizer*>(self)->get_z(Z);
-}
-I64 LASquantizer_get_X(WLASquantizer* self, const F64 x){
-    return reinterpret_cast<LASquantizer*>(self)->get_X(x);
-}
-I64 LASquantizer_get_Y(WLASquantizer* self, const F64 y){
-    return reinterpret_cast<LASquantizer*>(self)->get_Y(y);
-}
-I64 LASquantizer_get_Z(WLASquantizer* self, const F64 z){
-    return reinterpret_cast<LASquantizer*>(self)->get_Z(z);
-}
-WLASquantizer* LASquantizer_create(){
-    return reinterpret_cast<WLASquantizer*>( new LASquantizer());
-}
-WLASattribute* LASattribute_create(U8 size){
-    return reinterpret_cast<WLASattribute*>( new LASattribute(size));
-}
-WLASattribute* LASattribute_create_1(U32 type, const CHAR * name, const CHAR * description){
-    return reinterpret_cast<WLASattribute*>( new LASattribute(type, name, description));
-}
-BOOL LASattribute_set_no_data(WLASattribute* self, U8 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_1(WLASattribute* self, I8 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_2(WLASattribute* self, U16 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_3(WLASattribute* self, I16 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_4(WLASattribute* self, U32 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_5(WLASattribute* self, I32 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_6(WLASattribute* self, U64 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_7(WLASattribute* self, I64 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_8(WLASattribute* self, F32 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-BOOL LASattribute_set_no_data_9(WLASattribute* self, F64 no_data){
-    return reinterpret_cast<LASattribute*>(self)->set_no_data(no_data);
-}
-void LASattribute_set_min(WLASattribute* self, U8 * min){
-    reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-void LASattribute_update_min(WLASattribute* self, U8 * min){
-    reinterpret_cast<LASattribute*>(self)->update_min(min);
-}
-BOOL LASattribute_set_min_1(WLASattribute* self, U8 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_2(WLASattribute* self, I8 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_3(WLASattribute* self, U16 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_4(WLASattribute* self, I16 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_5(WLASattribute* self, U32 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_6(WLASattribute* self, I32 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_7(WLASattribute* self, U64 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_8(WLASattribute* self, I64 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_9(WLASattribute* self, F32 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-BOOL LASattribute_set_min_10(WLASattribute* self, F64 min){
-    return reinterpret_cast<LASattribute*>(self)->set_min(min);
-}
-void LASattribute_set_max(WLASattribute* self, U8 * max){
-    reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-void LASattribute_update_max(WLASattribute* self, U8 * max){
-    reinterpret_cast<LASattribute*>(self)->update_max(max);
-}
-BOOL LASattribute_set_max_1(WLASattribute* self, U8 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_2(WLASattribute* self, I8 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_3(WLASattribute* self, U16 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_4(WLASattribute* self, I16 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_5(WLASattribute* self, U32 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_6(WLASattribute* self, I32 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_7(WLASattribute* self, U64 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_8(WLASattribute* self, I64 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_9(WLASattribute* self, F32 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_max_10(WLASattribute* self, F64 max){
-    return reinterpret_cast<LASattribute*>(self)->set_max(max);
-}
-BOOL LASattribute_set_scale(WLASattribute* self, F64 scale){
-    return reinterpret_cast<LASattribute*>(self)->set_scale(scale);
-}
-BOOL LASattribute_set_offset(WLASattribute* self, F64 offset){
-    return reinterpret_cast<LASattribute*>(self)->set_offset(offset);
-}
-BOOL LASattribute_unset_scale(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->unset_scale();
-}
-BOOL LASattribute_unset_offset(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->unset_offset();
-}
-BOOL LASattribute_has_no_data(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->has_no_data();
-}
-BOOL LASattribute_has_min(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->has_min();
-}
-BOOL LASattribute_has_max(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->has_max();
-}
-BOOL LASattribute_has_scale(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->has_scale();
-}
-BOOL LASattribute_has_offset(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->has_offset();
-}
-U32 LASattribute_get_size(WLASattribute* self){
-    return reinterpret_cast<LASattribute*>(self)->get_size();
-}
-F64 LASattribute_get_value_as_float(WLASattribute* self, U8 * pointer){
-    return reinterpret_cast<LASattribute*>(self)->get_value_as_float(pointer);
-}
-void LASattribute_set_value_as_float(WLASattribute* self, U8 * pointer, F64 value){
-    reinterpret_cast<LASattribute*>(self)->set_value_as_float(pointer, value);
-}
-WLASattributer* LASattributer_create(){
-    return reinterpret_cast<WLASattributer*>( new LASattributer());
-}
-void LASattributer_destroy(WLASattributer* self){
-     delete reinterpret_cast<LASattributer*>(self);
-}
-void LASattributer_clean_attributes(WLASattributer* self){
-    reinterpret_cast<LASattributer*>(self)->clean_attributes();
-}
-BOOL LASattributer_init_attributes(WLASattributer* self, U32 number_attributes, WLASattribute* attributes){
-    return reinterpret_cast<LASattributer*>(self)->init_attributes(number_attributes, reinterpret_cast<LASattribute*>(attributes));
-}
-I32 LASattributer_add_attribute(WLASattributer* self, WLASattribute* attribute){
-    return reinterpret_cast<LASattributer*>(self)->add_attribute(*reinterpret_cast<LASattribute*>(attribute));
-}
-I16 LASattributer_get_attributes_size(WLASattributer* self){
-    return reinterpret_cast<LASattributer*>(self)->get_attributes_size();
-}
-I32 LASattributer_get_attribute_index(WLASattributer* self, const CHAR * name){
-    return reinterpret_cast<LASattributer*>(self)->get_attribute_index(name);
-}
-I32 LASattributer_get_attribute_start(WLASattributer* self, const CHAR * name){
-    return reinterpret_cast<LASattributer*>(self)->get_attribute_start(name);
-}
-I32 LASattributer_get_attribute_start_1(WLASattributer* self, I32 index){
-    return reinterpret_cast<LASattributer*>(self)->get_attribute_start(index);
-}
-I32 LASattributer_get_attribute_size(WLASattributer* self, I32 index){
-    return reinterpret_cast<LASattributer*>(self)->get_attribute_size(index);
-}
-const CHAR * LASattributer_get_attribute_name(WLASattributer* self, I32 index){
-    return reinterpret_cast<LASattributer*>(self)->get_attribute_name(index);
-}
-BOOL LASattributer_remove_attribute(WLASattributer* self, I32 index){
-    return reinterpret_cast<LASattributer*>(self)->remove_attribute(index);
-}
-BOOL LASattributer_remove_attribute_1(WLASattributer* self, const CHAR * name){
-    return reinterpret_cast<LASattributer*>(self)->remove_attribute(name);
-}
-WLASwavepacket* LASwavepacket_create(){
-    return reinterpret_cast<WLASwavepacket*>( new LASwavepacket());
-}
-void LASwavepacket_zero(WLASwavepacket* self){
-    reinterpret_cast<LASwavepacket*>(self)->zero();
-}
-U8 LASwavepacket_getIndex(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getIndex();
-}
-U64 LASwavepacket_getOffset(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getOffset();
-}
-U32 LASwavepacket_getSize(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getSize();
-}
-F32 LASwavepacket_getLocation(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getLocation();
-}
-F32 LASwavepacket_getXt(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getXt();
-}
-F32 LASwavepacket_getYt(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getYt();
-}
-F32 LASwavepacket_getZt(WLASwavepacket* self){
-    return reinterpret_cast<LASwavepacket*>(self)->getZt();
-}
-void LASwavepacket_setIndex(WLASwavepacket* self, U8 index){
-    reinterpret_cast<LASwavepacket*>(self)->setIndex(index);
-}
-void LASwavepacket_setOffset(WLASwavepacket* self, U64 offset){
-    reinterpret_cast<LASwavepacket*>(self)->setOffset(offset);
-}
-void LASwavepacket_setSize(WLASwavepacket* self, U32 size){
-    reinterpret_cast<LASwavepacket*>(self)->setSize(size);
-}
-void LASwavepacket_setLocation(WLASwavepacket* self, F32 location){
-    reinterpret_cast<LASwavepacket*>(self)->setLocation(location);
-}
-void LASwavepacket_setXt(WLASwavepacket* self, F32 xt){
-    reinterpret_cast<LASwavepacket*>(self)->setXt(xt);
-}
-void LASwavepacket_setYt(WLASwavepacket* self, F32 yt){
-    reinterpret_cast<LASwavepacket*>(self)->setYt(yt);
-}
-void LASwavepacket_setZt(WLASwavepacket* self, F32 zt){
-    reinterpret_cast<LASwavepacket*>(self)->setZt(zt);
-}
-void LASwavepacket_flipDirection(WLASwavepacket* self){
-    reinterpret_cast<LASwavepacket*>(self)->flipDirection();
-}
-void LASpoint_copy_to(WLASpoint* self, U8 * buffer){
-    reinterpret_cast<LASpoint*>(self)->copy_to(buffer);
-}
-void LASpoint_copy_from(WLASpoint* self, const U8 * buffer){
-    reinterpret_cast<LASpoint*>(self)->copy_from(buffer);
-}
-BOOL LASpoint_init(WLASpoint* self, WLASquantizer* quantizer, const U8 point_type, const U16 point_size, WLASattributer* attributer){
-    return reinterpret_cast<LASpoint*>(self)->init(reinterpret_cast<LASquantizer*>(quantizer), point_type, point_size, reinterpret_cast<LASattributer*>(attributer));
-}
-BOOL LASpoint_init_1(WLASpoint* self, WLASquantizer* quantizer, const U32 num_items, WLASitem* items, WLASattributer* attributer){
-    return reinterpret_cast<LASpoint*>(self)->init(reinterpret_cast<LASquantizer*>(quantizer), num_items, reinterpret_cast<LASitem*>(items), reinterpret_cast<LASattributer*>(attributer));
-}
-BOOL LASpoint_inside_rectangle(WLASpoint* self, const F64 r_min_x, const F64 r_min_y, const F64 r_max_x, const F64 r_max_y){
-    return reinterpret_cast<LASpoint*>(self)->inside_rectangle(r_min_x, r_min_y, r_max_x, r_max_y);
-}
-BOOL LASpoint_inside_tile(WLASpoint* self, const F32 ll_x, const F32 ll_y, const F32 ur_x, const F32 ur_y){
-    return reinterpret_cast<LASpoint*>(self)->inside_tile(ll_x, ll_y, ur_x, ur_y);
-}
-BOOL LASpoint_inside_circle(WLASpoint* self, const F64 center_x, const F64 center_y, F64 squared_radius){
-    return reinterpret_cast<LASpoint*>(self)->inside_circle(center_x, center_y, squared_radius);
-}
-BOOL LASpoint_inside_box(WLASpoint* self, const F64 min_x, const F64 min_y, const F64 min_z, const F64 max_x, const F64 max_y, const F64 max_z){
-    return reinterpret_cast<LASpoint*>(self)->inside_box(min_x, min_y, min_z, max_x, max_y, max_z);
-}
-BOOL LASpoint_inside_bounding_box(WLASpoint* self, const F64 min_x, const F64 min_y, const F64 min_z, const F64 max_x, const F64 max_y, const F64 max_z){
-    return reinterpret_cast<LASpoint*>(self)->inside_bounding_box(min_x, min_y, min_z, max_x, max_y, max_z);
-}
-BOOL LASpoint_is_zero(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_zero();
-}
-void LASpoint_zero(WLASpoint* self){
-    reinterpret_cast<LASpoint*>(self)->zero();
-}
-void LASpoint_clean(WLASpoint* self){
-    reinterpret_cast<LASpoint*>(self)->clean();
-}
-WLASpoint* LASpoint_create(){
-    return reinterpret_cast<WLASpoint*>( new LASpoint());
-}
-BOOL LASpoint_is_first(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_first();
-}
-BOOL LASpoint_is_intermediate(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_intermediate();
-}
-BOOL LASpoint_is_last(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_last();
-}
-BOOL LASpoint_is_single(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_single();
-}
-BOOL LASpoint_is_first_of_many(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_first_of_many();
-}
-BOOL LASpoint_is_last_of_many(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_last_of_many();
-}
-I32 LASpoint_get_X(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_X();
-}
-I32 LASpoint_get_Y(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_Y();
-}
-I32 LASpoint_get_Z(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_Z();
-}
-U16 LASpoint_get_intensity(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_intensity();
-}
-U8 LASpoint_get_return_number(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_return_number();
-}
-U8 LASpoint_get_number_of_returns(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_number_of_returns();
-}
-U8 LASpoint_get_scan_direction_flag(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_scan_direction_flag();
-}
-U8 LASpoint_get_edge_of_flight_line(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_edge_of_flight_line();
-}
-U8 LASpoint_get_classification(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_classification();
-}
-U8 LASpoint_get_synthetic_flag(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_synthetic_flag();
-}
-U8 LASpoint_get_keypoint_flag(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_keypoint_flag();
-}
-U8 LASpoint_get_withheld_flag(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_withheld_flag();
-}
-I8 LASpoint_get_scan_angle_rank(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_scan_angle_rank();
-}
-U8 LASpoint_get_user_data(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_user_data();
-}
-U16 LASpoint_get_point_source_ID(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_point_source_ID();
-}
-U8 LASpoint_get_deleted_flag(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_deleted_flag();
-}
-F64 LASpoint_get_gps_time(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_gps_time();
-}
-const U16 * LASpoint_get_RGB(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_RGB();
-}
-const U16 * LASpoint_get_RGBI(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_RGBI();
-}
-U16 LASpoint_get_RGBI_1(WLASpoint* self, const U32 band){
-    return reinterpret_cast<LASpoint*>(self)->get_RGBI(band);
-}
-U16 LASpoint_get_R(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_R();
-}
-U16 LASpoint_get_G(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_G();
-}
-U16 LASpoint_get_B(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_B();
-}
-U16 LASpoint_get_I(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_I();
-}
-U16 LASpoint_get_NIR(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_NIR();
-}
-void LASpoint_set_X(WLASpoint* self, const I32 X){
-    reinterpret_cast<LASpoint*>(self)->set_X(X);
-}
-void LASpoint_set_Y(WLASpoint* self, const I32 Y){
-    reinterpret_cast<LASpoint*>(self)->set_Y(Y);
-}
-void LASpoint_set_Z(WLASpoint* self, const I32 Z){
-    reinterpret_cast<LASpoint*>(self)->set_Z(Z);
-}
-void LASpoint_set_intensity(WLASpoint* self, const U16 intensity){
-    reinterpret_cast<LASpoint*>(self)->set_intensity(intensity);
-}
-void LASpoint_set_return_number(WLASpoint* self, const U8 return_number){
-    reinterpret_cast<LASpoint*>(self)->set_return_number(return_number);
-}
-void LASpoint_set_number_of_returns(WLASpoint* self, const U8 number_of_returns){
-    reinterpret_cast<LASpoint*>(self)->set_number_of_returns(number_of_returns);
-}
-void LASpoint_set_scan_direction_flag(WLASpoint* self, const U8 scan_direction_flag){
-    reinterpret_cast<LASpoint*>(self)->set_scan_direction_flag(scan_direction_flag);
-}
-void LASpoint_set_edge_of_flight_line(WLASpoint* self, const U8 edge_of_flight_line){
-    reinterpret_cast<LASpoint*>(self)->set_edge_of_flight_line(edge_of_flight_line);
-}
-void LASpoint_set_classification(WLASpoint* self, U8 classification){
-    reinterpret_cast<LASpoint*>(self)->set_classification(classification);
-}
-void LASpoint_set_synthetic_flag(WLASpoint* self, U8 synthetic_flag){
-    reinterpret_cast<LASpoint*>(self)->set_synthetic_flag(synthetic_flag);
-}
-void LASpoint_set_keypoint_flag(WLASpoint* self, U8 keypoint_flag){
-    reinterpret_cast<LASpoint*>(self)->set_keypoint_flag(keypoint_flag);
-}
-void LASpoint_set_withheld_flag(WLASpoint* self, U8 withheld_flag){
-    reinterpret_cast<LASpoint*>(self)->set_withheld_flag(withheld_flag);
-}
-void LASpoint_set_scan_angle_rank(WLASpoint* self, I8 scan_angle_rank){
-    reinterpret_cast<LASpoint*>(self)->set_scan_angle_rank(scan_angle_rank);
-}
-void LASpoint_set_user_data(WLASpoint* self, U8 user_data){
-    reinterpret_cast<LASpoint*>(self)->set_user_data(user_data);
-}
-void LASpoint_set_point_source_ID(WLASpoint* self, U16 point_source_ID){
-    reinterpret_cast<LASpoint*>(self)->set_point_source_ID(point_source_ID);
-}
-void LASpoint_set_deleted_flag(WLASpoint* self, U8 deleted_flag){
-    reinterpret_cast<LASpoint*>(self)->set_deleted_flag(deleted_flag);
-}
-void LASpoint_set_gps_time(WLASpoint* self, const F64 gps_time){
-    reinterpret_cast<LASpoint*>(self)->set_gps_time(gps_time);
-}
-void LASpoint_set_RGB(WLASpoint* self, const U16 * rgb){
-    reinterpret_cast<LASpoint*>(self)->set_RGB(rgb);
-}
-void LASpoint_set_RGBI(WLASpoint* self, const U16 * rgb){
-    reinterpret_cast<LASpoint*>(self)->set_RGBI(rgb);
-}
-void LASpoint_set_RGBI_1(WLASpoint* self, const U32 band, const U16 value){
-    reinterpret_cast<LASpoint*>(self)->set_RGBI(band, value);
-}
-void LASpoint_set_R(WLASpoint* self, const U16 R){
-    reinterpret_cast<LASpoint*>(self)->set_R(R);
-}
-void LASpoint_set_G(WLASpoint* self, const U16 G){
-    reinterpret_cast<LASpoint*>(self)->set_G(G);
-}
-void LASpoint_set_B(WLASpoint* self, const U16 B){
-    reinterpret_cast<LASpoint*>(self)->set_B(B);
-}
-void LASpoint_set_I(WLASpoint* self, const U16 I){
-    reinterpret_cast<LASpoint*>(self)->set_I(I);
-}
-void LASpoint_set_NIR(WLASpoint* self, const U16 NIR){
-    reinterpret_cast<LASpoint*>(self)->set_NIR(NIR);
-}
-F64 LASpoint_get_x(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_x();
-}
-F64 LASpoint_get_y(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_y();
-}
-F64 LASpoint_get_z(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_z();
-}
-BOOL LASpoint_set_x(WLASpoint* self, const F64 x){
-    return reinterpret_cast<LASpoint*>(self)->set_x(x);
-}
-BOOL LASpoint_set_y(WLASpoint* self, const F64 y){
-    return reinterpret_cast<LASpoint*>(self)->set_y(y);
-}
-BOOL LASpoint_set_z(WLASpoint* self, const F64 z){
-    return reinterpret_cast<LASpoint*>(self)->set_z(z);
-}
-BOOL LASpoint_is_extended_point_type(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->is_extended_point_type();
-}
-U8 LASpoint_get_extended_classification(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_extended_classification();
-}
-U8 LASpoint_get_extended_return_number(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_extended_return_number();
-}
-U8 LASpoint_get_extended_number_of_returns(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_extended_number_of_returns();
-}
-I16 LASpoint_get_extended_scan_angle(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_extended_scan_angle();
-}
-U8 LASpoint_get_extended_overlap_flag(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_extended_overlap_flag();
-}
-U8 LASpoint_get_extended_scanner_channel(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_extended_scanner_channel();
-}
-void LASpoint_set_extended_classification(WLASpoint* self, U8 extended_classification){
-    reinterpret_cast<LASpoint*>(self)->set_extended_classification(extended_classification);
-}
-void LASpoint_set_extended_return_number(WLASpoint* self, U8 extended_return_number){
-    reinterpret_cast<LASpoint*>(self)->set_extended_return_number(extended_return_number);
-}
-void LASpoint_set_extended_number_of_returns(WLASpoint* self, U8 extended_number_of_returns){
-    reinterpret_cast<LASpoint*>(self)->set_extended_number_of_returns(extended_number_of_returns);
-}
-void LASpoint_set_extended_scan_angle(WLASpoint* self, I16 extended_scan_angle){
-    reinterpret_cast<LASpoint*>(self)->set_extended_scan_angle(extended_scan_angle);
-}
-void LASpoint_set_extended_overlap_flag(WLASpoint* self, U8 extended_overlap_flag){
-    reinterpret_cast<LASpoint*>(self)->set_extended_overlap_flag(extended_overlap_flag);
-}
-void LASpoint_set_extended_scanner_channel(WLASpoint* self, U8 extended_scanner_channel){
-    reinterpret_cast<LASpoint*>(self)->set_extended_scanner_channel(extended_scanner_channel);
-}
-F32 LASpoint_get_scan_angle(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_scan_angle();
-}
-F32 LASpoint_get_abs_scan_angle(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->get_abs_scan_angle();
-}
-void LASpoint_set_scan_angle(WLASpoint* self, F32 scan_angle){
-    reinterpret_cast<LASpoint*>(self)->set_scan_angle(scan_angle);
-}
-void LASpoint_compute_coordinates(WLASpoint* self){
-    reinterpret_cast<LASpoint*>(self)->compute_coordinates();
-}
-BOOL LASpoint_compute_XYZ(WLASpoint* self){
-    return reinterpret_cast<LASpoint*>(self)->compute_XYZ();
-}
-BOOL LASpoint_compute_XYZ_1(WLASpoint* self, WLASquantizer* quantizer){
-    return reinterpret_cast<LASpoint*>(self)->compute_XYZ(reinterpret_cast<LASquantizer*>(quantizer));
-}
-BOOL LASpoint_has_attribute(WLASpoint* self, U32 index){
-    return reinterpret_cast<LASpoint*>(self)->has_attribute(index);
-}
-BOOL LASpoint_get_attribute(WLASpoint* self, U32 index, U8 * data){
-    return reinterpret_cast<LASpoint*>(self)->get_attribute(index, data);
-}
-BOOL LASpoint_set_attribute(WLASpoint* self, U32 index, const U8 * data){
-    return reinterpret_cast<LASpoint*>(self)->set_attribute(index, data);
-}
-const CHAR * LASpoint_get_attribute_name(WLASpoint* self, U32 index){
-    return reinterpret_cast<LASpoint*>(self)->get_attribute_name(index);
-}
-F64 LASpoint_get_attribute_as_float(WLASpoint* self, U32 index){
-    return reinterpret_cast<LASpoint*>(self)->get_attribute_as_float(index);
-}
-void LASpoint_set_attribute_as_float(WLASpoint* self, U32 index, F64 value){
-    reinterpret_cast<LASpoint*>(self)->set_attribute_as_float(index, value);
-}
-void LASpoint_get_attribute_1(WLASpoint* self, I32 start, U8 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_1(WLASpoint* self, I32 start, U8 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_2(WLASpoint* self, I32 start, I8 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_2(WLASpoint* self, I32 start, I8 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_3(WLASpoint* self, I32 start, U16 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_3(WLASpoint* self, I32 start, U16 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_4(WLASpoint* self, I32 start, I16 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_4(WLASpoint* self, I32 start, I16 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_5(WLASpoint* self, I32 start, U32 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_5(WLASpoint* self, I32 start, U32 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_6(WLASpoint* self, I32 start, I32 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_6(WLASpoint* self, I32 start, I32 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_7(WLASpoint* self, I32 start, U64 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_7(WLASpoint* self, I32 start, U64 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_8(WLASpoint* self, I32 start, I64 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_8(WLASpoint* self, I32 start, I64 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_9(WLASpoint* self, I32 start, F32 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_9(WLASpoint* self, I32 start, F32 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_get_attribute_10(WLASpoint* self, I32 start, F64 & data){
-    reinterpret_cast<LASpoint*>(self)->get_attribute(start, data);
-}
-void LASpoint_set_attribute_10(WLASpoint* self, I32 start, F64 data){
-    reinterpret_cast<LASpoint*>(self)->set_attribute(start, data);
-}
-void LASpoint_destroy(WLASpoint* self){
-     delete reinterpret_cast<LASpoint*>(self);
-}
-WLASvlr* LASvlr_create(){
-    return reinterpret_cast<WLASvlr*>( new LASvlr());
-}
-WLASevlr* LASevlr_create(){
-    return reinterpret_cast<WLASevlr*>( new LASevlr());
-}
-WLASvlr_wave_packet_descr* LASvlr_wave_packet_descr_create(){
-    return reinterpret_cast<WLASvlr_wave_packet_descr*>( new LASvlr_wave_packet_descr());
-}
-void LASvlr_wave_packet_descr_clean(WLASvlr_wave_packet_descr* self){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->clean();
-}
-U8 LASvlr_wave_packet_descr_getBitsPerSample(WLASvlr_wave_packet_descr* self){
-    return reinterpret_cast<LASvlr_wave_packet_descr*>(self)->getBitsPerSample();
-}
-U8 LASvlr_wave_packet_descr_getCompressionType(WLASvlr_wave_packet_descr* self){
-    return reinterpret_cast<LASvlr_wave_packet_descr*>(self)->getCompressionType();
-}
-U32 LASvlr_wave_packet_descr_getNumberOfSamples(WLASvlr_wave_packet_descr* self){
-    return reinterpret_cast<LASvlr_wave_packet_descr*>(self)->getNumberOfSamples();
-}
-U32 LASvlr_wave_packet_descr_getTemporalSpacing(WLASvlr_wave_packet_descr* self){
-    return reinterpret_cast<LASvlr_wave_packet_descr*>(self)->getTemporalSpacing();
-}
-F64 LASvlr_wave_packet_descr_getDigitizerGain(WLASvlr_wave_packet_descr* self){
-    return reinterpret_cast<LASvlr_wave_packet_descr*>(self)->getDigitizerGain();
-}
-F64 LASvlr_wave_packet_descr_getDigitizerOffset(WLASvlr_wave_packet_descr* self){
-    return reinterpret_cast<LASvlr_wave_packet_descr*>(self)->getDigitizerOffset();
-}
-void LASvlr_wave_packet_descr_setBitsPerSample(WLASvlr_wave_packet_descr* self, U8 bps){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->setBitsPerSample(bps);
-}
-void LASvlr_wave_packet_descr_setCompressionType(WLASvlr_wave_packet_descr* self, U8 compression){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->setCompressionType(compression);
-}
-void LASvlr_wave_packet_descr_setNumberOfSamples(WLASvlr_wave_packet_descr* self, U32 samples){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->setNumberOfSamples(samples);
-}
-void LASvlr_wave_packet_descr_setTemporalSpacing(WLASvlr_wave_packet_descr* self, U32 spacing){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->setTemporalSpacing(spacing);
-}
-void LASvlr_wave_packet_descr_setDigitizerGain(WLASvlr_wave_packet_descr* self, F64 gain){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->setDigitizerGain(gain);
-}
-void LASvlr_wave_packet_descr_setDigitizerOffset(WLASvlr_wave_packet_descr* self, F64 offset){
-    reinterpret_cast<LASvlr_wave_packet_descr*>(self)->setDigitizerOffset(offset);
-}
-WLASheader* LASheader_create(){
-    return reinterpret_cast<WLASheader*>( new LASheader());
-}
-void LASheader_set_bounding_box(WLASheader* self, F64 min_x, F64 min_y, F64 min_z, F64 max_x, F64 max_y, F64 max_z, BOOL auto_scale, BOOL auto_offset){
-    reinterpret_cast<LASheader*>(self)->set_bounding_box(min_x, min_y, min_z, max_x, max_y, max_z, auto_scale, auto_offset);
-}
-void LASheader_set_global_encoding_bit(WLASheader* self, I32 bit){
-    reinterpret_cast<LASheader*>(self)->set_global_encoding_bit(bit);
-}
-void LASheader_unset_global_encoding_bit(WLASheader* self, I32 bit){
-    reinterpret_cast<LASheader*>(self)->unset_global_encoding_bit(bit);
-}
-BOOL LASheader_get_global_encoding_bit(WLASheader* self, I32 bit){
-    return reinterpret_cast<LASheader*>(self)->get_global_encoding_bit(bit);
-}
-void LASheader_clean_las_header(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_las_header();
-}
-void LASheader_clean_user_data_in_header(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_user_data_in_header();
-}
-void LASheader_clean_vlrs(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_vlrs();
-}
-void LASheader_clean_evlrs(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_evlrs();
-}
-void LASheader_clean_laszip(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_laszip();
-}
-void LASheader_clean_lastiling(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_lastiling();
-}
-void LASheader_clean_lasoriginal(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_lasoriginal();
-}
-void LASheader_clean_user_data_after_header(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean_user_data_after_header();
-}
-void LASheader_clean(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->clean();
-}
-void LASheader_unlink(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->unlink();
-}
-BOOL LASheader_check(WLASheader* self){
-    return reinterpret_cast<LASheader*>(self)->check();
-}
-BOOL LASheader_is_compressed(WLASheader* self){
-    return reinterpret_cast<LASheader*>(self)->is_compressed();
-}
-BOOL LASheader_is_lonlat(WLASheader* self, const F32 extend){
-    return reinterpret_cast<LASheader*>(self)->is_lonlat(extend);
-}
-BOOL LASheader_add_vlr(WLASheader* self, const CHAR * user_id, const U16 record_id, const U16 record_length_after_header, U8 * data, const BOOL keep_description, const CHAR * description, const BOOL keep_existing){
-    return reinterpret_cast<LASheader*>(self)->add_vlr(user_id, record_id, record_length_after_header, data, keep_description, description, keep_existing);
-}
-WLASvlr* LASheader_get_vlr(WLASheader* self, const CHAR * user_id, U16 record_id){
-  return ( WLASvlr*)(reinterpret_cast<LASheader*>(self)->get_vlr(user_id, record_id));
-}
-BOOL LASheader_remove_vlr(WLASheader* self, U32 i, BOOL delete_data){
-    return reinterpret_cast<LASheader*>(self)->remove_vlr(i, delete_data);
-}
-BOOL LASheader_remove_vlr_1(WLASheader* self, const CHAR * user_id, U16 record_id){
-    return reinterpret_cast<LASheader*>(self)->remove_vlr(user_id, record_id);
-}
-void LASheader_add_evlr(WLASheader* self, const CHAR * user_id, const U16 record_id, const I64 record_length_after_header, U8 * data, const BOOL keep_description, const CHAR * description, const BOOL keep_existing){
-    reinterpret_cast<LASheader*>(self)->add_evlr(user_id, record_id, record_length_after_header, data, keep_description, description, keep_existing);
-}
-BOOL LASheader_remove_evlr(WLASheader* self, U32 i, BOOL delete_data){
-    return reinterpret_cast<LASheader*>(self)->remove_evlr(i, delete_data);
-}
-BOOL LASheader_remove_evlr_1(WLASheader* self, const CHAR * user_id, U16 record_id){
-    return reinterpret_cast<LASheader*>(self)->remove_evlr(user_id, record_id);
-}
-void LASheader_set_lastiling(WLASheader* self, U32 level, U32 level_index, U32 implicit_levels, BOOL buffer, BOOL reversible, F32 min_x, F32 max_x, F32 min_y, F32 max_y){
-    reinterpret_cast<LASheader*>(self)->set_lastiling(level, level_index, implicit_levels, buffer, reversible, min_x, max_x, min_y, max_y);
-}
-void LASheader_set_lasoriginal(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->set_lasoriginal();
-}
-BOOL LASheader_restore_lasoriginal(WLASheader* self){
-    return reinterpret_cast<LASheader*>(self)->restore_lasoriginal();
-}
-BOOL LASheader_set_geo_keys(WLASheader* self, const I32 number_of_keys, WLASvlr_key_entry* geo_keys){
-    return reinterpret_cast<LASheader*>(self)->set_geo_keys(number_of_keys, reinterpret_cast<LASvlr_key_entry*>(geo_keys));
-}
-BOOL LASheader_set_geo_double_params(WLASheader* self, const I32 num_geo_double_params, const F64 * geo_double_params){
-    return reinterpret_cast<LASheader*>(self)->set_geo_double_params(num_geo_double_params, geo_double_params);
-}
-void LASheader_del_geo_double_params(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->del_geo_double_params();
-}
-BOOL LASheader_set_geo_ascii_params(WLASheader* self, const I32 num_geo_ascii_params, const CHAR * geo_ascii_params){
-    return reinterpret_cast<LASheader*>(self)->set_geo_ascii_params(num_geo_ascii_params, geo_ascii_params);
-}
-void LASheader_del_geo_ascii_params(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->del_geo_ascii_params();
-}
-void LASheader_set_geo_wkt_ogc_math(WLASheader* self, const I32 num_geo_wkt_ogc_math, const CHAR * geo_wkt_ogc_math){
-    reinterpret_cast<LASheader*>(self)->set_geo_wkt_ogc_math(num_geo_wkt_ogc_math, geo_wkt_ogc_math);
-}
-void LASheader_del_geo_wkt_ogc_math(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->del_geo_wkt_ogc_math();
-}
-void LASheader_set_geo_ogc_wkt(WLASheader* self, const I32 num_geo_ogc_wkt, const CHAR * geo_ogc_wkt, BOOL in_evlr){
-    reinterpret_cast<LASheader*>(self)->set_geo_ogc_wkt(num_geo_ogc_wkt, geo_ogc_wkt, in_evlr);
-}
-void LASheader_del_geo_ogc_wkt(WLASheader* self){
-    reinterpret_cast<LASheader*>(self)->del_geo_ogc_wkt();
-}
-BOOL LASheader_update_extra_bytes_vlr(WLASheader* self, const BOOL keep_description){
-    return reinterpret_cast<LASheader*>(self)->update_extra_bytes_vlr(keep_description);
-}
-void LASheader_destroy(WLASheader* self){
-     delete reinterpret_cast<LASheader*>(self);
-}
-void LASignore_usage(WLASignore* self){
-    reinterpret_cast<LASignore*>(self)->usage();
-}
-void LASignore_ignore_class(WLASignore* self, U8 classification){
-    reinterpret_cast<LASignore*>(self)->ignore_class(classification);
-}
-void LASignore_dont_ignore_class(WLASignore* self, U8 classification){
-    reinterpret_cast<LASignore*>(self)->dont_ignore_class(classification);
-}
-BOOL LASignore_parse(WLASignore* self, int & i, int argc, char ** argv){
-    return reinterpret_cast<LASignore*>(self)->parse(i, argc, argv);
-}
-I32 LASignore_unparse(WLASignore* self, CHAR * string){
-    return reinterpret_cast<LASignore*>(self)->unparse(string);
-}
-BOOL LASignore_parse_1(WLASignore* self, U32 curr_parameter, const U32 num_parameters, const F64 * parameters){
-    return reinterpret_cast<LASignore*>(self)->parse(curr_parameter, num_parameters, parameters);
-}
-void LASignore_unparse_1(WLASignore* self, U32 & num_parameters, F64 * parameters){
-    reinterpret_cast<LASignore*>(self)->unparse(num_parameters, parameters);
-}
-U32 LASignore_get_decompress_selective(WLASignore* self){
-    return reinterpret_cast<LASignore*>(self)->get_decompress_selective();
-}
-BOOL LASignore_ignore(WLASignore* self, WLASpoint* point){
-    return reinterpret_cast<LASignore*>(self)->ignore(reinterpret_cast<LASpoint*>(point));
-}
-WLASignore* LASignore_create(){
-    return reinterpret_cast<WLASignore*>( new LASignore());
-}
-void LASignore_destroy(WLASignore* self){
-     delete reinterpret_cast<LASignore*>(self);
-}
-I32 LASreader_get_format(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_format();
-}
-BOOL LASreader_has_layers(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->has_layers();
-}
-void LASreader_set_index(WLASreader* self, WLASindex* index){
-    reinterpret_cast<LASreader*>(self)->set_index(reinterpret_cast<LASindex*>(index));
-}
-WLASindex* LASreader_get_index(WLASreader* self){
-    return reinterpret_cast<WLASindex*>(reinterpret_cast<LASreader*>(self)->get_index());
-}
-void LASreader_set_filter(WLASreader* self, WLASfilter* filter){
-    reinterpret_cast<LASreader*>(self)->set_filter(reinterpret_cast<LASfilter*>(filter));
-}
-WLASfilter* LASreader_get_filter(WLASreader* self){
-    return reinterpret_cast<WLASfilter*>(reinterpret_cast<LASreader*>(self)->get_filter());
-}
-void LASreader_set_transform(WLASreader* self, WLAStransform* transform){
-    reinterpret_cast<LASreader*>(self)->set_transform(reinterpret_cast<LAStransform*>(transform));
-}
-WLAStransform* LASreader_get_transform(WLASreader* self){
-    return reinterpret_cast<WLAStransform*>(reinterpret_cast<LASreader*>(self)->get_transform());
-}
-void LASreader_set_ignore(WLASreader* self, WLASignore* ignore){
-    reinterpret_cast<LASreader*>(self)->set_ignore(reinterpret_cast<LASignore*>(ignore));
-}
-WLASignore* LASreader_get_ignore(WLASreader* self){
-    return reinterpret_cast<WLASignore*>(reinterpret_cast<LASreader*>(self)->get_ignore());
-}
-U32 LASreader_get_inside(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_inside();
-}
-BOOL LASreader_inside_none(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->inside_none();
-}
-BOOL LASreader_inside_tile(WLASreader* self, const F32 ll_x, const F32 ll_y, const F32 size){
-    return reinterpret_cast<LASreader*>(self)->inside_tile(ll_x, ll_y, size);
-}
-F32 LASreader_get_t_ll_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_t_ll_x();
-}
-F32 LASreader_get_t_ll_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_t_ll_y();
-}
-F32 LASreader_get_t_size(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_t_size();
-}
-BOOL LASreader_inside_circle(WLASreader* self, const F64 center_x, const F64 center_y, const F64 radius){
-    return reinterpret_cast<LASreader*>(self)->inside_circle(center_x, center_y, radius);
-}
-F64 LASreader_get_c_center_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_c_center_x();
-}
-F64 LASreader_get_c_center_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_c_center_y();
-}
-F64 LASreader_get_c_radius(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_c_radius();
-}
-BOOL LASreader_inside_rectangle(WLASreader* self, const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y){
-    return reinterpret_cast<LASreader*>(self)->inside_rectangle(min_x, min_y, max_x, max_y);
-}
-F64 LASreader_get_r_min_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_r_min_x();
-}
-F64 LASreader_get_r_min_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_r_min_y();
-}
-F64 LASreader_get_r_max_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_r_max_x();
-}
-F64 LASreader_get_r_max_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_r_max_y();
-}
-BOOL LASreader_seek(WLASreader* self, const I64 p_index){
-    return reinterpret_cast<LASreader*>(self)->seek(p_index);
-}
-BOOL LASreader_read_point(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->read_point();
-}
-BOOL LASreader_ignore_point(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->ignore_point();
-}
-void LASreader_compute_coordinates(WLASreader* self){
-    reinterpret_cast<LASreader*>(self)->compute_coordinates();
-}
-F64 LASreader_get_min_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_min_x();
-}
-F64 LASreader_get_min_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_min_y();
-}
-F64 LASreader_get_min_z(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_min_z();
-}
-F64 LASreader_get_max_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_max_x();
-}
-F64 LASreader_get_max_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_max_y();
-}
-F64 LASreader_get_max_z(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_max_z();
-}
-F64 LASreader_get_x(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_x();
-}
-F64 LASreader_get_y(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_y();
-}
-F64 LASreader_get_z(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_z();
-}
-F64 LASreader_get_x_1(WLASreader* self, const I32 x){
-    return reinterpret_cast<LASreader*>(self)->get_x(x);
-}
-F64 LASreader_get_y_1(WLASreader* self, const I32 y){
-    return reinterpret_cast<LASreader*>(self)->get_y(y);
-}
-F64 LASreader_get_z_1(WLASreader* self, const I32 z){
-    return reinterpret_cast<LASreader*>(self)->get_z(z);
-}
-I64 LASreader_get_X(WLASreader* self, const F64 x){
-    return reinterpret_cast<LASreader*>(self)->get_X(x);
-}
-I64 LASreader_get_Y(WLASreader* self, const F64 y){
-    return reinterpret_cast<LASreader*>(self)->get_Y(y);
-}
-I64 LASreader_get_Z(WLASreader* self, const F64 z){
-    return reinterpret_cast<LASreader*>(self)->get_Z(z);
-}
-ByteStreamIn* LASreader_get_stream(WLASreader* self){
-    return reinterpret_cast<LASreader*>(self)->get_stream();
-}
-void LASreader_close(WLASreader* self, BOOL close_stream){
-    reinterpret_cast<LASreader*>(self)->close(close_stream);
-}
-void LASreader_destroy(WLASreader* self){
-     delete reinterpret_cast<LASreader*>(self);
-}
-void LASreader_dealloc(WLASreader* self){
-    reinterpret_cast<LASreader*>(self)->dealloc();
-}
-BOOL LASwaveform13reader_open(WLASwaveform13reader* self, const char * file_name, I64 start_of_waveform_data_packet_record, const class LASvlr_wave_packet_descr *const * wave_packet_descr){
-    return reinterpret_cast<LASwaveform13reader*>(self)->open(file_name, start_of_waveform_data_packet_record, wave_packet_descr);
-}
-BOOL LASwaveform13reader_is_compressed(WLASwaveform13reader* self){
-    return reinterpret_cast<LASwaveform13reader*>(self)->is_compressed();
-}
-BOOL LASwaveform13reader_read_waveform(WLASwaveform13reader* self, WLASpoint* point){
-    return reinterpret_cast<LASwaveform13reader*>(self)->read_waveform(reinterpret_cast<LASpoint*>(point));
-}
-BOOL LASwaveform13reader_get_samples(WLASwaveform13reader* self){
-    return reinterpret_cast<LASwaveform13reader*>(self)->get_samples();
-}
-BOOL LASwaveform13reader_has_samples(WLASwaveform13reader* self){
-    return reinterpret_cast<LASwaveform13reader*>(self)->has_samples();
-}
-BOOL LASwaveform13reader_get_samples_xyz(WLASwaveform13reader* self){
-    return reinterpret_cast<LASwaveform13reader*>(self)->get_samples_xyz();
-}
-BOOL LASwaveform13reader_has_samples_xyz(WLASwaveform13reader* self){
-    return reinterpret_cast<LASwaveform13reader*>(self)->has_samples_xyz();
-}
-void LASwaveform13reader_close(WLASwaveform13reader* self){
-    reinterpret_cast<LASwaveform13reader*>(self)->close();
-}
-WLASwaveform13reader* LASwaveform13reader_create(){
-    return reinterpret_cast<WLASwaveform13reader*>( new LASwaveform13reader());
-}
-void LASwaveform13reader_destroy(WLASwaveform13reader* self){
-     delete reinterpret_cast<LASwaveform13reader*>(self);
-}
-void LASreadOpener_set_io_ibuffer_size(WLASreadOpener* self, const U32 buffer_size){
-    reinterpret_cast<LASreadOpener*>(self)->set_io_ibuffer_size(buffer_size);
-}
-U32 LASreadOpener_get_io_ibuffer_size(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_io_ibuffer_size();
-}
-U32 LASreadOpener_get_file_name_number(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name_number();
-}
-U32 LASreadOpener_get_file_name_current(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name_current();
-}
-const CHAR * LASreadOpener_get_file_name(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name();
-}
-const CHAR * LASreadOpener_get_file_name_only(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name_only();
-}
-const CHAR * LASreadOpener_get_file_extension_only(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_extension_only();
-}
-const CHAR * LASreadOpener_get_file_name_1(WLASreadOpener* self, U32 number){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name(number);
-}
-const CHAR * LASreadOpener_get_file_name_only_1(WLASreadOpener* self, U32 number){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name_only(number);
-}
-const CHAR * LASreadOpener_get_file_extension_only_1(WLASreadOpener* self, U32 number){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_extension_only(number);
-}
-CHAR * LASreadOpener_get_file_name_base(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name_base();
-}
-CHAR * LASreadOpener_get_file_name_base_1(WLASreadOpener* self, U32 number){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_name_base(number);
-}
-void LASreadOpener_set_file_name(WLASreadOpener* self, const CHAR * file_name, BOOL unique){
-    reinterpret_cast<LASreadOpener*>(self)->set_file_name(file_name, unique);
-}
-BOOL LASreadOpener_add_file_name(WLASreadOpener* self, const CHAR * file_name, BOOL unique){
-    return reinterpret_cast<LASreadOpener*>(self)->add_file_name(file_name, unique);
-}
-BOOL LASreadOpener_add_list_of_files(WLASreadOpener* self, const CHAR * list_of_files, BOOL unique){
-    return reinterpret_cast<LASreadOpener*>(self)->add_list_of_files(list_of_files, unique);
-}
-void LASreadOpener_delete_file_name(WLASreadOpener* self, U32 file_name_id){
-    reinterpret_cast<LASreadOpener*>(self)->delete_file_name(file_name_id);
-}
-BOOL LASreadOpener_set_file_name_current(WLASreadOpener* self, U32 file_name_id){
-    return reinterpret_cast<LASreadOpener*>(self)->set_file_name_current(file_name_id);
-}
-I32 LASreadOpener_get_file_format(WLASreadOpener* self, U32 number){
-    return reinterpret_cast<LASreadOpener*>(self)->get_file_format(number);
-}
-void LASreadOpener_set_merged(WLASreadOpener* self, const BOOL merged){
-    reinterpret_cast<LASreadOpener*>(self)->set_merged(merged);
-}
-BOOL LASreadOpener_is_merged(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_merged();
-}
-void LASreadOpener_set_stored(WLASreadOpener* self, const BOOL stored){
-    reinterpret_cast<LASreadOpener*>(self)->set_stored(stored);
-}
-BOOL LASreadOpener_is_stored(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_stored();
-}
-void LASreadOpener_set_buffer_size(WLASreadOpener* self, const F32 buffer_size){
-    reinterpret_cast<LASreadOpener*>(self)->set_buffer_size(buffer_size);
-}
-F32 LASreadOpener_get_buffer_size(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_buffer_size();
-}
-void LASreadOpener_set_neighbor_file_name(WLASreadOpener* self, const CHAR * neighbor_file_name, BOOL unique){
-    reinterpret_cast<LASreadOpener*>(self)->set_neighbor_file_name(neighbor_file_name, unique);
-}
-BOOL LASreadOpener_add_neighbor_file_name(WLASreadOpener* self, const CHAR * neighbor_file_name, BOOL unique){
-    return reinterpret_cast<LASreadOpener*>(self)->add_neighbor_file_name(neighbor_file_name, unique);
-}
-BOOL LASreadOpener_add_neighbor_file_name_1(WLASreadOpener* self, const CHAR * file_name, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, BOOL unique){
-    return reinterpret_cast<LASreadOpener*>(self)->add_neighbor_file_name(file_name, npoints, min_x, min_y, max_x, max_y, unique);
-}
-BOOL LASreadOpener_add_neighbor_list_of_files(WLASreadOpener* self, const CHAR * list_of_files, BOOL unique){
-    return reinterpret_cast<LASreadOpener*>(self)->add_neighbor_list_of_files(list_of_files, unique);
-}
-void LASreadOpener_set_auto_reoffset(WLASreadOpener* self, const BOOL auto_reoffset){
-    reinterpret_cast<LASreadOpener*>(self)->set_auto_reoffset(auto_reoffset);
-}
-BOOL LASreadOpener_is_auto_reoffset(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_auto_reoffset();
-}
-void LASreadOpener_set_files_are_flightlines(WLASreadOpener* self, const I32 files_are_flightlines){
-    reinterpret_cast<LASreadOpener*>(self)->set_files_are_flightlines(files_are_flightlines);
-}
-I32 LASreadOpener_are_files_flightlines(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->are_files_flightlines();
-}
-void LASreadOpener_set_files_are_flightlines_index(WLASreadOpener* self, const I32 files_are_flightlines_index){
-    reinterpret_cast<LASreadOpener*>(self)->set_files_are_flightlines_index(files_are_flightlines_index);
-}
-I32 LASreadOpener_get_files_flight_index(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_files_flight_index();
-}
-void LASreadOpener_set_apply_file_source_ID(WLASreadOpener* self, const BOOL apply_file_source_ID){
-    reinterpret_cast<LASreadOpener*>(self)->set_apply_file_source_ID(apply_file_source_ID);
-}
-BOOL LASreadOpener_applying_file_source_ID(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->applying_file_source_ID();
-}
-void LASreadOpener_set_scale_factor(WLASreadOpener* self, const F64 * scale_factor){
-    reinterpret_cast<LASreadOpener*>(self)->set_scale_factor(scale_factor);
-}
-const F64 * LASreadOpener_get_scale_factor(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_scale_factor();
-}
-void LASreadOpener_set_offset(WLASreadOpener* self, const F64 * offset){
-    reinterpret_cast<LASreadOpener*>(self)->set_offset(offset);
-}
-const F64 * LASreadOpener_get_offset(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_offset();
-}
-void LASreadOpener_set_translate_intensity(WLASreadOpener* self, const F32 translation){
-    reinterpret_cast<LASreadOpener*>(self)->set_translate_intensity(translation);
-}
-void LASreadOpener_set_scale_intensity(WLASreadOpener* self, const F32 scale){
-    reinterpret_cast<LASreadOpener*>(self)->set_scale_intensity(scale);
-}
-void LASreadOpener_set_translate_scan_angle(WLASreadOpener* self, const F32 translate_scan_angle){
-    reinterpret_cast<LASreadOpener*>(self)->set_translate_scan_angle(translate_scan_angle);
-}
-void LASreadOpener_set_scale_scan_angle(WLASreadOpener* self, const F32 scale_scan_angle){
-    reinterpret_cast<LASreadOpener*>(self)->set_scale_scan_angle(scale_scan_angle);
-}
-void LASreadOpener_add_attribute(WLASreadOpener* self, I32 data_type, const CHAR * name, const CHAR * description, F64 scale, F64 offset, F64 pre_scale, F64 pre_offset, F64 no_data){
-    reinterpret_cast<LASreadOpener*>(self)->add_attribute(data_type, name, description, scale, offset, pre_scale, pre_offset, no_data);
-}
-BOOL LASreadOpener_set_point_type(WLASreadOpener* self, U8 point_type){
-    return reinterpret_cast<LASreadOpener*>(self)->set_point_type(point_type);
-}
-void LASreadOpener_set_parse_string(WLASreadOpener* self, const CHAR * parse_string){
-    reinterpret_cast<LASreadOpener*>(self)->set_parse_string(parse_string);
-}
-void LASreadOpener_set_skip_lines(WLASreadOpener* self, const U32 number_of_lines){
-    reinterpret_cast<LASreadOpener*>(self)->set_skip_lines(number_of_lines);
-}
-void LASreadOpener_set_populate_header(WLASreadOpener* self, BOOL populate_header){
-    reinterpret_cast<LASreadOpener*>(self)->set_populate_header(populate_header);
-}
-void LASreadOpener_set_keep_lastiling(WLASreadOpener* self, BOOL keep_lastiling){
-    reinterpret_cast<LASreadOpener*>(self)->set_keep_lastiling(keep_lastiling);
-}
-void LASreadOpener_set_pipe_on(WLASreadOpener* self, BOOL pipe_on){
-    reinterpret_cast<LASreadOpener*>(self)->set_pipe_on(pipe_on);
-}
-const CHAR * LASreadOpener_get_parse_string(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_parse_string();
-}
-void LASreadOpener_usage(WLASreadOpener* self){
-    reinterpret_cast<LASreadOpener*>(self)->usage();
-}
-void LASreadOpener_set_decompress_selective(WLASreadOpener* self, U32 decompress_selective){
-    reinterpret_cast<LASreadOpener*>(self)->set_decompress_selective(decompress_selective);
-}
-void LASreadOpener_set_inside_tile(WLASreadOpener* self, const F32 ll_x, const F32 ll_y, const F32 size){
-    reinterpret_cast<LASreadOpener*>(self)->set_inside_tile(ll_x, ll_y, size);
-}
-void LASreadOpener_set_inside_circle(WLASreadOpener* self, const F64 center_x, const F64 center_y, const F64 radius){
-    reinterpret_cast<LASreadOpener*>(self)->set_inside_circle(center_x, center_y, radius);
-}
-void LASreadOpener_set_inside_rectangle(WLASreadOpener* self, const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y){
-    reinterpret_cast<LASreadOpener*>(self)->set_inside_rectangle(min_x, min_y, max_x, max_y);
-}
-BOOL LASreadOpener_parse(WLASreadOpener* self, int argc, char ** argv, BOOL parse_ignore){
-    return reinterpret_cast<LASreadOpener*>(self)->parse(argc, argv, parse_ignore);
-}
-BOOL LASreadOpener_is_piped(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_piped();
-}
-BOOL LASreadOpener_is_buffered(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_buffered();
-}
-BOOL LASreadOpener_is_header_populated(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_header_populated();
-}
-BOOL LASreadOpener_active(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->active();
-}
-BOOL LASreadOpener_is_inside(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->is_inside();
-}
-I32 LASreadOpener_unparse(WLASreadOpener* self, CHAR * string){
-    return reinterpret_cast<LASreadOpener*>(self)->unparse(string);
-}
-void LASreadOpener_set_filter(WLASreadOpener* self, WLASfilter* filter){
-    reinterpret_cast<LASreadOpener*>(self)->set_filter(reinterpret_cast<LASfilter*>(filter));
-}
-WLASfilter* LASreadOpener_get_filter(WLASreadOpener* self){
-    return reinterpret_cast<WLASfilter*>(reinterpret_cast<LASreadOpener*>(self)->get_filter());
-}
-void LASreadOpener_set_transform(WLASreadOpener* self, WLAStransform* transform){
-    reinterpret_cast<LASreadOpener*>(self)->set_transform(reinterpret_cast<LAStransform*>(transform));
-}
-WLAStransform* LASreadOpener_get_transform(WLASreadOpener* self){
-    return reinterpret_cast<WLAStransform*>(reinterpret_cast<LASreadOpener*>(self)->get_transform());
-}
-void LASreadOpener_set_ignore(WLASreadOpener* self, WLASignore* ignore){
-    reinterpret_cast<LASreadOpener*>(self)->set_ignore(reinterpret_cast<LASignore*>(ignore));
-}
-WLASignore* LASreadOpener_get_ignore(WLASreadOpener* self){
-    return reinterpret_cast<WLASignore*>(reinterpret_cast<LASreadOpener*>(self)->get_ignore());
-}
-void LASreadOpener_reset(WLASreadOpener* self){
-    reinterpret_cast<LASreadOpener*>(self)->reset();
-}
-const CHAR * LASreadOpener_get_temp_file_base(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_temp_file_base();
-}
-WLASreader* LASreadOpener_open(WLASreadOpener* self, const CHAR * other_file_name, BOOL reset_after_other){
-    return reinterpret_cast<WLASreader*>(reinterpret_cast<LASreadOpener*>(self)->open(other_file_name, reset_after_other));
-}
-BOOL LASreadOpener_reopen(WLASreadOpener* self, WLASreader* lasreader, BOOL remain_buffered){
-    return reinterpret_cast<LASreadOpener*>(self)->reopen(reinterpret_cast<LASreader*>(lasreader), remain_buffered);
-}
-WLASwaveform13reader* LASreadOpener_open_waveform13(WLASreadOpener* self, WLASheader* lasheader){
-    return reinterpret_cast<WLASwaveform13reader*>(reinterpret_cast<LASreadOpener*>(self)->open_waveform13(reinterpret_cast<LASheader*>(lasheader)));
-}
-I32 LASreadOpener_get_number_attributes(WLASreadOpener* self){
-    return reinterpret_cast<LASreadOpener*>(self)->get_number_attributes();
-}
-I32 LASreadOpener_get_attribute_data_type(WLASreadOpener* self, U32 index){
-    return reinterpret_cast<LASreadOpener*>(self)->get_attribute_data_type(index);
-}
-const CHAR * LASreadOpener_get_attribute_name(WLASreadOpener* self, U32 index){
-    return reinterpret_cast<LASreadOpener*>(self)->get_attribute_name(index);
-}
-const CHAR * LASreadOpener_get_attribute_description(WLASreadOpener* self, U32 index){
-    return reinterpret_cast<LASreadOpener*>(self)->get_attribute_description(index);
-}
-F64 LASreadOpener_get_attribute_scale(WLASreadOpener* self, U32 index){
-    return reinterpret_cast<LASreadOpener*>(self)->get_attribute_scale(index);
-}
-F64 LASreadOpener_get_attribute_offset(WLASreadOpener* self, U32 index){
-    return reinterpret_cast<LASreadOpener*>(self)->get_attribute_offset(index);
-}
-F64 LASreadOpener_get_attribute_no_data(WLASreadOpener* self, U32 index){
-    return reinterpret_cast<LASreadOpener*>(self)->get_attribute_no_data(index);
-}
-WLASreadOpener* LASreadOpener_create(){
-    return reinterpret_cast<WLASreadOpener*>( new LASreadOpener());
-}
-void LASreadOpener_destroy(WLASreadOpener* self){
-     delete reinterpret_cast<LASreadOpener*>(self);
-}
-void LASreaderLAS_set_delete_stream(WLASreaderLAS* self, BOOL delete_stream){
-    reinterpret_cast<LASreaderLAS*>(self)->set_delete_stream(delete_stream);
-}
-BOOL LASreaderLAS_open(WLASreaderLAS* self, const char * file_name, I32 io_buffer_size, BOOL peek_only, U32 decompress_selective){
-    return reinterpret_cast<LASreaderLAS*>(self)->open(file_name, io_buffer_size, peek_only, decompress_selective);
-}
-BOOL LASreaderLAS_open_1(WLASreaderLAS* self, _IO_FILE* file, BOOL peek_only, U32 decompress_selective){
-    return reinterpret_cast<LASreaderLAS*>(self)->open(file, peek_only, decompress_selective);
-}
-BOOL LASreaderLAS_open_3(WLASreaderLAS* self, ByteStreamIn* stream, BOOL peek_only, U32 decompress_selective){
-    return reinterpret_cast<LASreaderLAS*>(self)->open(stream, peek_only, decompress_selective);
-}
-I32 LASreaderLAS_get_format(WLASreaderLAS* self){
-    return reinterpret_cast<LASreaderLAS*>(self)->get_format();
-}
-BOOL LASreaderLAS_seek(WLASreaderLAS* self, const I64 p_index){
-    return reinterpret_cast<LASreaderLAS*>(self)->seek(p_index);
-}
-ByteStreamIn* LASreaderLAS_get_stream(WLASreaderLAS* self){
-    return reinterpret_cast<LASreaderLAS*>(self)->get_stream();
-}
-void LASreaderLAS_close(WLASreaderLAS* self, BOOL close_stream){
-    reinterpret_cast<LASreaderLAS*>(self)->close(close_stream);
-}
-WLASreaderLAS* LASreaderLAS_create(){
-    return reinterpret_cast<WLASreaderLAS*>( new LASreaderLAS());
-}
-void LASreaderLAS_destroy(WLASreaderLAS* self){
-     delete reinterpret_cast<LASreaderLAS*>(self);
-}
-WLASreaderLASrescale* LASreaderLASrescale_create(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor, BOOL check_for_overflow){
-    return reinterpret_cast<WLASreaderLASrescale*>( new LASreaderLASrescale(x_scale_factor, y_scale_factor, z_scale_factor, check_for_overflow));
-}
-WLASreaderLASreoffset* LASreaderLASreoffset_create(F64 x_offset, F64 y_offset, F64 z_offset){
-    return reinterpret_cast<WLASreaderLASreoffset*>( new LASreaderLASreoffset(x_offset, y_offset, z_offset));
-}
-WLASreaderLASreoffset* LASreaderLASreoffset_create_1(){
-    return reinterpret_cast<WLASreaderLASreoffset*>( new LASreaderLASreoffset());
-}
-WLASreaderLASrescalereoffset* LASreaderLASrescalereoffset_create(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor, F64 x_offset, F64 y_offset, F64 z_offset){
-    return reinterpret_cast<WLASreaderLASrescalereoffset*>( new LASreaderLASrescalereoffset(x_scale_factor, y_scale_factor, z_scale_factor, x_offset, y_offset, z_offset));
-}
-WLASreaderLASrescalereoffset* LASreaderLASrescalereoffset_create_1(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor){
-    return reinterpret_cast<WLASreaderLASrescalereoffset*>( new LASreaderLASrescalereoffset(x_scale_factor, y_scale_factor, z_scale_factor));
+
+
+// LASvlr_lastiling
+unsigned int *LASvlr_lastiling_field_level(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASvlr_lastiling *>(self)->level);
+}
+unsigned int *LASvlr_lastiling_field_level_index(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASvlr_lastiling *>(self)->level_index);
+}
+float *LASvlr_lastiling_field_min_x(void *self) {
+	return reinterpret_cast<float *>(
+		&reinterpret_cast<LASvlr_lastiling *>(self)->min_x);
+}
+float *LASvlr_lastiling_field_max_x(void *self) {
+	return reinterpret_cast<float *>(
+		&reinterpret_cast<LASvlr_lastiling *>(self)->max_x);
+}
+float *LASvlr_lastiling_field_min_y(void *self) {
+	return reinterpret_cast<float *>(
+		&reinterpret_cast<LASvlr_lastiling *>(self)->min_y);
+}
+float *LASvlr_lastiling_field_max_y(void *self) {
+	return reinterpret_cast<float *>(
+		&reinterpret_cast<LASvlr_lastiling *>(self)->max_y);
+}
+void *LASvlr_lastiling_create(){
+  return reinterpret_cast<void *>(new LASvlr_lastiling());
+}
+
+
+// LASvlr_lasoriginal
+long long *LASvlr_lasoriginal_field_number_of_point_records(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->number_of_point_records);
+}
+void *LASvlr_lasoriginal_field_number_of_points_by_return(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->number_of_points_by_return);
+}
+double *LASvlr_lasoriginal_field_max_x(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->max_x);
+}
+double *LASvlr_lasoriginal_field_min_x(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->min_x);
+}
+double *LASvlr_lasoriginal_field_max_y(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->max_y);
+}
+double *LASvlr_lasoriginal_field_min_y(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->min_y);
+}
+double *LASvlr_lasoriginal_field_max_z(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->max_z);
+}
+double *LASvlr_lasoriginal_field_min_z(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->min_z);
+}
+long long *LASvlr_lasoriginal_field_position(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASvlr_lasoriginal *>(self)->position);
+}
+void *LASvlr_lasoriginal_create(){
+  return reinterpret_cast<void *>(new LASvlr_lasoriginal());
+}
+
+
+// LASitem
+void *LASitem_field_type(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASitem *>(self)->type);
+}
+unsigned short *LASitem_field_size(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASitem *>(self)->size);
+}
+unsigned short *LASitem_field_version(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASitem *>(self)->version);
+}
+const void * LASitem_get_name(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASitem *>(self)->get_name());}
+
+
+// LASzip
+bool LASzip_check_compressor(void *self, const unsigned short compressor){
+  return reinterpret_cast<LASzip *>(self)->check_compressor(compressor);}
+bool LASzip_check_coder(void *self, const unsigned short coder){
+  return reinterpret_cast<LASzip *>(self)->check_coder(coder);}
+bool LASzip_check_item(void *self, const void * item){
+  return reinterpret_cast<LASzip *>(self)->check_item(
+	reinterpret_cast<const LASitem *>(item));}
+bool LASzip_check_items(void *self, const unsigned short num_items, const void * items, const unsigned short point_size){
+  return reinterpret_cast<LASzip *>(self)->check_items(num_items,
+	reinterpret_cast<const LASitem *>(items), point_size);}
+bool LASzip_check(void *self, const unsigned short point_size){
+  return reinterpret_cast<LASzip *>(self)->check(point_size);}
+bool LASzip_setup(void *self, void * num_items, void * items, const unsigned char point_type, const unsigned short point_size, const unsigned short compressor){
+  return reinterpret_cast<LASzip *>(self)->setup(
+	reinterpret_cast<unsigned short *>(num_items),
+	reinterpret_cast<LASitem **>(items), point_type, point_size, compressor);}
+bool LASzip_is_standard(void *self, const unsigned short num_items, const void * items, void * point_type, void * record_length){
+  return reinterpret_cast<LASzip *>(self)->is_standard(num_items,
+	reinterpret_cast<const LASitem *>(items),
+	reinterpret_cast<unsigned char *>(point_type),
+	reinterpret_cast<unsigned short *>(record_length));}
+bool LASzip_is_standard_1(void *self, void * point_type, void * record_length){
+  return reinterpret_cast<LASzip *>(self)->is_standard(
+	reinterpret_cast<unsigned char *>(point_type),
+	reinterpret_cast<unsigned short *>(record_length));}
+void *LASzip_field_bytes(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASzip *>(self)->bytes);
+}
+bool LASzip_unpack(void *self, const void * bytes, const int num){
+  return reinterpret_cast<LASzip *>(self)->unpack(
+	reinterpret_cast<const unsigned char *>(bytes), num);}
+bool LASzip_request_compatibility_mode(void *self, const unsigned short requested_compatibility_mode){
+  return reinterpret_cast<LASzip *>(self)->request_compatibility_mode(requested_compatibility_mode);}
+bool LASzip_setup_1(void *self, const unsigned char point_type, const unsigned short point_size, const unsigned short compressor){
+  return reinterpret_cast<LASzip *>(self)->setup(point_type, point_size, compressor);}
+bool LASzip_setup_2(void *self, const unsigned short num_items, const void * items, const unsigned short compressor){
+  return reinterpret_cast<LASzip *>(self)->setup(num_items,
+	reinterpret_cast<const LASitem *>(items), compressor);}
+bool LASzip_set_chunk_size(void *self, const unsigned int chunk_size){
+  return reinterpret_cast<LASzip *>(self)->set_chunk_size(chunk_size);}
+bool LASzip_request_version(void *self, const unsigned short requested_version){
+  return reinterpret_cast<LASzip *>(self)->request_version(requested_version);}
+const void * LASzip_get_error(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASzip *>(self)->get_error());}
+unsigned short *LASzip_field_compressor(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASzip *>(self)->compressor);
+}
+unsigned short *LASzip_field_coder(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASzip *>(self)->coder);
+}
+unsigned char *LASzip_field_version_major(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASzip *>(self)->version_major);
+}
+unsigned char *LASzip_field_version_minor(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASzip *>(self)->version_minor);
+}
+unsigned short *LASzip_field_version_revision(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASzip *>(self)->version_revision);
+}
+unsigned int *LASzip_field_options(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASzip *>(self)->options);
+}
+unsigned int *LASzip_field_chunk_size(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASzip *>(self)->chunk_size);
+}
+long long *LASzip_field_number_of_special_evlrs(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASzip *>(self)->number_of_special_evlrs);
+}
+long long *LASzip_field_offset_to_special_evlrs(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASzip *>(self)->offset_to_special_evlrs);
+}
+unsigned short *LASzip_field_num_items(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASzip *>(self)->num_items);
+}
+void *LASzip_field_items(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASzip *>(self)->items);
+}
+void *LASzip_create(){
+  return reinterpret_cast<void *>(new LASzip());
+}
+void LASzip_destroy(void *self){
+  delete reinterpret_cast<LASzip*>(self);
+}
+
+
+// LASquantizer
+double *LASquantizer_field_x_scale_factor(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASquantizer *>(self)->x_scale_factor);
+}
+double *LASquantizer_field_y_scale_factor(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASquantizer *>(self)->y_scale_factor);
+}
+double *LASquantizer_field_z_scale_factor(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASquantizer *>(self)->z_scale_factor);
+}
+double *LASquantizer_field_x_offset(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASquantizer *>(self)->x_offset);
+}
+double *LASquantizer_field_y_offset(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASquantizer *>(self)->y_offset);
+}
+double *LASquantizer_field_z_offset(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASquantizer *>(self)->z_offset);
+}
+double LASquantizer_get_x(void *self, const int X){
+  return reinterpret_cast<const LASquantizer *>(self)->get_x(X);}
+double LASquantizer_get_y(void *self, const int Y){
+  return reinterpret_cast<const LASquantizer *>(self)->get_y(Y);}
+double LASquantizer_get_z(void *self, const int Z){
+  return reinterpret_cast<const LASquantizer *>(self)->get_z(Z);}
+long long LASquantizer_get_X(void *self, const double x){
+  return reinterpret_cast<const LASquantizer *>(self)->get_X(x);}
+long long LASquantizer_get_Y(void *self, const double y){
+  return reinterpret_cast<const LASquantizer *>(self)->get_Y(y);}
+long long LASquantizer_get_Z(void *self, const double z){
+  return reinterpret_cast<const LASquantizer *>(self)->get_Z(z);}
+void *LASquantizer_create(){
+  return reinterpret_cast<void *>(new LASquantizer());
+}
+
+
+// LASattribute
+void *LASattribute_field_reserved(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->reserved);
+}
+unsigned char *LASattribute_field_data_type(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASattribute *>(self)->data_type);
+}
+unsigned char *LASattribute_field_options(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASattribute *>(self)->options);
+}
+void *LASattribute_field_name(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->name);
+}
+void *LASattribute_field_unused(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->unused);
+}
+void *LASattribute_field_no_data(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->no_data);
+}
+void *LASattribute_field_min(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->min);
+}
+void *LASattribute_field_max(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->max);
+}
+void *LASattribute_field_scale(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->scale);
+}
+void *LASattribute_field_offset(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->offset);
+}
+void *LASattribute_field_description(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattribute *>(self)->description);
+}
+void *LASattribute_create(unsigned char size){
+  return reinterpret_cast<void *>(new LASattribute(size));
+}
+void *LASattribute_create_1(unsigned int type, const void * name, const void * description){
+  return reinterpret_cast<void *>(new LASattribute(type,
+	reinterpret_cast<const char *>(name),
+	reinterpret_cast<const char *>(description)));
+}
+bool LASattribute_set_no_data(void *self, unsigned char no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_1(void *self, char no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_2(void *self, unsigned short no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_3(void *self, short no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_4(void *self, unsigned int no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_5(void *self, int no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_6(void *self, unsigned long long no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_7(void *self, long long no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_8(void *self, float no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+bool LASattribute_set_no_data_9(void *self, double no_data){
+  return reinterpret_cast<LASattribute *>(self)->set_no_data(no_data);}
+void LASattribute_set_min(void *self, void * min){
+  reinterpret_cast<LASattribute *>(self)->set_min(
+	reinterpret_cast<unsigned char *>(min));}
+void LASattribute_update_min(void *self, void * min){
+  reinterpret_cast<LASattribute *>(self)->update_min(
+	reinterpret_cast<unsigned char *>(min));}
+bool LASattribute_set_min_1(void *self, unsigned char min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_2(void *self, char min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_3(void *self, unsigned short min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_4(void *self, short min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_5(void *self, unsigned int min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_6(void *self, int min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_7(void *self, unsigned long long min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_8(void *self, long long min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_9(void *self, float min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+bool LASattribute_set_min_10(void *self, double min){
+  return reinterpret_cast<LASattribute *>(self)->set_min(min);}
+void LASattribute_set_max(void *self, void * max){
+  reinterpret_cast<LASattribute *>(self)->set_max(
+	reinterpret_cast<unsigned char *>(max));}
+void LASattribute_update_max(void *self, void * max){
+  reinterpret_cast<LASattribute *>(self)->update_max(
+	reinterpret_cast<unsigned char *>(max));}
+bool LASattribute_set_max_1(void *self, unsigned char max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_2(void *self, char max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_3(void *self, unsigned short max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_4(void *self, short max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_5(void *self, unsigned int max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_6(void *self, int max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_7(void *self, unsigned long long max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_8(void *self, long long max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_9(void *self, float max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_max_10(void *self, double max){
+  return reinterpret_cast<LASattribute *>(self)->set_max(max);}
+bool LASattribute_set_scale(void *self, double scale){
+  return reinterpret_cast<LASattribute *>(self)->set_scale(scale);}
+bool LASattribute_set_offset(void *self, double offset){
+  return reinterpret_cast<LASattribute *>(self)->set_offset(offset);}
+bool LASattribute_unset_scale(void *self){
+  return reinterpret_cast<LASattribute *>(self)->unset_scale();}
+bool LASattribute_unset_offset(void *self){
+  return reinterpret_cast<LASattribute *>(self)->unset_offset();}
+bool LASattribute_has_no_data(void *self){
+  return reinterpret_cast<const LASattribute *>(self)->has_no_data();}
+bool LASattribute_has_min(void *self){
+  return reinterpret_cast<const LASattribute *>(self)->has_min();}
+bool LASattribute_has_max(void *self){
+  return reinterpret_cast<const LASattribute *>(self)->has_max();}
+bool LASattribute_has_scale(void *self){
+  return reinterpret_cast<const LASattribute *>(self)->has_scale();}
+bool LASattribute_has_offset(void *self){
+  return reinterpret_cast<const LASattribute *>(self)->has_offset();}
+unsigned int LASattribute_get_size(void *self){
+  return reinterpret_cast<const LASattribute *>(self)->get_size();}
+double LASattribute_get_value_as_float(void *self, void * pointer){
+  return reinterpret_cast<const LASattribute *>(self)->get_value_as_float(
+	reinterpret_cast<unsigned char *>(pointer));}
+void LASattribute_set_value_as_float(void *self, void * pointer, double value){
+  reinterpret_cast<const LASattribute *>(self)->set_value_as_float(
+	reinterpret_cast<unsigned char *>(pointer), value);}
+
+
+// LASattributer
+bool *LASattributer_field_attributes_linked(void *self) {
+	return reinterpret_cast<bool *>(
+		&reinterpret_cast<LASattributer *>(self)->attributes_linked);
+}
+int *LASattributer_field_number_attributes(void *self) {
+	return reinterpret_cast<int *>(
+		&reinterpret_cast<LASattributer *>(self)->number_attributes);
+}
+void *LASattributer_field_attributes(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattributer *>(self)->attributes);
+}
+void *LASattributer_field_attribute_starts(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattributer *>(self)->attribute_starts);
+}
+void *LASattributer_field_attribute_sizes(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASattributer *>(self)->attribute_sizes);
+}
+void *LASattributer_create(){
+  return reinterpret_cast<void *>(new LASattributer());
+}
+void LASattributer_destroy(void *self){
+  delete reinterpret_cast<LASattributer*>(self);
+}
+void LASattributer_clean_attributes(void *self){
+  reinterpret_cast<LASattributer *>(self)->clean_attributes();}
+bool LASattributer_init_attributes(void *self, unsigned int number_attributes, void * attributes){
+  return reinterpret_cast<LASattributer *>(self)->init_attributes(number_attributes,
+	reinterpret_cast<LASattribute *>(attributes));}
+short LASattributer_get_attributes_size(void *self){
+  return reinterpret_cast<const LASattributer *>(self)->get_attributes_size();}
+int LASattributer_get_attribute_index(void *self, const void * name){
+  return reinterpret_cast<const LASattributer *>(self)->get_attribute_index(
+	reinterpret_cast<const char *>(name));}
+int LASattributer_get_attribute_start(void *self, const void * name){
+  return reinterpret_cast<const LASattributer *>(self)->get_attribute_start(
+	reinterpret_cast<const char *>(name));}
+int LASattributer_get_attribute_start_1(void *self, int index){
+  return reinterpret_cast<const LASattributer *>(self)->get_attribute_start(index);}
+int LASattributer_get_attribute_size(void *self, int index){
+  return reinterpret_cast<const LASattributer *>(self)->get_attribute_size(index);}
+const void * LASattributer_get_attribute_name(void *self, int index){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASattributer *>(self)->get_attribute_name(index));}
+bool LASattributer_remove_attribute(void *self, int index){
+  return reinterpret_cast<LASattributer *>(self)->remove_attribute(index);}
+bool LASattributer_remove_attribute_1(void *self, const void * name){
+  return reinterpret_cast<LASattributer *>(self)->remove_attribute(
+	reinterpret_cast<const char *>(name));}
+
+
+// LASwavepacket
+void *LASwavepacket_create(){
+  return reinterpret_cast<void *>(new LASwavepacket());
+}
+void LASwavepacket_zero(void *self){
+  reinterpret_cast<LASwavepacket *>(self)->zero();}
+unsigned char LASwavepacket_getIndex(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getIndex();}
+unsigned long long LASwavepacket_getOffset(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getOffset();}
+unsigned int LASwavepacket_getSize(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getSize();}
+float LASwavepacket_getLocation(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getLocation();}
+float LASwavepacket_getXt(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getXt();}
+float LASwavepacket_getYt(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getYt();}
+float LASwavepacket_getZt(void *self){
+  return reinterpret_cast<const LASwavepacket *>(self)->getZt();}
+void LASwavepacket_setIndex(void *self, unsigned char index){
+  reinterpret_cast<LASwavepacket *>(self)->setIndex(index);}
+void LASwavepacket_setOffset(void *self, unsigned long long offset){
+  reinterpret_cast<LASwavepacket *>(self)->setOffset(offset);}
+void LASwavepacket_setSize(void *self, unsigned int size){
+  reinterpret_cast<LASwavepacket *>(self)->setSize(size);}
+void LASwavepacket_setLocation(void *self, float location){
+  reinterpret_cast<LASwavepacket *>(self)->setLocation(location);}
+void LASwavepacket_setXt(void *self, float xt){
+  reinterpret_cast<LASwavepacket *>(self)->setXt(xt);}
+void LASwavepacket_setYt(void *self, float yt){
+  reinterpret_cast<LASwavepacket *>(self)->setYt(yt);}
+void LASwavepacket_setZt(void *self, float zt){
+  reinterpret_cast<LASwavepacket *>(self)->setZt(zt);}
+void LASwavepacket_flipDirection(void *self){
+  reinterpret_cast<LASwavepacket *>(self)->flipDirection();}
+
+
+// LASpoint
+int *LASpoint_field_X(void *self) {
+	return reinterpret_cast<int *>(
+		&reinterpret_cast<LASpoint *>(self)->X);
+}
+int *LASpoint_field_Y(void *self) {
+	return reinterpret_cast<int *>(
+		&reinterpret_cast<LASpoint *>(self)->Y);
+}
+int *LASpoint_field_Z(void *self) {
+	return reinterpret_cast<int *>(
+		&reinterpret_cast<LASpoint *>(self)->Z);
+}
+unsigned short *LASpoint_field_intensity(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASpoint *>(self)->intensity);
+}
+char *LASpoint_field_scan_angle_rank(void *self) {
+	return reinterpret_cast<char *>(
+		&reinterpret_cast<LASpoint *>(self)->scan_angle_rank);
+}
+unsigned char *LASpoint_field_user_data(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASpoint *>(self)->user_data);
+}
+unsigned short *LASpoint_field_point_source_ID(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASpoint *>(self)->point_source_ID);
+}
+short *LASpoint_field_extended_scan_angle(void *self) {
+	return reinterpret_cast<short *>(
+		&reinterpret_cast<LASpoint *>(self)->extended_scan_angle);
+}
+unsigned char *LASpoint_field_extended_classification(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASpoint *>(self)->extended_classification);
+}
+unsigned char *LASpoint_field_deleted_flag(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASpoint *>(self)->deleted_flag);
+}
+void *LASpoint_field_dummy(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->dummy);
+}
+bool *LASpoint_field_gps_time_change(void *self) {
+	return reinterpret_cast<bool *>(
+		&reinterpret_cast<LASpoint *>(self)->gps_time_change);
+}
+double *LASpoint_field_gps_time(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASpoint *>(self)->gps_time);
+}
+void *LASpoint_field_rgb(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->rgb);
+}
+void *LASpoint_field_wavepacket(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->wavepacket);
+}
+void *LASpoint_field_extra_bytes(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->extra_bytes);
+}
+void *LASpoint_field_quantizer(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->quantizer);
+}
+void *LASpoint_field_coordinates(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->coordinates);
+}
+void *LASpoint_field_attributer(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->attributer);
+}
+void *LASpoint_field_point(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->point);
+}
+bool *LASpoint_field_have_gps_time(void *self) {
+	return reinterpret_cast<bool *>(
+		&reinterpret_cast<LASpoint *>(self)->have_gps_time);
+}
+bool *LASpoint_field_have_rgb(void *self) {
+	return reinterpret_cast<bool *>(
+		&reinterpret_cast<LASpoint *>(self)->have_rgb);
+}
+bool *LASpoint_field_have_nir(void *self) {
+	return reinterpret_cast<bool *>(
+		&reinterpret_cast<LASpoint *>(self)->have_nir);
+}
+bool *LASpoint_field_have_wavepacket(void *self) {
+	return reinterpret_cast<bool *>(
+		&reinterpret_cast<LASpoint *>(self)->have_wavepacket);
+}
+int *LASpoint_field_extra_bytes_number(void *self) {
+	return reinterpret_cast<int *>(
+		&reinterpret_cast<LASpoint *>(self)->extra_bytes_number);
+}
+unsigned int *LASpoint_field_total_point_size(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASpoint *>(self)->total_point_size);
+}
+unsigned short *LASpoint_field_num_items(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASpoint *>(self)->num_items);
+}
+void *LASpoint_field_items(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASpoint *>(self)->items);
+}
+void LASpoint_copy_to(void *self, void * buffer){
+  reinterpret_cast<const LASpoint *>(self)->copy_to(
+	reinterpret_cast<unsigned char *>(buffer));}
+void LASpoint_copy_from(void *self, const void * buffer){
+  reinterpret_cast<LASpoint *>(self)->copy_from(
+	reinterpret_cast<const unsigned char *>(buffer));}
+bool LASpoint_init(void *self, const void * quantizer, const unsigned char point_type, const unsigned short point_size, const void * attributer){
+  return reinterpret_cast<LASpoint *>(self)->init(
+	reinterpret_cast<const LASquantizer *>(quantizer), point_type, point_size,
+	reinterpret_cast<const LASattributer *>(attributer));}
+bool LASpoint_init_1(void *self, const void * quantizer, const unsigned int num_items, const void * items, const void * attributer){
+  return reinterpret_cast<LASpoint *>(self)->init(
+	reinterpret_cast<const LASquantizer *>(quantizer), num_items,
+	reinterpret_cast<const LASitem *>(items),
+	reinterpret_cast<const LASattributer *>(attributer));}
+bool LASpoint_inside_rectangle(void *self, const double r_min_x, const double r_min_y, const double r_max_x, const double r_max_y){
+  return reinterpret_cast<const LASpoint *>(self)->inside_rectangle(r_min_x, r_min_y, r_max_x, r_max_y);}
+bool LASpoint_inside_tile(void *self, const float ll_x, const float ll_y, const float ur_x, const float ur_y){
+  return reinterpret_cast<const LASpoint *>(self)->inside_tile(ll_x, ll_y, ur_x, ur_y);}
+bool LASpoint_inside_circle(void *self, const double center_x, const double center_y, double squared_radius){
+  return reinterpret_cast<const LASpoint *>(self)->inside_circle(center_x, center_y, squared_radius);}
+bool LASpoint_inside_box(void *self, const double min_x, const double min_y, const double min_z, const double max_x, const double max_y, const double max_z){
+  return reinterpret_cast<const LASpoint *>(self)->inside_box(min_x, min_y, min_z, max_x, max_y, max_z);}
+bool LASpoint_inside_bounding_box(void *self, const double min_x, const double min_y, const double min_z, const double max_x, const double max_y, const double max_z){
+  return reinterpret_cast<const LASpoint *>(self)->inside_bounding_box(min_x, min_y, min_z, max_x, max_y, max_z);}
+bool LASpoint_is_zero(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_zero();}
+void LASpoint_zero(void *self){
+  reinterpret_cast<LASpoint *>(self)->zero();}
+void LASpoint_clean(void *self){
+  reinterpret_cast<LASpoint *>(self)->clean();}
+void *LASpoint_create(){
+  return reinterpret_cast<void *>(new LASpoint());
+}
+bool LASpoint_is_first(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_first();}
+bool LASpoint_is_intermediate(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_intermediate();}
+bool LASpoint_is_last(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_last();}
+bool LASpoint_is_single(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_single();}
+bool LASpoint_is_first_of_many(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_first_of_many();}
+bool LASpoint_is_last_of_many(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_last_of_many();}
+int LASpoint_get_X(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_X();}
+int LASpoint_get_Y(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_Y();}
+int LASpoint_get_Z(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_Z();}
+unsigned short LASpoint_get_intensity(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_intensity();}
+unsigned char LASpoint_get_return_number(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_return_number();}
+unsigned char LASpoint_get_number_of_returns(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_number_of_returns();}
+unsigned char LASpoint_get_scan_direction_flag(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_scan_direction_flag();}
+unsigned char LASpoint_get_edge_of_flight_line(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_edge_of_flight_line();}
+unsigned char LASpoint_get_classification(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_classification();}
+unsigned char LASpoint_get_synthetic_flag(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_synthetic_flag();}
+unsigned char LASpoint_get_keypoint_flag(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_keypoint_flag();}
+unsigned char LASpoint_get_withheld_flag(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_withheld_flag();}
+char LASpoint_get_scan_angle_rank(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_scan_angle_rank();}
+unsigned char LASpoint_get_user_data(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_user_data();}
+unsigned short LASpoint_get_point_source_ID(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_point_source_ID();}
+unsigned char LASpoint_get_deleted_flag(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_deleted_flag();}
+double LASpoint_get_gps_time(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_gps_time();}
+const void * LASpoint_get_RGB(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASpoint *>(self)->get_RGB());}
+const void * LASpoint_get_RGBI(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASpoint *>(self)->get_RGBI());}
+unsigned short LASpoint_get_RGBI_1(void *self, const unsigned int band){
+  return reinterpret_cast<const LASpoint *>(self)->get_RGBI(band);}
+unsigned short LASpoint_get_R(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_R();}
+unsigned short LASpoint_get_G(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_G();}
+unsigned short LASpoint_get_B(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_B();}
+unsigned short LASpoint_get_I(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_I();}
+unsigned short LASpoint_get_NIR(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_NIR();}
+void LASpoint_set_X(void *self, const int X){
+  reinterpret_cast<LASpoint *>(self)->set_X(X);}
+void LASpoint_set_Y(void *self, const int Y){
+  reinterpret_cast<LASpoint *>(self)->set_Y(Y);}
+void LASpoint_set_Z(void *self, const int Z){
+  reinterpret_cast<LASpoint *>(self)->set_Z(Z);}
+void LASpoint_set_intensity(void *self, const unsigned short intensity){
+  reinterpret_cast<LASpoint *>(self)->set_intensity(intensity);}
+void LASpoint_set_return_number(void *self, const unsigned char return_number){
+  reinterpret_cast<LASpoint *>(self)->set_return_number(return_number);}
+void LASpoint_set_number_of_returns(void *self, const unsigned char number_of_returns){
+  reinterpret_cast<LASpoint *>(self)->set_number_of_returns(number_of_returns);}
+void LASpoint_set_scan_direction_flag(void *self, const unsigned char scan_direction_flag){
+  reinterpret_cast<LASpoint *>(self)->set_scan_direction_flag(scan_direction_flag);}
+void LASpoint_set_edge_of_flight_line(void *self, const unsigned char edge_of_flight_line){
+  reinterpret_cast<LASpoint *>(self)->set_edge_of_flight_line(edge_of_flight_line);}
+void LASpoint_set_classification(void *self, unsigned char classification){
+  reinterpret_cast<LASpoint *>(self)->set_classification(classification);}
+void LASpoint_set_synthetic_flag(void *self, unsigned char synthetic_flag){
+  reinterpret_cast<LASpoint *>(self)->set_synthetic_flag(synthetic_flag);}
+void LASpoint_set_keypoint_flag(void *self, unsigned char keypoint_flag){
+  reinterpret_cast<LASpoint *>(self)->set_keypoint_flag(keypoint_flag);}
+void LASpoint_set_withheld_flag(void *self, unsigned char withheld_flag){
+  reinterpret_cast<LASpoint *>(self)->set_withheld_flag(withheld_flag);}
+void LASpoint_set_scan_angle_rank(void *self, char scan_angle_rank){
+  reinterpret_cast<LASpoint *>(self)->set_scan_angle_rank(scan_angle_rank);}
+void LASpoint_set_user_data(void *self, unsigned char user_data){
+  reinterpret_cast<LASpoint *>(self)->set_user_data(user_data);}
+void LASpoint_set_point_source_ID(void *self, unsigned short point_source_ID){
+  reinterpret_cast<LASpoint *>(self)->set_point_source_ID(point_source_ID);}
+void LASpoint_set_deleted_flag(void *self, unsigned char deleted_flag){
+  reinterpret_cast<LASpoint *>(self)->set_deleted_flag(deleted_flag);}
+void LASpoint_set_gps_time(void *self, const double gps_time){
+  reinterpret_cast<LASpoint *>(self)->set_gps_time(gps_time);}
+void LASpoint_set_RGB(void *self, const void * rgb){
+  reinterpret_cast<LASpoint *>(self)->set_RGB(
+	reinterpret_cast<const unsigned short *>(rgb));}
+void LASpoint_set_RGBI(void *self, const void * rgb){
+  reinterpret_cast<LASpoint *>(self)->set_RGBI(
+	reinterpret_cast<const unsigned short *>(rgb));}
+void LASpoint_set_RGBI_1(void *self, const unsigned int band, const unsigned short value){
+  reinterpret_cast<LASpoint *>(self)->set_RGBI(band, value);}
+void LASpoint_set_R(void *self, const unsigned short R){
+  reinterpret_cast<LASpoint *>(self)->set_R(R);}
+void LASpoint_set_G(void *self, const unsigned short G){
+  reinterpret_cast<LASpoint *>(self)->set_G(G);}
+void LASpoint_set_B(void *self, const unsigned short B){
+  reinterpret_cast<LASpoint *>(self)->set_B(B);}
+void LASpoint_set_I(void *self, const unsigned short I){
+  reinterpret_cast<LASpoint *>(self)->set_I(I);}
+void LASpoint_set_NIR(void *self, const unsigned short NIR){
+  reinterpret_cast<LASpoint *>(self)->set_NIR(NIR);}
+double LASpoint_get_x(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_x();}
+double LASpoint_get_y(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_y();}
+double LASpoint_get_z(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_z();}
+bool LASpoint_set_x(void *self, const double x){
+  return reinterpret_cast<LASpoint *>(self)->set_x(x);}
+bool LASpoint_set_y(void *self, const double y){
+  return reinterpret_cast<LASpoint *>(self)->set_y(y);}
+bool LASpoint_set_z(void *self, const double z){
+  return reinterpret_cast<LASpoint *>(self)->set_z(z);}
+bool LASpoint_is_extended_point_type(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->is_extended_point_type();}
+unsigned char LASpoint_get_extended_classification(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_extended_classification();}
+unsigned char LASpoint_get_extended_return_number(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_extended_return_number();}
+unsigned char LASpoint_get_extended_number_of_returns(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_extended_number_of_returns();}
+short LASpoint_get_extended_scan_angle(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_extended_scan_angle();}
+unsigned char LASpoint_get_extended_overlap_flag(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_extended_overlap_flag();}
+unsigned char LASpoint_get_extended_scanner_channel(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_extended_scanner_channel();}
+void LASpoint_set_extended_classification(void *self, unsigned char extended_classification){
+  reinterpret_cast<LASpoint *>(self)->set_extended_classification(extended_classification);}
+void LASpoint_set_extended_return_number(void *self, unsigned char extended_return_number){
+  reinterpret_cast<LASpoint *>(self)->set_extended_return_number(extended_return_number);}
+void LASpoint_set_extended_number_of_returns(void *self, unsigned char extended_number_of_returns){
+  reinterpret_cast<LASpoint *>(self)->set_extended_number_of_returns(extended_number_of_returns);}
+void LASpoint_set_extended_scan_angle(void *self, short extended_scan_angle){
+  reinterpret_cast<LASpoint *>(self)->set_extended_scan_angle(extended_scan_angle);}
+void LASpoint_set_extended_overlap_flag(void *self, unsigned char extended_overlap_flag){
+  reinterpret_cast<LASpoint *>(self)->set_extended_overlap_flag(extended_overlap_flag);}
+void LASpoint_set_extended_scanner_channel(void *self, unsigned char extended_scanner_channel){
+  reinterpret_cast<LASpoint *>(self)->set_extended_scanner_channel(extended_scanner_channel);}
+float LASpoint_get_scan_angle(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_scan_angle();}
+float LASpoint_get_abs_scan_angle(void *self){
+  return reinterpret_cast<const LASpoint *>(self)->get_abs_scan_angle();}
+void LASpoint_set_scan_angle(void *self, float scan_angle){
+  reinterpret_cast<LASpoint *>(self)->set_scan_angle(scan_angle);}
+void LASpoint_compute_coordinates(void *self){
+  reinterpret_cast<LASpoint *>(self)->compute_coordinates();}
+bool LASpoint_compute_XYZ(void *self){
+  return reinterpret_cast<LASpoint *>(self)->compute_XYZ();}
+bool LASpoint_compute_XYZ_1(void *self, const void * quantizer){
+  return reinterpret_cast<LASpoint *>(self)->compute_XYZ(
+	reinterpret_cast<const LASquantizer *>(quantizer));}
+bool LASpoint_has_attribute(void *self, unsigned int index){
+  return reinterpret_cast<const LASpoint *>(self)->has_attribute(index);}
+bool LASpoint_get_attribute(void *self, unsigned int index, void * data){
+  return reinterpret_cast<const LASpoint *>(self)->get_attribute(index,
+	reinterpret_cast<unsigned char *>(data));}
+bool LASpoint_set_attribute(void *self, unsigned int index, const void * data){
+  return reinterpret_cast<LASpoint *>(self)->set_attribute(index,
+	reinterpret_cast<const unsigned char *>(data));}
+const void * LASpoint_get_attribute_name(void *self, unsigned int index){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASpoint *>(self)->get_attribute_name(index));}
+double LASpoint_get_attribute_as_float(void *self, unsigned int index){
+  return reinterpret_cast<const LASpoint *>(self)->get_attribute_as_float(index);}
+void LASpoint_set_attribute_as_float(void *self, unsigned int index, double value){
+  reinterpret_cast<const LASpoint *>(self)->set_attribute_as_float(index, value);}
+void LASpoint_set_attribute_1(void *self, int start, unsigned char data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_2(void *self, int start, char data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_3(void *self, int start, unsigned short data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_4(void *self, int start, short data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_5(void *self, int start, unsigned int data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_6(void *self, int start, int data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_7(void *self, int start, unsigned long long data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_8(void *self, int start, long long data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_9(void *self, int start, float data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_set_attribute_10(void *self, int start, double data){
+  reinterpret_cast<LASpoint *>(self)->set_attribute(start, data);}
+void LASpoint_destroy(void *self){
+  delete reinterpret_cast<LASpoint*>(self);
+}
+
+
+// LASvlr
+unsigned short *LASvlr_field_reserved(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr *>(self)->reserved);
+}
+void *LASvlr_field_user_id(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASvlr *>(self)->user_id);
+}
+unsigned short *LASvlr_field_record_id(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr *>(self)->record_id);
+}
+unsigned short *LASvlr_field_record_length_after_header(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr *>(self)->record_length_after_header);
+}
+void *LASvlr_field_description(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASvlr *>(self)->description);
+}
+void *LASvlr_field_data(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASvlr *>(self)->data);
+}
+void *LASvlr_create(){
+  return reinterpret_cast<void *>(new LASvlr());
+}
+
+
+// LASevlr
+unsigned short *LASevlr_field_reserved(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASevlr *>(self)->reserved);
+}
+void *LASevlr_field_user_id(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASevlr *>(self)->user_id);
+}
+unsigned short *LASevlr_field_record_id(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASevlr *>(self)->record_id);
+}
+long long *LASevlr_field_record_length_after_header(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASevlr *>(self)->record_length_after_header);
+}
+void *LASevlr_field_description(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASevlr *>(self)->description);
+}
+void *LASevlr_field_data(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASevlr *>(self)->data);
+}
+void *LASevlr_create(){
+  return reinterpret_cast<void *>(new LASevlr());
+}
+
+
+// LASvlr_geo_keys
+unsigned short *LASvlr_geo_keys_field_key_directory_version(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_geo_keys *>(self)->key_directory_version);
+}
+unsigned short *LASvlr_geo_keys_field_key_revision(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_geo_keys *>(self)->key_revision);
+}
+unsigned short *LASvlr_geo_keys_field_minor_revision(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_geo_keys *>(self)->minor_revision);
+}
+unsigned short *LASvlr_geo_keys_field_number_of_keys(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_geo_keys *>(self)->number_of_keys);
+}
+
+
+// LASvlr_key_entry
+unsigned short *LASvlr_key_entry_field_key_id(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_key_entry *>(self)->key_id);
+}
+unsigned short *LASvlr_key_entry_field_tiff_tag_location(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_key_entry *>(self)->tiff_tag_location);
+}
+unsigned short *LASvlr_key_entry_field_count(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_key_entry *>(self)->count);
+}
+unsigned short *LASvlr_key_entry_field_value_offset(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASvlr_key_entry *>(self)->value_offset);
+}
+
+
+// LASvlr_classification
+unsigned char *LASvlr_classification_field_class_number(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASvlr_classification *>(self)->class_number);
+}
+void *LASvlr_classification_field_description(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASvlr_classification *>(self)->description);
+}
+
+
+// LASvlr_wave_packet_descr
+void *LASvlr_wave_packet_descr_create(){
+  return reinterpret_cast<void *>(new LASvlr_wave_packet_descr());
+}
+void LASvlr_wave_packet_descr_clean(void *self){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->clean();}
+unsigned char LASvlr_wave_packet_descr_getBitsPerSample(void *self){
+  return reinterpret_cast<const LASvlr_wave_packet_descr *>(self)->getBitsPerSample();}
+unsigned char LASvlr_wave_packet_descr_getCompressionType(void *self){
+  return reinterpret_cast<const LASvlr_wave_packet_descr *>(self)->getCompressionType();}
+unsigned int LASvlr_wave_packet_descr_getNumberOfSamples(void *self){
+  return reinterpret_cast<const LASvlr_wave_packet_descr *>(self)->getNumberOfSamples();}
+unsigned int LASvlr_wave_packet_descr_getTemporalSpacing(void *self){
+  return reinterpret_cast<const LASvlr_wave_packet_descr *>(self)->getTemporalSpacing();}
+double LASvlr_wave_packet_descr_getDigitizerGain(void *self){
+  return reinterpret_cast<const LASvlr_wave_packet_descr *>(self)->getDigitizerGain();}
+double LASvlr_wave_packet_descr_getDigitizerOffset(void *self){
+  return reinterpret_cast<const LASvlr_wave_packet_descr *>(self)->getDigitizerOffset();}
+void LASvlr_wave_packet_descr_setBitsPerSample(void *self, unsigned char bps){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->setBitsPerSample(bps);}
+void LASvlr_wave_packet_descr_setCompressionType(void *self, unsigned char compression){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->setCompressionType(compression);}
+void LASvlr_wave_packet_descr_setNumberOfSamples(void *self, unsigned int samples){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->setNumberOfSamples(samples);}
+void LASvlr_wave_packet_descr_setTemporalSpacing(void *self, unsigned int spacing){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->setTemporalSpacing(spacing);}
+void LASvlr_wave_packet_descr_setDigitizerGain(void *self, double gain){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->setDigitizerGain(gain);}
+void LASvlr_wave_packet_descr_setDigitizerOffset(void *self, double offset){
+  reinterpret_cast<LASvlr_wave_packet_descr *>(self)->setDigitizerOffset(offset);}
+
+
+// LASheader
+void *LASheader_field_file_signature(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->file_signature);
+}
+unsigned short *LASheader_field_file_source_ID(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->file_source_ID);
+}
+unsigned short *LASheader_field_global_encoding(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->global_encoding);
+}
+unsigned int *LASheader_field_project_ID_GUID_data_1(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->project_ID_GUID_data_1);
+}
+unsigned short *LASheader_field_project_ID_GUID_data_2(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->project_ID_GUID_data_2);
+}
+unsigned short *LASheader_field_project_ID_GUID_data_3(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->project_ID_GUID_data_3);
+}
+void *LASheader_field_project_ID_GUID_data_4(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->project_ID_GUID_data_4);
+}
+unsigned char *LASheader_field_version_major(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASheader *>(self)->version_major);
+}
+unsigned char *LASheader_field_version_minor(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASheader *>(self)->version_minor);
+}
+void *LASheader_field_system_identifier(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->system_identifier);
+}
+void *LASheader_field_generating_software(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->generating_software);
+}
+unsigned short *LASheader_field_file_creation_day(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->file_creation_day);
+}
+unsigned short *LASheader_field_file_creation_year(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->file_creation_year);
+}
+unsigned short *LASheader_field_header_size(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->header_size);
+}
+unsigned int *LASheader_field_offset_to_point_data(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->offset_to_point_data);
+}
+unsigned int *LASheader_field_number_of_variable_length_records(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->number_of_variable_length_records);
+}
+unsigned char *LASheader_field_point_data_format(void *self) {
+	return reinterpret_cast<unsigned char *>(
+		&reinterpret_cast<LASheader *>(self)->point_data_format);
+}
+unsigned short *LASheader_field_point_data_record_length(void *self) {
+	return reinterpret_cast<unsigned short *>(
+		&reinterpret_cast<LASheader *>(self)->point_data_record_length);
+}
+unsigned int *LASheader_field_number_of_point_records(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->number_of_point_records);
+}
+void *LASheader_field_number_of_points_by_return(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->number_of_points_by_return);
+}
+double *LASheader_field_max_x(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASheader *>(self)->max_x);
+}
+double *LASheader_field_min_x(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASheader *>(self)->min_x);
+}
+double *LASheader_field_max_y(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASheader *>(self)->max_y);
+}
+double *LASheader_field_min_y(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASheader *>(self)->min_y);
+}
+double *LASheader_field_max_z(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASheader *>(self)->max_z);
+}
+double *LASheader_field_min_z(void *self) {
+	return reinterpret_cast<double *>(
+		&reinterpret_cast<LASheader *>(self)->min_z);
+}
+unsigned long long *LASheader_field_start_of_waveform_data_packet_record(void *self) {
+	return reinterpret_cast<unsigned long long *>(
+		&reinterpret_cast<LASheader *>(self)->start_of_waveform_data_packet_record);
+}
+unsigned long long *LASheader_field_start_of_first_extended_variable_length_record(void *self) {
+	return reinterpret_cast<unsigned long long *>(
+		&reinterpret_cast<LASheader *>(self)->start_of_first_extended_variable_length_record);
+}
+unsigned int *LASheader_field_number_of_extended_variable_length_records(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->number_of_extended_variable_length_records);
+}
+unsigned long long *LASheader_field_extended_number_of_point_records(void *self) {
+	return reinterpret_cast<unsigned long long *>(
+		&reinterpret_cast<LASheader *>(self)->extended_number_of_point_records);
+}
+void *LASheader_field_extended_number_of_points_by_return(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->extended_number_of_points_by_return);
+}
+unsigned int *LASheader_field_user_data_in_header_size(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->user_data_in_header_size);
+}
+void *LASheader_field_user_data_in_header(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->user_data_in_header);
+}
+void *LASheader_field_vlrs(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlrs);
+}
+void *LASheader_field_evlrs(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->evlrs);
+}
+void *LASheader_field_vlr_geo_keys(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_geo_keys);
+}
+void *LASheader_field_vlr_geo_key_entries(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_geo_key_entries);
+}
+void *LASheader_field_vlr_geo_double_params(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_geo_double_params);
+}
+void *LASheader_field_vlr_geo_ascii_params(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_geo_ascii_params);
+}
+void *LASheader_field_vlr_geo_ogc_wkt_math(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_geo_ogc_wkt_math);
+}
+void *LASheader_field_vlr_geo_ogc_wkt(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_geo_ogc_wkt);
+}
+void *LASheader_field_vlr_classification(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_classification);
+}
+void *LASheader_field_vlr_wave_packet_descr(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_wave_packet_descr);
+}
+void *LASheader_field_laszip(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->laszip);
+}
+void *LASheader_field_vlr_lastiling(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_lastiling);
+}
+void *LASheader_field_vlr_lasoriginal(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->vlr_lasoriginal);
+}
+unsigned int *LASheader_field_user_data_after_header_size(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASheader *>(self)->user_data_after_header_size);
+}
+void *LASheader_field_user_data_after_header(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASheader *>(self)->user_data_after_header);
+}
+void *LASheader_create(){
+  return reinterpret_cast<void *>(new LASheader());
+}
+void LASheader_set_bounding_box(void *self, double min_x, double min_y, double min_z, double max_x, double max_y, double max_z, bool auto_scale, bool auto_offset){
+  reinterpret_cast<LASheader *>(self)->set_bounding_box(min_x, min_y, min_z, max_x, max_y, max_z, auto_scale, auto_offset);}
+void LASheader_set_global_encoding_bit(void *self, int bit){
+  reinterpret_cast<LASheader *>(self)->set_global_encoding_bit(bit);}
+void LASheader_unset_global_encoding_bit(void *self, int bit){
+  reinterpret_cast<LASheader *>(self)->unset_global_encoding_bit(bit);}
+bool LASheader_get_global_encoding_bit(void *self, int bit){
+  return reinterpret_cast<const LASheader *>(self)->get_global_encoding_bit(bit);}
+void LASheader_clean_las_header(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_las_header();}
+void LASheader_clean_user_data_in_header(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_user_data_in_header();}
+void LASheader_clean_vlrs(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_vlrs();}
+void LASheader_clean_evlrs(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_evlrs();}
+void LASheader_clean_laszip(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_laszip();}
+void LASheader_clean_lastiling(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_lastiling();}
+void LASheader_clean_lasoriginal(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_lasoriginal();}
+void LASheader_clean_user_data_after_header(void *self){
+  reinterpret_cast<LASheader *>(self)->clean_user_data_after_header();}
+void LASheader_clean(void *self){
+  reinterpret_cast<LASheader *>(self)->clean();}
+void LASheader_unlink(void *self){
+  reinterpret_cast<LASheader *>(self)->unlink();}
+bool LASheader_check(void *self){
+  return reinterpret_cast<const LASheader *>(self)->check();}
+bool LASheader_is_compressed(void *self){
+  return reinterpret_cast<const LASheader *>(self)->is_compressed();}
+bool LASheader_is_lonlat(void *self, const float extend){
+  return reinterpret_cast<const LASheader *>(self)->is_lonlat(extend);}
+bool LASheader_add_vlr(void *self, const void * user_id, const unsigned short record_id, const unsigned short record_length_after_header, void * data, const bool keep_description, const void * description, const bool keep_existing){
+  return reinterpret_cast<LASheader *>(self)->add_vlr(
+	reinterpret_cast<const char *>(user_id), record_id, record_length_after_header,
+	reinterpret_cast<unsigned char *>(data), keep_description,
+	reinterpret_cast<const char *>(description), keep_existing);}
+const void * LASheader_get_vlr(void *self, const void * user_id, unsigned short record_id){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASheader *>(self)->get_vlr(
+	reinterpret_cast<const char *>(user_id), record_id));}
+bool LASheader_remove_vlr(void *self, unsigned int i, bool delete_data){
+  return reinterpret_cast<LASheader *>(self)->remove_vlr(i, delete_data);}
+bool LASheader_remove_vlr_1(void *self, const void * user_id, unsigned short record_id){
+  return reinterpret_cast<LASheader *>(self)->remove_vlr(
+	reinterpret_cast<const char *>(user_id), record_id);}
+void LASheader_add_evlr(void *self, const void * user_id, const unsigned short record_id, const long long record_length_after_header, void * data, const bool keep_description, const void * description, const bool keep_existing){
+  reinterpret_cast<LASheader *>(self)->add_evlr(
+	reinterpret_cast<const char *>(user_id), record_id, record_length_after_header,
+	reinterpret_cast<unsigned char *>(data), keep_description,
+	reinterpret_cast<const char *>(description), keep_existing);}
+bool LASheader_remove_evlr(void *self, unsigned int i, bool delete_data){
+  return reinterpret_cast<LASheader *>(self)->remove_evlr(i, delete_data);}
+bool LASheader_remove_evlr_1(void *self, const void * user_id, unsigned short record_id){
+  return reinterpret_cast<LASheader *>(self)->remove_evlr(
+	reinterpret_cast<const char *>(user_id), record_id);}
+void LASheader_set_lastiling(void *self, unsigned int level, unsigned int level_index, unsigned int implicit_levels, bool buffer, bool reversible, float min_x, float max_x, float min_y, float max_y){
+  reinterpret_cast<LASheader *>(self)->set_lastiling(level, level_index, implicit_levels, buffer, reversible, min_x, max_x, min_y, max_y);}
+void LASheader_set_lasoriginal(void *self){
+  reinterpret_cast<LASheader *>(self)->set_lasoriginal();}
+bool LASheader_restore_lasoriginal(void *self){
+  return reinterpret_cast<LASheader *>(self)->restore_lasoriginal();}
+bool LASheader_set_geo_keys(void *self, const int number_of_keys, const void * geo_keys){
+  return reinterpret_cast<LASheader *>(self)->set_geo_keys(number_of_keys,
+	reinterpret_cast<const LASvlr_key_entry *>(geo_keys));}
+bool LASheader_set_geo_double_params(void *self, const int num_geo_double_params, const void * geo_double_params){
+  return reinterpret_cast<LASheader *>(self)->set_geo_double_params(num_geo_double_params,
+	reinterpret_cast<const double *>(geo_double_params));}
+void LASheader_del_geo_double_params(void *self){
+  reinterpret_cast<LASheader *>(self)->del_geo_double_params();}
+bool LASheader_set_geo_ascii_params(void *self, const int num_geo_ascii_params, const void * geo_ascii_params){
+  return reinterpret_cast<LASheader *>(self)->set_geo_ascii_params(num_geo_ascii_params,
+	reinterpret_cast<const char *>(geo_ascii_params));}
+void LASheader_del_geo_ascii_params(void *self){
+  reinterpret_cast<LASheader *>(self)->del_geo_ascii_params();}
+void LASheader_set_geo_wkt_ogc_math(void *self, const int num_geo_wkt_ogc_math, const void * geo_wkt_ogc_math){
+  reinterpret_cast<LASheader *>(self)->set_geo_wkt_ogc_math(num_geo_wkt_ogc_math,
+	reinterpret_cast<const char *>(geo_wkt_ogc_math));}
+void LASheader_del_geo_wkt_ogc_math(void *self){
+  reinterpret_cast<LASheader *>(self)->del_geo_wkt_ogc_math();}
+void LASheader_set_geo_ogc_wkt(void *self, const int num_geo_ogc_wkt, const void * geo_ogc_wkt, bool in_evlr){
+  reinterpret_cast<LASheader *>(self)->set_geo_ogc_wkt(num_geo_ogc_wkt,
+	reinterpret_cast<const char *>(geo_ogc_wkt), in_evlr);}
+void LASheader_del_geo_ogc_wkt(void *self){
+  reinterpret_cast<LASheader *>(self)->del_geo_ogc_wkt();}
+bool LASheader_update_extra_bytes_vlr(void *self, const bool keep_description){
+  return reinterpret_cast<LASheader *>(self)->update_extra_bytes_vlr(keep_description);}
+void LASheader_destroy(void *self){
+  delete reinterpret_cast<LASheader*>(self);
+}
+
+
+// LASignore
+void LASignore_usage(void *self){
+  reinterpret_cast<const LASignore *>(self)->usage();}
+void LASignore_ignore_class(void *self, unsigned char classification){
+  reinterpret_cast<LASignore *>(self)->ignore_class(classification);}
+void LASignore_dont_ignore_class(void *self, unsigned char classification){
+  reinterpret_cast<LASignore *>(self)->dont_ignore_class(classification);}
+int LASignore_unparse(void *self, void * string){
+  return reinterpret_cast<const LASignore *>(self)->unparse(
+	reinterpret_cast<char *>(string));}
+bool LASignore_parse_1(void *self, unsigned int curr_parameter, const unsigned int num_parameters, const void * parameters){
+  return reinterpret_cast<LASignore *>(self)->parse(curr_parameter, num_parameters,
+	reinterpret_cast<const double *>(parameters));}
+unsigned int LASignore_get_decompress_selective(void *self){
+  return reinterpret_cast<const LASignore *>(self)->get_decompress_selective();}
+bool LASignore_ignore(void *self, const void * point){
+  return reinterpret_cast<const LASignore *>(self)->ignore(
+	reinterpret_cast<const LASpoint *>(point));}
+void *LASignore_create(){
+  return reinterpret_cast<void *>(new LASignore());
+}
+void LASignore_destroy(void *self){
+  delete reinterpret_cast<LASignore*>(self);
+}
+
+
+// LASreader
+void *LASreader_field_header(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASreader *>(self)->header);
+}
+void *LASreader_field_point(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASreader *>(self)->point);
+}
+long long *LASreader_field_npoints(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASreader *>(self)->npoints);
+}
+long long *LASreader_field_p_count(void *self) {
+	return reinterpret_cast<long long *>(
+		&reinterpret_cast<LASreader *>(self)->p_count);
+}
+bool LASreader_has_layers(void *self){
+  return reinterpret_cast<const LASreader *>(self)->has_layers();}
+void LASreader_set_index(void *self, void * index){
+  reinterpret_cast<LASreader *>(self)->set_index(
+	reinterpret_cast<LASindex *>(index));}
+void * LASreader_get_index(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreader *>(self)->get_index());}
+void LASreader_set_filter(void *self, void * filter){
+  reinterpret_cast<LASreader *>(self)->set_filter(
+	reinterpret_cast<LASfilter *>(filter));}
+void * LASreader_get_filter(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreader *>(self)->get_filter());}
+void LASreader_set_transform(void *self, void * transform){
+  reinterpret_cast<LASreader *>(self)->set_transform(
+	reinterpret_cast<LAStransform *>(transform));}
+void * LASreader_get_transform(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreader *>(self)->get_transform());}
+void LASreader_set_ignore(void *self, void * ignore){
+  reinterpret_cast<LASreader *>(self)->set_ignore(
+	reinterpret_cast<LASignore *>(ignore));}
+void * LASreader_get_ignore(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreader *>(self)->get_ignore());}
+unsigned int LASreader_get_inside(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_inside();}
+bool LASreader_inside_none(void *self){
+  return reinterpret_cast<LASreader *>(self)->inside_none();}
+bool LASreader_inside_tile(void *self, const float ll_x, const float ll_y, const float size){
+  return reinterpret_cast<LASreader *>(self)->inside_tile(ll_x, ll_y, size);}
+float LASreader_get_t_ll_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_t_ll_x();}
+float LASreader_get_t_ll_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_t_ll_y();}
+float LASreader_get_t_size(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_t_size();}
+bool LASreader_inside_circle(void *self, const double center_x, const double center_y, const double radius){
+  return reinterpret_cast<LASreader *>(self)->inside_circle(center_x, center_y, radius);}
+double LASreader_get_c_center_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_c_center_x();}
+double LASreader_get_c_center_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_c_center_y();}
+double LASreader_get_c_radius(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_c_radius();}
+bool LASreader_inside_rectangle(void *self, const double min_x, const double min_y, const double max_x, const double max_y){
+  return reinterpret_cast<LASreader *>(self)->inside_rectangle(min_x, min_y, max_x, max_y);}
+double LASreader_get_r_min_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_r_min_x();}
+double LASreader_get_r_min_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_r_min_y();}
+double LASreader_get_r_max_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_r_max_x();}
+double LASreader_get_r_max_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_r_max_y();}
+bool LASreader_read_point(void *self){
+  return reinterpret_cast<LASreader *>(self)->read_point();}
+bool LASreader_ignore_point(void *self){
+  return reinterpret_cast<LASreader *>(self)->ignore_point();}
+void LASreader_compute_coordinates(void *self){
+  reinterpret_cast<LASreader *>(self)->compute_coordinates();}
+double LASreader_get_min_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_min_x();}
+double LASreader_get_min_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_min_y();}
+double LASreader_get_min_z(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_min_z();}
+double LASreader_get_max_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_max_x();}
+double LASreader_get_max_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_max_y();}
+double LASreader_get_max_z(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_max_z();}
+double LASreader_get_x(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_x();}
+double LASreader_get_y(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_y();}
+double LASreader_get_z(void *self){
+  return reinterpret_cast<const LASreader *>(self)->get_z();}
+double LASreader_get_x_1(void *self, const int x){
+  return reinterpret_cast<const LASreader *>(self)->get_x(x);}
+double LASreader_get_y_1(void *self, const int y){
+  return reinterpret_cast<const LASreader *>(self)->get_y(y);}
+double LASreader_get_z_1(void *self, const int z){
+  return reinterpret_cast<const LASreader *>(self)->get_z(z);}
+long long LASreader_get_X(void *self, const double x){
+  return reinterpret_cast<const LASreader *>(self)->get_X(x);}
+long long LASreader_get_Y(void *self, const double y){
+  return reinterpret_cast<const LASreader *>(self)->get_Y(y);}
+long long LASreader_get_Z(void *self, const double z){
+  return reinterpret_cast<const LASreader *>(self)->get_Z(z);}
+void LASreader_destroy(void *self){
+  delete reinterpret_cast<LASreader*>(self);
+}
+void LASreader_dealloc(void *self){
+  reinterpret_cast<LASreader *>(self)->dealloc();}
+
+
+// LASwaveform13reader
+unsigned int *LASwaveform13reader_field_nbits(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->nbits);
+}
+unsigned int *LASwaveform13reader_field_nsamples(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->nsamples);
+}
+unsigned int *LASwaveform13reader_field_temporal(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->temporal);
+}
+float *LASwaveform13reader_field_location(void *self) {
+	return reinterpret_cast<float *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->location);
+}
+void *LASwaveform13reader_field_XYZt(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->XYZt);
+}
+void *LASwaveform13reader_field_XYZreturn(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->XYZreturn);
+}
+void *LASwaveform13reader_field_XYZsample(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->XYZsample);
+}
+unsigned int *LASwaveform13reader_field_s_count(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->s_count);
+}
+unsigned int *LASwaveform13reader_field_sample(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->sample);
+}
+unsigned int *LASwaveform13reader_field_sampleMin(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->sampleMin);
+}
+unsigned int *LASwaveform13reader_field_sampleMax(void *self) {
+	return reinterpret_cast<unsigned int *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->sampleMax);
+}
+void *LASwaveform13reader_field_samples(void *self) {
+	return reinterpret_cast<void *>(
+		&reinterpret_cast<LASwaveform13reader *>(self)->samples);
+}
+bool LASwaveform13reader_open(void *self, const void * file_name, long long start_of_waveform_data_packet_record, const void * wave_packet_descr){
+  return reinterpret_cast<LASwaveform13reader *>(self)->open(
+	reinterpret_cast<const char *>(file_name), start_of_waveform_data_packet_record,
+	reinterpret_cast<const LASvlr_wave_packet_descr *const *>(wave_packet_descr));}
+bool LASwaveform13reader_is_compressed(void *self){
+  return reinterpret_cast<const LASwaveform13reader *>(self)->is_compressed();}
+bool LASwaveform13reader_read_waveform(void *self, const void * point){
+  return reinterpret_cast<LASwaveform13reader *>(self)->read_waveform(
+	reinterpret_cast<const LASpoint *>(point));}
+bool LASwaveform13reader_get_samples(void *self){
+  return reinterpret_cast<LASwaveform13reader *>(self)->get_samples();}
+bool LASwaveform13reader_has_samples(void *self){
+  return reinterpret_cast<LASwaveform13reader *>(self)->has_samples();}
+bool LASwaveform13reader_get_samples_xyz(void *self){
+  return reinterpret_cast<LASwaveform13reader *>(self)->get_samples_xyz();}
+bool LASwaveform13reader_has_samples_xyz(void *self){
+  return reinterpret_cast<LASwaveform13reader *>(self)->has_samples_xyz();}
+void LASwaveform13reader_close(void *self){
+  reinterpret_cast<LASwaveform13reader *>(self)->close();}
+void *LASwaveform13reader_create(){
+  return reinterpret_cast<void *>(new LASwaveform13reader());
+}
+void LASwaveform13reader_destroy(void *self){
+  delete reinterpret_cast<LASwaveform13reader*>(self);
+}
+
+
+// LASreadOpener
+void LASreadOpener_set_io_ibuffer_size(void *self, const unsigned int buffer_size){
+  reinterpret_cast<LASreadOpener *>(self)->set_io_ibuffer_size(buffer_size);}
+unsigned int LASreadOpener_get_io_ibuffer_size(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_io_ibuffer_size();}
+unsigned int LASreadOpener_get_file_name_number(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_file_name_number();}
+unsigned int LASreadOpener_get_file_name_current(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_file_name_current();}
+const void * LASreadOpener_get_file_name(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_name());}
+const void * LASreadOpener_get_file_name_only(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_name_only());}
+const void * LASreadOpener_get_file_extension_only(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_extension_only());}
+const void * LASreadOpener_get_file_name_1(void *self, unsigned int number){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_name(number));}
+const void * LASreadOpener_get_file_name_only_1(void *self, unsigned int number){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_name_only(number));}
+const void * LASreadOpener_get_file_extension_only_1(void *self, unsigned int number){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_extension_only(number));}
+void * LASreadOpener_get_file_name_base(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_name_base());}
+void * LASreadOpener_get_file_name_base_1(void *self, unsigned int number){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreadOpener *>(self)->get_file_name_base(number));}
+void LASreadOpener_set_file_name(void *self, const void * file_name, bool unique){
+  reinterpret_cast<LASreadOpener *>(self)->set_file_name(
+	reinterpret_cast<const char *>(file_name), unique);}
+bool LASreadOpener_add_file_name(void *self, const void * file_name, bool unique){
+  return reinterpret_cast<LASreadOpener *>(self)->add_file_name(
+	reinterpret_cast<const char *>(file_name), unique);}
+bool LASreadOpener_add_list_of_files(void *self, const void * list_of_files, bool unique){
+  return reinterpret_cast<LASreadOpener *>(self)->add_list_of_files(
+	reinterpret_cast<const char *>(list_of_files), unique);}
+void LASreadOpener_delete_file_name(void *self, unsigned int file_name_id){
+  reinterpret_cast<LASreadOpener *>(self)->delete_file_name(file_name_id);}
+bool LASreadOpener_set_file_name_current(void *self, unsigned int file_name_id){
+  return reinterpret_cast<LASreadOpener *>(self)->set_file_name_current(file_name_id);}
+int LASreadOpener_get_file_format(void *self, unsigned int number){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_file_format(number);}
+void LASreadOpener_set_merged(void *self, const bool merged){
+  reinterpret_cast<LASreadOpener *>(self)->set_merged(merged);}
+bool LASreadOpener_is_merged(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_merged();}
+void LASreadOpener_set_stored(void *self, const bool stored){
+  reinterpret_cast<LASreadOpener *>(self)->set_stored(stored);}
+bool LASreadOpener_is_stored(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_stored();}
+void LASreadOpener_set_buffer_size(void *self, const float buffer_size){
+  reinterpret_cast<LASreadOpener *>(self)->set_buffer_size(buffer_size);}
+float LASreadOpener_get_buffer_size(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_buffer_size();}
+void LASreadOpener_set_neighbor_file_name(void *self, const void * neighbor_file_name, bool unique){
+  reinterpret_cast<LASreadOpener *>(self)->set_neighbor_file_name(
+	reinterpret_cast<const char *>(neighbor_file_name), unique);}
+bool LASreadOpener_add_neighbor_file_name(void *self, const void * neighbor_file_name, bool unique){
+  return reinterpret_cast<LASreadOpener *>(self)->add_neighbor_file_name(
+	reinterpret_cast<const char *>(neighbor_file_name), unique);}
+bool LASreadOpener_add_neighbor_file_name_1(void *self, const void * file_name, long long npoints, double min_x, double min_y, double max_x, double max_y, bool unique){
+  return reinterpret_cast<LASreadOpener *>(self)->add_neighbor_file_name(
+	reinterpret_cast<const char *>(file_name), npoints, min_x, min_y, max_x, max_y, unique);}
+bool LASreadOpener_add_neighbor_list_of_files(void *self, const void * list_of_files, bool unique){
+  return reinterpret_cast<LASreadOpener *>(self)->add_neighbor_list_of_files(
+	reinterpret_cast<const char *>(list_of_files), unique);}
+void LASreadOpener_set_auto_reoffset(void *self, const bool auto_reoffset){
+  reinterpret_cast<LASreadOpener *>(self)->set_auto_reoffset(auto_reoffset);}
+bool LASreadOpener_is_auto_reoffset(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_auto_reoffset();}
+void LASreadOpener_set_files_are_flightlines(void *self, const int files_are_flightlines){
+  reinterpret_cast<LASreadOpener *>(self)->set_files_are_flightlines(files_are_flightlines);}
+int LASreadOpener_are_files_flightlines(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->are_files_flightlines();}
+void LASreadOpener_set_files_are_flightlines_index(void *self, const int files_are_flightlines_index){
+  reinterpret_cast<LASreadOpener *>(self)->set_files_are_flightlines_index(files_are_flightlines_index);}
+int LASreadOpener_get_files_flight_index(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_files_flight_index();}
+void LASreadOpener_set_apply_file_source_ID(void *self, const bool apply_file_source_ID){
+  reinterpret_cast<LASreadOpener *>(self)->set_apply_file_source_ID(apply_file_source_ID);}
+bool LASreadOpener_applying_file_source_ID(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->applying_file_source_ID();}
+void LASreadOpener_set_scale_factor(void *self, const void * scale_factor){
+  reinterpret_cast<LASreadOpener *>(self)->set_scale_factor(
+	reinterpret_cast<const double *>(scale_factor));}
+const void * LASreadOpener_get_scale_factor(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_scale_factor());}
+void LASreadOpener_set_offset(void *self, const void * offset){
+  reinterpret_cast<LASreadOpener *>(self)->set_offset(
+	reinterpret_cast<const double *>(offset));}
+const void * LASreadOpener_get_offset(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_offset());}
+void LASreadOpener_set_translate_intensity(void *self, const float translation){
+  reinterpret_cast<LASreadOpener *>(self)->set_translate_intensity(translation);}
+void LASreadOpener_set_scale_intensity(void *self, const float scale){
+  reinterpret_cast<LASreadOpener *>(self)->set_scale_intensity(scale);}
+void LASreadOpener_set_translate_scan_angle(void *self, const float translate_scan_angle){
+  reinterpret_cast<LASreadOpener *>(self)->set_translate_scan_angle(translate_scan_angle);}
+void LASreadOpener_set_scale_scan_angle(void *self, const float scale_scan_angle){
+  reinterpret_cast<LASreadOpener *>(self)->set_scale_scan_angle(scale_scan_angle);}
+void LASreadOpener_add_attribute(void *self, int data_type, const void * name, const void * description, double scale, double offset, double pre_scale, double pre_offset, double no_data){
+  reinterpret_cast<LASreadOpener *>(self)->add_attribute(data_type,
+	reinterpret_cast<const char *>(name),
+	reinterpret_cast<const char *>(description), scale, offset, pre_scale, pre_offset, no_data);}
+bool LASreadOpener_set_point_type(void *self, unsigned char point_type){
+  return reinterpret_cast<LASreadOpener *>(self)->set_point_type(point_type);}
+void LASreadOpener_set_parse_string(void *self, const void * parse_string){
+  reinterpret_cast<LASreadOpener *>(self)->set_parse_string(
+	reinterpret_cast<const char *>(parse_string));}
+void LASreadOpener_set_skip_lines(void *self, const unsigned int number_of_lines){
+  reinterpret_cast<LASreadOpener *>(self)->set_skip_lines(number_of_lines);}
+void LASreadOpener_set_populate_header(void *self, bool populate_header){
+  reinterpret_cast<LASreadOpener *>(self)->set_populate_header(populate_header);}
+void LASreadOpener_set_keep_lastiling(void *self, bool keep_lastiling){
+  reinterpret_cast<LASreadOpener *>(self)->set_keep_lastiling(keep_lastiling);}
+void LASreadOpener_set_pipe_on(void *self, bool pipe_on){
+  reinterpret_cast<LASreadOpener *>(self)->set_pipe_on(pipe_on);}
+const void * LASreadOpener_get_parse_string(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_parse_string());}
+void LASreadOpener_usage(void *self){
+  reinterpret_cast<const LASreadOpener *>(self)->usage();}
+void LASreadOpener_set_decompress_selective(void *self, unsigned int decompress_selective){
+  reinterpret_cast<LASreadOpener *>(self)->set_decompress_selective(decompress_selective);}
+void LASreadOpener_set_inside_tile(void *self, const float ll_x, const float ll_y, const float size){
+  reinterpret_cast<LASreadOpener *>(self)->set_inside_tile(ll_x, ll_y, size);}
+void LASreadOpener_set_inside_circle(void *self, const double center_x, const double center_y, const double radius){
+  reinterpret_cast<LASreadOpener *>(self)->set_inside_circle(center_x, center_y, radius);}
+void LASreadOpener_set_inside_rectangle(void *self, const double min_x, const double min_y, const double max_x, const double max_y){
+  reinterpret_cast<LASreadOpener *>(self)->set_inside_rectangle(min_x, min_y, max_x, max_y);}
+bool LASreadOpener_parse(void *self, int argc, void * argv, bool parse_ignore){
+  return reinterpret_cast<LASreadOpener *>(self)->parse(argc,
+	reinterpret_cast<char **>(argv), parse_ignore);}
+bool LASreadOpener_is_piped(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_piped();}
+bool LASreadOpener_is_buffered(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_buffered();}
+bool LASreadOpener_is_header_populated(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_header_populated();}
+bool LASreadOpener_active(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->active();}
+bool LASreadOpener_is_inside(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->is_inside();}
+int LASreadOpener_unparse(void *self, void * string){
+  return reinterpret_cast<const LASreadOpener *>(self)->unparse(
+	reinterpret_cast<char *>(string));}
+void LASreadOpener_set_filter(void *self, void * filter){
+  reinterpret_cast<LASreadOpener *>(self)->set_filter(
+	reinterpret_cast<LASfilter *>(filter));}
+void * LASreadOpener_get_filter(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<LASreadOpener *>(self)->get_filter());}
+void LASreadOpener_set_transform(void *self, void * transform){
+  reinterpret_cast<LASreadOpener *>(self)->set_transform(
+	reinterpret_cast<LAStransform *>(transform));}
+void * LASreadOpener_get_transform(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<LASreadOpener *>(self)->get_transform());}
+void LASreadOpener_set_ignore(void *self, void * ignore){
+  reinterpret_cast<LASreadOpener *>(self)->set_ignore(
+	reinterpret_cast<LASignore *>(ignore));}
+void * LASreadOpener_get_ignore(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<LASreadOpener *>(self)->get_ignore());}
+void LASreadOpener_reset(void *self){
+  reinterpret_cast<LASreadOpener *>(self)->reset();}
+const void * LASreadOpener_get_temp_file_base(void *self){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_temp_file_base());}
+void * LASreadOpener_open(void *self, const void * other_file_name, bool reset_after_other){
+  return reinterpret_cast<void * >(reinterpret_cast<LASreadOpener *>(self)->open(
+	reinterpret_cast<const char *>(other_file_name), reset_after_other));}
+bool LASreadOpener_reopen(void *self, void * lasreader, bool remain_buffered){
+  return reinterpret_cast<LASreadOpener *>(self)->reopen(
+	reinterpret_cast<LASreader *>(lasreader), remain_buffered);}
+void * LASreadOpener_open_waveform13(void *self, const void * lasheader){
+  return reinterpret_cast<void * >(reinterpret_cast<LASreadOpener *>(self)->open_waveform13(
+	reinterpret_cast<const LASheader *>(lasheader)));}
+int LASreadOpener_get_number_attributes(void *self){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_number_attributes();}
+int LASreadOpener_get_attribute_data_type(void *self, unsigned int index){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_attribute_data_type(index);}
+const void * LASreadOpener_get_attribute_name(void *self, unsigned int index){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_attribute_name(index));}
+const void * LASreadOpener_get_attribute_description(void *self, unsigned int index){
+  return reinterpret_cast<const void * >(reinterpret_cast<const LASreadOpener *>(self)->get_attribute_description(index));}
+double LASreadOpener_get_attribute_scale(void *self, unsigned int index){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_attribute_scale(index);}
+double LASreadOpener_get_attribute_offset(void *self, unsigned int index){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_attribute_offset(index);}
+double LASreadOpener_get_attribute_no_data(void *self, unsigned int index){
+  return reinterpret_cast<const LASreadOpener *>(self)->get_attribute_no_data(index);}
+void *LASreadOpener_create(){
+  return reinterpret_cast<void *>(new LASreadOpener());
+}
+void LASreadOpener_destroy(void *self){
+  delete reinterpret_cast<LASreadOpener*>(self);
+}
+
+
+// LASreaderLAS
+void LASreaderLAS_set_delete_stream(void *self, bool delete_stream){
+  reinterpret_cast<LASreaderLAS *>(self)->set_delete_stream(delete_stream);}
+bool LASreaderLAS_open(void *self, const void * file_name, int io_buffer_size, bool peek_only, unsigned int decompress_selective){
+  return reinterpret_cast<LASreaderLAS *>(self)->open(
+	reinterpret_cast<const char *>(file_name), io_buffer_size, peek_only, decompress_selective);}
+bool LASreaderLAS_open_1(void *self, void * file, bool peek_only, unsigned int decompress_selective){
+  return reinterpret_cast<LASreaderLAS *>(self)->open(
+	reinterpret_cast<_IO_FILE *>(file), peek_only, decompress_selective);}
+bool LASreaderLAS_open_3(void *self, void * stream, bool peek_only, unsigned int decompress_selective){
+  return reinterpret_cast<LASreaderLAS *>(self)->open(
+	reinterpret_cast<ByteStreamIn *>(stream), peek_only, decompress_selective);}
+int LASreaderLAS_get_format(void *self){
+  return reinterpret_cast<const LASreaderLAS *>(self)->get_format();}
+bool LASreaderLAS_seek(void *self, const long long p_index){
+  return reinterpret_cast<LASreaderLAS *>(self)->seek(p_index);}
+void * LASreaderLAS_get_stream(void *self){
+  return reinterpret_cast<void * >(reinterpret_cast<const LASreaderLAS *>(self)->get_stream());}
+void LASreaderLAS_close(void *self, bool close_stream){
+  reinterpret_cast<LASreaderLAS *>(self)->close(close_stream);}
+void *LASreaderLAS_create(){
+  return reinterpret_cast<void *>(new LASreaderLAS());
+}
+void LASreaderLAS_destroy(void *self){
+  delete reinterpret_cast<LASreaderLAS*>(self);
+}
+
+
+// LASreaderLASrescale
+void *LASreaderLASrescale_create(double x_scale_factor, double y_scale_factor, double z_scale_factor, bool check_for_overflow){
+  return reinterpret_cast<void *>(new LASreaderLASrescale(x_scale_factor, y_scale_factor, z_scale_factor, check_for_overflow));
+}
+
+
+// LASreaderLASreoffset
+void *LASreaderLASreoffset_create(double x_offset, double y_offset, double z_offset){
+  return reinterpret_cast<void *>(new LASreaderLASreoffset(x_offset, y_offset, z_offset));
+}
+void *LASreaderLASreoffset_create_1(){
+  return reinterpret_cast<void *>(new LASreaderLASreoffset());
+}
+
+
+// LASreaderLASrescalereoffset
+void *LASreaderLASrescalereoffset_create(double x_scale_factor, double y_scale_factor, double z_scale_factor, double x_offset, double y_offset, double z_offset){
+  return reinterpret_cast<void *>(new LASreaderLASrescalereoffset(x_scale_factor, y_scale_factor, z_scale_factor, x_offset, y_offset, z_offset));
+}
+void *LASreaderLASrescalereoffset_create_1(double x_scale_factor, double y_scale_factor, double z_scale_factor){
+  return reinterpret_cast<void *>(new LASreaderLASrescalereoffset(x_scale_factor, y_scale_factor, z_scale_factor));
 }
 #ifdef __cplusplus
 }
