@@ -1,6 +1,6 @@
-pub type Result<T> = std::result::Result<T, failure::Error>;
+pub type LasPoint = lastools_sys::LASpoint;
 
 pub mod reader;
 pub use reader::LasReader;
 
-pub mod point;
+pub mod iter;

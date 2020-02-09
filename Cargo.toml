@@ -9,4 +9,3 @@ license = "MIT"
 
 [dependencies]
 lastools-sys = { path = "lastools-sys" }
-failure = "0.1.6"

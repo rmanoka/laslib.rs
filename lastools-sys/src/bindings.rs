@@ -2,2965 +2,5996 @@
 
 #[allow(non_snake_case, non_camel_case_types, non_upper_case_globals)]
 pub mod root {
+    #[repr(C)]
+    #[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    pub struct __BindgenBitfieldUnit<Storage, Align> {
+        storage: Storage,
+        align: [Align; 0],
+    }
+    impl<Storage, Align> __BindgenBitfieldUnit<Storage, Align> {
+        #[inline]
+        pub const fn new(storage: Storage) -> Self {
+            Self { storage, align: [] }
+        }
+    }
+    impl<Storage, Align> __BindgenBitfieldUnit<Storage, Align>
+    where
+        Storage: AsRef<[u8]> + AsMut<[u8]>,
+    {
+        #[inline]
+        pub fn get_bit(&self, index: usize) -> bool {
+            debug_assert!(index / 8 < self.storage.as_ref().len());
+            let byte_index = index / 8;
+            let byte = self.storage.as_ref()[byte_index];
+            let bit_index = if cfg!(target_endian = "big") {
+                7 - (index % 8)
+            } else {
+                index % 8
+            };
+            let mask = 1 << bit_index;
+            byte & mask == mask
+        }
+        #[inline]
+        pub fn set_bit(&mut self, index: usize, val: bool) {
+            debug_assert!(index / 8 < self.storage.as_ref().len());
+            let byte_index = index / 8;
+            let byte = &mut self.storage.as_mut()[byte_index];
+            let bit_index = if cfg!(target_endian = "big") {
+                7 - (index % 8)
+            } else {
+                index % 8
+            };
+            let mask = 1 << bit_index;
+            if val {
+                *byte |= mask;
+            } else {
+                *byte &= !mask;
+            }
+        }
+        #[inline]
+        pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
+            debug_assert!(bit_width <= 64);
+            debug_assert!(bit_offset / 8 < self.storage.as_ref().len());
+            debug_assert!((bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len());
+            let mut val = 0;
+            for i in 0..(bit_width as usize) {
+                if self.get_bit(i + bit_offset) {
+                    let index = if cfg!(target_endian = "big") {
+                        bit_width as usize - 1 - i
+                    } else {
+                        i
+                    };
+                    val |= 1 << index;
+                }
+            }
+            val
+        }
+        #[inline]
+        pub fn set(&mut self, bit_offset: usize, bit_width: u8, val: u64) {
+            debug_assert!(bit_width <= 64);
+            debug_assert!(bit_offset / 8 < self.storage.as_ref().len());
+            debug_assert!((bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len());
+            for i in 0..(bit_width as usize) {
+                let mask = 1 << i;
+                let val_bit_is_set = val & mask == mask;
+                let index = if cfg!(target_endian = "big") {
+                    bit_width as usize - 1 - i
+                } else {
+                    i
+                };
+                self.set_bit(index + bit_offset, val_bit_is_set);
+            }
+        }
+    }
     #[allow(unused_imports)]
     use self::super::root;
-    extern "C" {
-        pub fn LASvlr_lastiling_field_level(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
+    pub type FILE = [u64; 27usize];
+    pub mod std {
+        #[allow(unused_imports)]
+        use self::super::super::root;
+        pub type istream = [u64; 35usize];
+    }
+    pub mod __gnu_cxx {
+        #[allow(unused_imports)]
+        use self::super::super::root;
+    }
+    pub type CHAR = u8;
+    pub type I32 = i32;
+    pub type I16 = i16;
+    pub type I8 = i8;
+    pub type U32 = u32;
+    pub type U16 = u16;
+    pub type U8 = u8;
+    pub type U64 = u64;
+    pub type I64 = i64;
+    pub type F32 = f32;
+    pub type F64 = f64;
+    pub type BOOL = bool;
+    #[repr(C)]
+    #[repr(align(8))]
+    #[derive(Copy, Clone)]
+    pub union U64I64F64 {
+        pub _bindgen_opaque_blob: u64,
+    }
+    #[test]
+    fn bindgen_test_layout_U64I64F64() {
+        assert_eq!(
+            ::std::mem::size_of::<U64I64F64>(),
+            8usize,
+            concat!("Size of: ", stringify!(U64I64F64))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<U64I64F64>(),
+            8usize,
+            concat!("Alignment of ", stringify!(U64I64F64))
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr_lastiling {
+        pub level: root::U32,
+        pub level_index: root::U32,
+        pub _bitfield_1: root::__BindgenBitfieldUnit<[u8; 4usize], u32>,
+        pub min_x: root::F32,
+        pub max_x: root::F32,
+        pub min_y: root::F32,
+        pub max_y: root::F32,
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr_lastiling() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr_lastiling>(),
+            28usize,
+            concat!("Size of: ", stringify!(LASvlr_lastiling))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr_lastiling>(),
+            4usize,
+            concat!("Alignment of ", stringify!(LASvlr_lastiling))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lastiling>())).level as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lastiling),
+                "::",
+                stringify!(level)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_lastiling>())).level_index as *const _ as usize
+            },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lastiling),
+                "::",
+                stringify!(level_index)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lastiling>())).min_x as *const _ as usize },
+            12usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lastiling),
+                "::",
+                stringify!(min_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lastiling>())).max_x as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lastiling),
+                "::",
+                stringify!(max_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lastiling>())).min_y as *const _ as usize },
+            20usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lastiling),
+                "::",
+                stringify!(min_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lastiling>())).max_y as *const _ as usize },
+            24usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lastiling),
+                "::",
+                stringify!(max_y)
+            )
+        );
+    }
+    impl LASvlr_lastiling {
+        #[inline]
+        pub fn implicit_levels(&self) -> root::U32 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 30u8) as u32) }
+        }
+        #[inline]
+        pub fn set_implicit_levels(&mut self, val: root::U32) {
+            unsafe {
+                let val: u32 = ::std::mem::transmute(val);
+                self._bitfield_1.set(0usize, 30u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn buffer(&self) -> root::U32 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(30usize, 1u8) as u32) }
+        }
+        #[inline]
+        pub fn set_buffer(&mut self, val: root::U32) {
+            unsafe {
+                let val: u32 = ::std::mem::transmute(val);
+                self._bitfield_1.set(30usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn reversible(&self) -> root::U32 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(31usize, 1u8) as u32) }
+        }
+        #[inline]
+        pub fn set_reversible(&mut self, val: root::U32) {
+            unsafe {
+                let val: u32 = ::std::mem::transmute(val);
+                self._bitfield_1.set(31usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn new_bitfield_1(
+            implicit_levels: root::U32,
+            buffer: root::U32,
+            reversible: root::U32,
+        ) -> root::__BindgenBitfieldUnit<[u8; 4usize], u32> {
+            let mut __bindgen_bitfield_unit: root::__BindgenBitfieldUnit<[u8; 4usize], u32> =
+                Default::default();
+            __bindgen_bitfield_unit.set(0usize, 30u8, {
+                let implicit_levels: u32 = unsafe { ::std::mem::transmute(implicit_levels) };
+                implicit_levels as u64
+            });
+            __bindgen_bitfield_unit.set(30usize, 1u8, {
+                let buffer: u32 = unsafe { ::std::mem::transmute(buffer) };
+                buffer as u64
+            });
+            __bindgen_bitfield_unit.set(31usize, 1u8, {
+                let reversible: u32 = unsafe { ::std::mem::transmute(reversible) };
+                reversible as u64
+            });
+            __bindgen_bitfield_unit
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr_lasoriginal {
+        pub number_of_point_records: root::I64,
+        pub number_of_points_by_return: [root::I64; 15usize],
+        pub max_x: root::F64,
+        pub min_x: root::F64,
+        pub max_y: root::F64,
+        pub min_y: root::F64,
+        pub max_z: root::F64,
+        pub min_z: root::F64,
+        pub position: root::I64,
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr_lasoriginal() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr_lasoriginal>(),
+            184usize,
+            concat!("Size of: ", stringify!(LASvlr_lasoriginal))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr_lasoriginal>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASvlr_lasoriginal))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_lasoriginal>())).number_of_point_records as *const _
+                    as usize
+            },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(number_of_point_records)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_lasoriginal>())).number_of_points_by_return
+                    as *const _ as usize
+            },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(number_of_points_by_return)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).max_x as *const _ as usize },
+            128usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(max_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).min_x as *const _ as usize },
+            136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(min_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).max_y as *const _ as usize },
+            144usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(max_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).min_y as *const _ as usize },
+            152usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(min_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).max_z as *const _ as usize },
+            160usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(max_z)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).min_z as *const _ as usize },
+            168usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(min_z)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_lasoriginal>())).position as *const _ as usize },
+            176usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_lasoriginal),
+                "::",
+                stringify!(position)
+            )
+        );
+    }
+    pub type SIGNED_INT64 = u64;
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASitem {
+        pub type_: root::LASitem_Type,
+        pub size: ::std::os::raw::c_ushort,
+        pub version: ::std::os::raw::c_ushort,
+    }
+    pub const LASitem_Type_BYTE: root::LASitem_Type = 0;
+    pub const LASitem_Type_SHORT: root::LASitem_Type = 1;
+    pub const LASitem_Type_INT: root::LASitem_Type = 2;
+    pub const LASitem_Type_LONG: root::LASitem_Type = 3;
+    pub const LASitem_Type_FLOAT: root::LASitem_Type = 4;
+    pub const LASitem_Type_DOUBLE: root::LASitem_Type = 5;
+    pub const LASitem_Type_POINT10: root::LASitem_Type = 6;
+    pub const LASitem_Type_GPSTIME11: root::LASitem_Type = 7;
+    pub const LASitem_Type_RGB12: root::LASitem_Type = 8;
+    pub const LASitem_Type_WAVEPACKET13: root::LASitem_Type = 9;
+    pub const LASitem_Type_POINT14: root::LASitem_Type = 10;
+    pub const LASitem_Type_RGB14: root::LASitem_Type = 11;
+    pub const LASitem_Type_RGBNIR14: root::LASitem_Type = 12;
+    pub const LASitem_Type_WAVEPACKET14: root::LASitem_Type = 13;
+    pub const LASitem_Type_BYTE14: root::LASitem_Type = 14;
+    pub type LASitem_Type = u32;
+    #[test]
+    fn bindgen_test_layout_LASitem() {
+        assert_eq!(
+            ::std::mem::size_of::<LASitem>(),
+            8usize,
+            concat!("Size of: ", stringify!(LASitem))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASitem>(),
+            4usize,
+            concat!("Alignment of ", stringify!(LASitem))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASitem>())).type_ as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASitem),
+                "::",
+                stringify!(type_)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASitem>())).size as *const _ as usize },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASitem),
+                "::",
+                stringify!(size)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASitem>())).version as *const _ as usize },
+            6usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASitem),
+                "::",
+                stringify!(version)
+            )
+        );
     }
     extern "C" {
-        pub fn LASvlr_lastiling_field_level_index(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
+        #[link_name = "\u{1}_ZNK7LASitem7is_typeENS_4TypeE"]
+        pub fn LASitem_is_type(this: *const root::LASitem, t: root::LASitem_Type) -> bool;
     }
     extern "C" {
-        pub fn LASvlr_lastiling_field_min_x(self_: *mut ::std::os::raw::c_void) -> *mut f32;
+        #[link_name = "\u{1}_ZNK7LASitem8get_nameEv"]
+        pub fn LASitem_get_name(this: *const root::LASitem) -> *const ::std::os::raw::c_char;
+    }
+    impl LASitem {
+        #[inline]
+        pub unsafe fn is_type(&self, t: root::LASitem_Type) -> bool {
+            LASitem_is_type(self, t)
+        }
+        #[inline]
+        pub unsafe fn get_name(&self) -> *const ::std::os::raw::c_char {
+            LASitem_get_name(self)
+        }
+    }
+    #[repr(C)]
+    pub struct LASzip {
+        pub bytes: *mut ::std::os::raw::c_uchar,
+        pub compressor: ::std::os::raw::c_ushort,
+        pub coder: ::std::os::raw::c_ushort,
+        pub version_major: ::std::os::raw::c_uchar,
+        pub version_minor: ::std::os::raw::c_uchar,
+        pub version_revision: ::std::os::raw::c_ushort,
+        pub options: ::std::os::raw::c_uint,
+        pub chunk_size: ::std::os::raw::c_uint,
+        pub number_of_special_evlrs: root::SIGNED_INT64,
+        pub offset_to_special_evlrs: root::SIGNED_INT64,
+        pub num_items: ::std::os::raw::c_ushort,
+        pub items: *mut root::LASitem,
+        pub error_string: *mut ::std::os::raw::c_char,
+    }
+    #[test]
+    fn bindgen_test_layout_LASzip() {
+        assert_eq!(
+            ::std::mem::size_of::<LASzip>(),
+            64usize,
+            concat!("Size of: ", stringify!(LASzip))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASzip>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASzip))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).bytes as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(bytes)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).compressor as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(compressor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).coder as *const _ as usize },
+            10usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(coder)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).version_major as *const _ as usize },
+            12usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(version_major)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).version_minor as *const _ as usize },
+            13usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(version_minor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).version_revision as *const _ as usize },
+            14usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(version_revision)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).options as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(options)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).chunk_size as *const _ as usize },
+            20usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(chunk_size)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASzip>())).number_of_special_evlrs as *const _ as usize
+            },
+            24usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(number_of_special_evlrs)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASzip>())).offset_to_special_evlrs as *const _ as usize
+            },
+            32usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(offset_to_special_evlrs)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).num_items as *const _ as usize },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(num_items)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).items as *const _ as usize },
+            48usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(items)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASzip>())).error_string as *const _ as usize },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASzip),
+                "::",
+                stringify!(error_string)
+            )
+        );
     }
     extern "C" {
-        pub fn LASvlr_lastiling_field_max_x(self_: *mut ::std::os::raw::c_void) -> *mut f32;
-    }
-    extern "C" {
-        pub fn LASvlr_lastiling_field_min_y(self_: *mut ::std::os::raw::c_void) -> *mut f32;
-    }
-    extern "C" {
-        pub fn LASvlr_lastiling_field_max_y(self_: *mut ::std::os::raw::c_void) -> *mut f32;
-    }
-    extern "C" {
-        pub fn LASvlr_lastiling_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_number_of_point_records(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_number_of_points_by_return(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_max_x(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_min_x(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_max_y(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_min_y(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_max_z(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_min_z(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_field_position(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASvlr_lasoriginal_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASitem_field_type(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASitem_field_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASitem_field_version(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASitem_get_name(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip16check_compressorEt"]
         pub fn LASzip_check_compressor(
-            self_: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
             compressor: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_check_coder(
-            self_: *mut ::std::os::raw::c_void,
-            coder: ::std::os::raw::c_ushort,
-        ) -> bool;
+        #[link_name = "\u{1}_ZN6LASzip11check_coderEt"]
+        pub fn LASzip_check_coder(this: *mut root::LASzip, coder: ::std::os::raw::c_ushort)
+            -> bool;
     }
     extern "C" {
-        pub fn LASzip_check_item(
-            self_: *mut ::std::os::raw::c_void,
-            item: *const ::std::os::raw::c_void,
-        ) -> bool;
+        #[link_name = "\u{1}_ZN6LASzip10check_itemEPK7LASitem"]
+        pub fn LASzip_check_item(this: *mut root::LASzip, item: *const root::LASitem) -> bool;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip11check_itemsEtPK7LASitemt"]
         pub fn LASzip_check_items(
-            self_: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
             num_items: ::std::os::raw::c_ushort,
-            items: *const ::std::os::raw::c_void,
+            items: *const root::LASitem,
             point_size: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_check(
-            self_: *mut ::std::os::raw::c_void,
-            point_size: ::std::os::raw::c_ushort,
-        ) -> bool;
+        #[link_name = "\u{1}_ZN6LASzip5checkEt"]
+        pub fn LASzip_check(this: *mut root::LASzip, point_size: ::std::os::raw::c_ushort) -> bool;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip5setupEPtPP7LASitemhtt"]
         pub fn LASzip_setup(
-            self_: *mut ::std::os::raw::c_void,
-            num_items: *mut ::std::os::raw::c_void,
-            items: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
+            num_items: *mut ::std::os::raw::c_ushort,
+            items: *mut *mut root::LASitem,
             point_type: ::std::os::raw::c_uchar,
             point_size: ::std::os::raw::c_ushort,
             compressor: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip11is_standardEtPK7LASitemPhPt"]
         pub fn LASzip_is_standard(
-            self_: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
             num_items: ::std::os::raw::c_ushort,
-            items: *const ::std::os::raw::c_void,
-            point_type: *mut ::std::os::raw::c_void,
-            record_length: *mut ::std::os::raw::c_void,
+            items: *const root::LASitem,
+            point_type: *mut ::std::os::raw::c_uchar,
+            record_length: *mut ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_is_standard_1(
-            self_: *mut ::std::os::raw::c_void,
-            point_type: *mut ::std::os::raw::c_void,
-            record_length: *mut ::std::os::raw::c_void,
+        #[link_name = "\u{1}_ZN6LASzip11is_standardEPhPt"]
+        pub fn LASzip_is_standard1(
+            this: *mut root::LASzip,
+            point_type: *mut ::std::os::raw::c_uchar,
+            record_length: *mut ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_field_bytes(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip6unpackEPKhi"]
         pub fn LASzip_unpack(
-            self_: *mut ::std::os::raw::c_void,
-            bytes: *const ::std::os::raw::c_void,
+            this: *mut root::LASzip,
+            bytes: *const ::std::os::raw::c_uchar,
             num: ::std::os::raw::c_int,
         ) -> bool;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip4packERPhRi"]
+        pub fn LASzip_pack(
+            this: *mut root::LASzip,
+            bytes: *mut *mut ::std::os::raw::c_uchar,
+            num: *mut ::std::os::raw::c_int,
+        ) -> bool;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip26request_compatibility_modeEt"]
         pub fn LASzip_request_compatibility_mode(
-            self_: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
             requested_compatibility_mode: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_setup_1(
-            self_: *mut ::std::os::raw::c_void,
+        #[link_name = "\u{1}_ZN6LASzip5setupEhtt"]
+        pub fn LASzip_setup1(
+            this: *mut root::LASzip,
             point_type: ::std::os::raw::c_uchar,
             point_size: ::std::os::raw::c_ushort,
             compressor: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_setup_2(
-            self_: *mut ::std::os::raw::c_void,
+        #[link_name = "\u{1}_ZN6LASzip5setupEtPK7LASitemt"]
+        pub fn LASzip_setup2(
+            this: *mut root::LASzip,
             num_items: ::std::os::raw::c_ushort,
-            items: *const ::std::os::raw::c_void,
+            items: *const root::LASitem,
             compressor: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip14set_chunk_sizeEj"]
         pub fn LASzip_set_chunk_size(
-            self_: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
             chunk_size: ::std::os::raw::c_uint,
         ) -> bool;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN6LASzip15request_versionEt"]
         pub fn LASzip_request_version(
-            self_: *mut ::std::os::raw::c_void,
+            this: *mut root::LASzip,
             requested_version: ::std::os::raw::c_ushort,
         ) -> bool;
     }
     extern "C" {
-        pub fn LASzip_get_error(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASzip_field_compressor(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASzip_field_coder(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASzip_field_version_major(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASzip_field_version_minor(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASzip_field_version_revision(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASzip_field_options(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASzip_field_chunk_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASzip_field_number_of_special_evlrs(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASzip_field_offset_to_special_evlrs(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASzip_field_num_items(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASzip_field_items(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASzip_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASzip_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASquantizer_field_x_scale_factor(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_field_y_scale_factor(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_field_z_scale_factor(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_field_x_offset(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_field_y_offset(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_field_z_offset(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_get_x(
-            self_: *mut ::std::os::raw::c_void,
-            X: ::std::os::raw::c_int,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_get_y(
-            self_: *mut ::std::os::raw::c_void,
-            Y: ::std::os::raw::c_int,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_get_z(
-            self_: *mut ::std::os::raw::c_void,
-            Z: ::std::os::raw::c_int,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASquantizer_get_X(
-            self_: *mut ::std::os::raw::c_void,
-            x: f64,
-        ) -> ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASquantizer_get_Y(
-            self_: *mut ::std::os::raw::c_void,
-            y: f64,
-        ) -> ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASquantizer_get_Z(
-            self_: *mut ::std::os::raw::c_void,
-            z: f64,
-        ) -> ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASquantizer_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_reserved(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_data_type(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASattribute_field_options(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASattribute_field_name(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_unused(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_no_data(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_min(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_max(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_scale(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_offset(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_field_description(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_create(size: ::std::os::raw::c_uchar) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_create_1(
-            type_: ::std::os::raw::c_uint,
-            name: *const ::std::os::raw::c_void,
-            description: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_uchar,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_1(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_char,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_2(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_ushort,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_3(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_short,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_4(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_uint,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_5(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_int,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_6(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_ulonglong,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_7(
-            self_: *mut ::std::os::raw::c_void,
-            no_data: ::std::os::raw::c_longlong,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_8(self_: *mut ::std::os::raw::c_void, no_data: f32)
-            -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_no_data_9(self_: *mut ::std::os::raw::c_void, no_data: f64)
-            -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min(
-            self_: *mut ::std::os::raw::c_void,
-            min: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASattribute_update_min(
-            self_: *mut ::std::os::raw::c_void,
-            min: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_1(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_uchar,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_2(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_char,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_3(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_ushort,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_4(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_short,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_5(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_uint,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_6(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_int,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_7(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_ulonglong,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_8(
-            self_: *mut ::std::os::raw::c_void,
-            min: ::std::os::raw::c_longlong,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_9(self_: *mut ::std::os::raw::c_void, min: f32) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_min_10(self_: *mut ::std::os::raw::c_void, min: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max(
-            self_: *mut ::std::os::raw::c_void,
-            max: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASattribute_update_max(
-            self_: *mut ::std::os::raw::c_void,
-            max: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_1(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_uchar,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_2(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_char,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_3(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_ushort,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_4(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_short,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_5(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_uint,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_6(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_int,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_7(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_ulonglong,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_8(
-            self_: *mut ::std::os::raw::c_void,
-            max: ::std::os::raw::c_longlong,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_9(self_: *mut ::std::os::raw::c_void, max: f32) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_max_10(self_: *mut ::std::os::raw::c_void, max: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_scale(self_: *mut ::std::os::raw::c_void, scale: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_set_offset(self_: *mut ::std::os::raw::c_void, offset: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_unset_scale(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_unset_offset(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_has_no_data(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_has_min(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_has_max(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_has_scale(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_has_offset(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASattribute_get_size(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASattribute_get_value_as_float(
-            self_: *mut ::std::os::raw::c_void,
-            pointer: *mut ::std::os::raw::c_void,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASattribute_set_value_as_float(
-            self_: *mut ::std::os::raw::c_void,
-            pointer: *mut ::std::os::raw::c_void,
-            value: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASattributer_field_attributes_linked(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut bool;
-    }
-    extern "C" {
-        pub fn LASattributer_field_number_attributes(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASattributer_field_attributes(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattributer_field_attribute_starts(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattributer_field_attribute_sizes(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattributer_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattributer_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASattributer_clean_attributes(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASattributer_init_attributes(
-            self_: *mut ::std::os::raw::c_void,
-            number_attributes: ::std::os::raw::c_uint,
-            attributes: *mut ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattributer_get_attributes_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_short;
-    }
-    extern "C" {
-        pub fn LASattributer_get_attribute_index(
-            self_: *mut ::std::os::raw::c_void,
-            name: *const ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASattributer_get_attribute_start(
-            self_: *mut ::std::os::raw::c_void,
-            name: *const ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASattributer_get_attribute_start_1(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASattributer_get_attribute_size(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASattributer_get_attribute_name(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASattributer_remove_attribute(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_int,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASattributer_remove_attribute_1(
-            self_: *mut ::std::os::raw::c_void,
-            name: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASwavepacket_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASwavepacket_zero(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASwavepacket_getIndex(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASwavepacket_getOffset(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_ulonglong;
-    }
-    extern "C" {
-        pub fn LASwavepacket_getSize(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwavepacket_getLocation(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASwavepacket_getXt(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASwavepacket_getYt(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASwavepacket_getZt(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASwavepacket_setIndex(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASwavepacket_setOffset(
-            self_: *mut ::std::os::raw::c_void,
-            offset: ::std::os::raw::c_ulonglong,
-        );
-    }
-    extern "C" {
-        pub fn LASwavepacket_setSize(
-            self_: *mut ::std::os::raw::c_void,
-            size: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASwavepacket_setLocation(self_: *mut ::std::os::raw::c_void, location: f32);
-    }
-    extern "C" {
-        pub fn LASwavepacket_setXt(self_: *mut ::std::os::raw::c_void, xt: f32);
-    }
-    extern "C" {
-        pub fn LASwavepacket_setYt(self_: *mut ::std::os::raw::c_void, yt: f32);
-    }
-    extern "C" {
-        pub fn LASwavepacket_setZt(self_: *mut ::std::os::raw::c_void, zt: f32);
-    }
-    extern "C" {
-        pub fn LASwavepacket_flipDirection(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASpoint_field_X(self_: *mut ::std::os::raw::c_void) -> *mut ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_field_Y(self_: *mut ::std::os::raw::c_void) -> *mut ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_field_Z(self_: *mut ::std::os::raw::c_void) -> *mut ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_field_intensity(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_field_scan_angle_rank(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_char;
-    }
-    extern "C" {
-        pub fn LASpoint_field_user_data(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_field_point_source_ID(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_field_extended_scan_angle(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_short;
-    }
-    extern "C" {
-        pub fn LASpoint_field_extended_classification(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_field_deleted_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_field_dummy(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_gps_time_change(self_: *mut ::std::os::raw::c_void) -> *mut bool;
-    }
-    extern "C" {
-        pub fn LASpoint_field_gps_time(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASpoint_field_rgb(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_wavepacket(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_extra_bytes(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_quantizer(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_coordinates(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_attributer(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_point(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_field_have_gps_time(self_: *mut ::std::os::raw::c_void) -> *mut bool;
-    }
-    extern "C" {
-        pub fn LASpoint_field_have_rgb(self_: *mut ::std::os::raw::c_void) -> *mut bool;
-    }
-    extern "C" {
-        pub fn LASpoint_field_have_nir(self_: *mut ::std::os::raw::c_void) -> *mut bool;
-    }
-    extern "C" {
-        pub fn LASpoint_field_have_wavepacket(self_: *mut ::std::os::raw::c_void) -> *mut bool;
-    }
-    extern "C" {
-        pub fn LASpoint_field_extra_bytes_number(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_field_total_point_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASpoint_field_num_items(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_field_items(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_copy_to(
-            self_: *mut ::std::os::raw::c_void,
-            buffer: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_copy_from(
-            self_: *mut ::std::os::raw::c_void,
-            buffer: *const ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_init(
-            self_: *mut ::std::os::raw::c_void,
-            quantizer: *const ::std::os::raw::c_void,
+        #[link_name = "\u{1}_ZNK6LASzip9get_errorEv"]
+        pub fn LASzip_get_error(this: *const root::LASzip) -> *const ::std::os::raw::c_char;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN6LASzipC1Ev"]
+        pub fn LASzip_LASzip(this: *mut root::LASzip);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN6LASzipD1Ev"]
+        pub fn LASzip_LASzip_destructor(this: *mut root::LASzip);
+    }
+    impl LASzip {
+        #[inline]
+        pub unsafe fn check_compressor(&mut self, compressor: ::std::os::raw::c_ushort) -> bool {
+            LASzip_check_compressor(self, compressor)
+        }
+        #[inline]
+        pub unsafe fn check_coder(&mut self, coder: ::std::os::raw::c_ushort) -> bool {
+            LASzip_check_coder(self, coder)
+        }
+        #[inline]
+        pub unsafe fn check_item(&mut self, item: *const root::LASitem) -> bool {
+            LASzip_check_item(self, item)
+        }
+        #[inline]
+        pub unsafe fn check_items(
+            &mut self,
+            num_items: ::std::os::raw::c_ushort,
+            items: *const root::LASitem,
+            point_size: ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_check_items(self, num_items, items, point_size)
+        }
+        #[inline]
+        pub unsafe fn check(&mut self, point_size: ::std::os::raw::c_ushort) -> bool {
+            LASzip_check(self, point_size)
+        }
+        #[inline]
+        pub unsafe fn setup(
+            &mut self,
+            num_items: *mut ::std::os::raw::c_ushort,
+            items: *mut *mut root::LASitem,
             point_type: ::std::os::raw::c_uchar,
             point_size: ::std::os::raw::c_ushort,
-            attributer: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_init_1(
-            self_: *mut ::std::os::raw::c_void,
-            quantizer: *const ::std::os::raw::c_void,
-            num_items: ::std::os::raw::c_uint,
-            items: *const ::std::os::raw::c_void,
-            attributer: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_inside_rectangle(
-            self_: *mut ::std::os::raw::c_void,
-            r_min_x: f64,
-            r_min_y: f64,
-            r_max_x: f64,
-            r_max_y: f64,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_inside_tile(
-            self_: *mut ::std::os::raw::c_void,
-            ll_x: f32,
-            ll_y: f32,
-            ur_x: f32,
-            ur_y: f32,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_inside_circle(
-            self_: *mut ::std::os::raw::c_void,
-            center_x: f64,
-            center_y: f64,
-            squared_radius: f64,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_inside_box(
-            self_: *mut ::std::os::raw::c_void,
-            min_x: f64,
-            min_y: f64,
-            min_z: f64,
-            max_x: f64,
-            max_y: f64,
-            max_z: f64,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_inside_bounding_box(
-            self_: *mut ::std::os::raw::c_void,
-            min_x: f64,
-            min_y: f64,
-            min_z: f64,
-            max_x: f64,
-            max_y: f64,
-            max_z: f64,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_zero(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_zero(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASpoint_clean(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASpoint_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_is_first(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_intermediate(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_last(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_single(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_first_of_many(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_last_of_many(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_get_X(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_get_Y(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_get_Z(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASpoint_get_intensity(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_return_number(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_number_of_returns(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_scan_direction_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_edge_of_flight_line(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_classification(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_synthetic_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_keypoint_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_withheld_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_scan_angle_rank(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_char;
-    }
-    extern "C" {
-        pub fn LASpoint_get_user_data(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_point_source_ID(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_deleted_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_gps_time(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASpoint_get_RGB(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_get_RGBI(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_get_RGBI_1(
-            self_: *mut ::std::os::raw::c_void,
-            band: ::std::os::raw::c_uint,
-        ) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_R(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_G(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_B(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_I(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_get_NIR(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASpoint_set_X(self_: *mut ::std::os::raw::c_void, X: ::std::os::raw::c_int);
-    }
-    extern "C" {
-        pub fn LASpoint_set_Y(self_: *mut ::std::os::raw::c_void, Y: ::std::os::raw::c_int);
-    }
-    extern "C" {
-        pub fn LASpoint_set_Z(self_: *mut ::std::os::raw::c_void, Z: ::std::os::raw::c_int);
-    }
-    extern "C" {
-        pub fn LASpoint_set_intensity(
-            self_: *mut ::std::os::raw::c_void,
-            intensity: ::std::os::raw::c_ushort,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_return_number(
-            self_: *mut ::std::os::raw::c_void,
-            return_number: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_number_of_returns(
-            self_: *mut ::std::os::raw::c_void,
-            number_of_returns: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_scan_direction_flag(
-            self_: *mut ::std::os::raw::c_void,
-            scan_direction_flag: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_edge_of_flight_line(
-            self_: *mut ::std::os::raw::c_void,
-            edge_of_flight_line: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_classification(
-            self_: *mut ::std::os::raw::c_void,
-            classification: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_synthetic_flag(
-            self_: *mut ::std::os::raw::c_void,
-            synthetic_flag: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_keypoint_flag(
-            self_: *mut ::std::os::raw::c_void,
-            keypoint_flag: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_withheld_flag(
-            self_: *mut ::std::os::raw::c_void,
-            withheld_flag: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_scan_angle_rank(
-            self_: *mut ::std::os::raw::c_void,
-            scan_angle_rank: ::std::os::raw::c_char,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_user_data(
-            self_: *mut ::std::os::raw::c_void,
-            user_data: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_point_source_ID(
-            self_: *mut ::std::os::raw::c_void,
-            point_source_ID: ::std::os::raw::c_ushort,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_deleted_flag(
-            self_: *mut ::std::os::raw::c_void,
-            deleted_flag: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_gps_time(self_: *mut ::std::os::raw::c_void, gps_time: f64);
-    }
-    extern "C" {
-        pub fn LASpoint_set_RGB(
-            self_: *mut ::std::os::raw::c_void,
-            rgb: *const ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_RGBI(
-            self_: *mut ::std::os::raw::c_void,
-            rgb: *const ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_RGBI_1(
-            self_: *mut ::std::os::raw::c_void,
-            band: ::std::os::raw::c_uint,
-            value: ::std::os::raw::c_ushort,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_R(self_: *mut ::std::os::raw::c_void, R: ::std::os::raw::c_ushort);
-    }
-    extern "C" {
-        pub fn LASpoint_set_G(self_: *mut ::std::os::raw::c_void, G: ::std::os::raw::c_ushort);
-    }
-    extern "C" {
-        pub fn LASpoint_set_B(self_: *mut ::std::os::raw::c_void, B: ::std::os::raw::c_ushort);
-    }
-    extern "C" {
-        pub fn LASpoint_set_I(self_: *mut ::std::os::raw::c_void, I: ::std::os::raw::c_ushort);
-    }
-    extern "C" {
-        pub fn LASpoint_set_NIR(self_: *mut ::std::os::raw::c_void, NIR: ::std::os::raw::c_ushort);
-    }
-    extern "C" {
-        pub fn LASpoint_get_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASpoint_get_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASpoint_get_z(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASpoint_set_x(self_: *mut ::std::os::raw::c_void, x: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_set_y(self_: *mut ::std::os::raw::c_void, y: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_set_z(self_: *mut ::std::os::raw::c_void, z: f64) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_is_extended_point_type(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_get_extended_classification(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_extended_return_number(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_extended_number_of_returns(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_extended_scan_angle(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_short;
-    }
-    extern "C" {
-        pub fn LASpoint_get_extended_overlap_flag(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_get_extended_scanner_channel(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASpoint_set_extended_classification(
-            self_: *mut ::std::os::raw::c_void,
-            extended_classification: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_extended_return_number(
-            self_: *mut ::std::os::raw::c_void,
-            extended_return_number: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_extended_number_of_returns(
-            self_: *mut ::std::os::raw::c_void,
-            extended_number_of_returns: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_extended_scan_angle(
-            self_: *mut ::std::os::raw::c_void,
-            extended_scan_angle: ::std::os::raw::c_short,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_extended_overlap_flag(
-            self_: *mut ::std::os::raw::c_void,
-            extended_overlap_flag: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_extended_scanner_channel(
-            self_: *mut ::std::os::raw::c_void,
-            extended_scanner_channel: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_get_scan_angle(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASpoint_get_abs_scan_angle(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASpoint_set_scan_angle(self_: *mut ::std::os::raw::c_void, scan_angle: f32);
-    }
-    extern "C" {
-        pub fn LASpoint_compute_coordinates(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASpoint_compute_XYZ(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_compute_XYZ_1(
-            self_: *mut ::std::os::raw::c_void,
-            quantizer: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_has_attribute(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_get_attribute(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-            data: *mut ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-            data: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASpoint_get_attribute_name(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASpoint_get_attribute_as_float(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_as_float(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-            value: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_1(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_2(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_char,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_3(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_ushort,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_4(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_short,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_5(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_6(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_int,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_7(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_ulonglong,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_8(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: ::std::os::raw::c_longlong,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_9(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: f32,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_set_attribute_10(
-            self_: *mut ::std::os::raw::c_void,
-            start: ::std::os::raw::c_int,
-            data: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASpoint_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASvlr_field_reserved(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_field_user_id(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_field_record_id(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_field_record_length_after_header(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_field_description(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_field_data(self_: *mut ::std::os::raw::c_void)
-            -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASevlr_field_reserved(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASevlr_field_user_id(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASevlr_field_record_id(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASevlr_field_record_length_after_header(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASevlr_field_description(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASevlr_field_data(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASevlr_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_geo_keys_field_key_directory_version(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_geo_keys_field_key_revision(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_geo_keys_field_minor_revision(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_geo_keys_field_number_of_keys(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_key_entry_field_key_id(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_key_entry_field_tiff_tag_location(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_key_entry_field_count(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_key_entry_field_value_offset(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASvlr_classification_field_class_number(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASvlr_classification_field_description(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_clean(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_getBitsPerSample(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_getCompressionType(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_getNumberOfSamples(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_getTemporalSpacing(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_getDigitizerGain(self_: *mut ::std::os::raw::c_void)
-            -> f64;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_getDigitizerOffset(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_setBitsPerSample(
-            self_: *mut ::std::os::raw::c_void,
-            bps: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_setCompressionType(
-            self_: *mut ::std::os::raw::c_void,
-            compression: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_setNumberOfSamples(
-            self_: *mut ::std::os::raw::c_void,
-            samples: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_setTemporalSpacing(
-            self_: *mut ::std::os::raw::c_void,
-            spacing: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_setDigitizerGain(
-            self_: *mut ::std::os::raw::c_void,
-            gain: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASvlr_wave_packet_descr_setDigitizerOffset(
-            self_: *mut ::std::os::raw::c_void,
-            offset: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_field_file_signature(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_file_source_ID(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_global_encoding(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_project_ID_GUID_data_1(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_project_ID_GUID_data_2(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_project_ID_GUID_data_3(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_project_ID_GUID_data_4(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_version_major(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASheader_field_version_minor(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASheader_field_system_identifier(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_generating_software(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_file_creation_day(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_file_creation_year(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_header_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_offset_to_point_data(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_number_of_variable_length_records(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_point_data_format(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uchar;
-    }
-    extern "C" {
-        pub fn LASheader_field_point_data_record_length(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ushort;
-    }
-    extern "C" {
-        pub fn LASheader_field_number_of_point_records(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_number_of_points_by_return(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_max_x(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASheader_field_min_x(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASheader_field_max_y(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASheader_field_min_y(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASheader_field_max_z(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASheader_field_min_z(self_: *mut ::std::os::raw::c_void) -> *mut f64;
-    }
-    extern "C" {
-        pub fn LASheader_field_start_of_waveform_data_packet_record(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ulonglong;
-    }
-    extern "C" {
-        pub fn LASheader_field_start_of_first_extended_variable_length_record(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ulonglong;
-    }
-    extern "C" {
-        pub fn LASheader_field_number_of_extended_variable_length_records(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_extended_number_of_point_records(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_ulonglong;
-    }
-    extern "C" {
-        pub fn LASheader_field_extended_number_of_points_by_return(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_user_data_in_header_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_user_data_in_header(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlrs(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_evlrs(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_geo_keys(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_geo_key_entries(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_geo_double_params(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_geo_ascii_params(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_geo_ogc_wkt_math(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_geo_ogc_wkt(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_classification(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_wave_packet_descr(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_laszip(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_lastiling(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_vlr_lasoriginal(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_field_user_data_after_header_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASheader_field_user_data_after_header(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_set_bounding_box(
-            self_: *mut ::std::os::raw::c_void,
-            min_x: f64,
-            min_y: f64,
-            min_z: f64,
-            max_x: f64,
-            max_y: f64,
-            max_z: f64,
-            auto_scale: bool,
-            auto_offset: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_set_global_encoding_bit(
-            self_: *mut ::std::os::raw::c_void,
-            bit: ::std::os::raw::c_int,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_unset_global_encoding_bit(
-            self_: *mut ::std::os::raw::c_void,
-            bit: ::std::os::raw::c_int,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_get_global_encoding_bit(
-            self_: *mut ::std::os::raw::c_void,
-            bit: ::std::os::raw::c_int,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_clean_las_header(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_user_data_in_header(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_vlrs(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_evlrs(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_laszip(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_lastiling(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_lasoriginal(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean_user_data_after_header(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_clean(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_unlink(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_check(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_is_compressed(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_is_lonlat(self_: *mut ::std::os::raw::c_void, extend: f32) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_add_vlr(
-            self_: *mut ::std::os::raw::c_void,
-            user_id: *const ::std::os::raw::c_void,
-            record_id: ::std::os::raw::c_ushort,
-            record_length_after_header: ::std::os::raw::c_ushort,
-            data: *mut ::std::os::raw::c_void,
-            keep_description: bool,
-            description: *const ::std::os::raw::c_void,
-            keep_existing: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_get_vlr(
-            self_: *mut ::std::os::raw::c_void,
-            user_id: *const ::std::os::raw::c_void,
-            record_id: ::std::os::raw::c_ushort,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASheader_remove_vlr(
-            self_: *mut ::std::os::raw::c_void,
-            i: ::std::os::raw::c_uint,
-            delete_data: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_remove_vlr_1(
-            self_: *mut ::std::os::raw::c_void,
-            user_id: *const ::std::os::raw::c_void,
-            record_id: ::std::os::raw::c_ushort,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_add_evlr(
-            self_: *mut ::std::os::raw::c_void,
-            user_id: *const ::std::os::raw::c_void,
-            record_id: ::std::os::raw::c_ushort,
-            record_length_after_header: ::std::os::raw::c_longlong,
-            data: *mut ::std::os::raw::c_void,
-            keep_description: bool,
-            description: *const ::std::os::raw::c_void,
-            keep_existing: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_remove_evlr(
-            self_: *mut ::std::os::raw::c_void,
-            i: ::std::os::raw::c_uint,
-            delete_data: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_remove_evlr_1(
-            self_: *mut ::std::os::raw::c_void,
-            user_id: *const ::std::os::raw::c_void,
-            record_id: ::std::os::raw::c_ushort,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_set_lastiling(
-            self_: *mut ::std::os::raw::c_void,
-            level: ::std::os::raw::c_uint,
-            level_index: ::std::os::raw::c_uint,
-            implicit_levels: ::std::os::raw::c_uint,
-            buffer: bool,
-            reversible: bool,
-            min_x: f32,
-            max_x: f32,
-            min_y: f32,
-            max_y: f32,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_set_lasoriginal(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_restore_lasoriginal(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_set_geo_keys(
-            self_: *mut ::std::os::raw::c_void,
-            number_of_keys: ::std::os::raw::c_int,
-            geo_keys: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_set_geo_double_params(
-            self_: *mut ::std::os::raw::c_void,
-            num_geo_double_params: ::std::os::raw::c_int,
-            geo_double_params: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_del_geo_double_params(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_set_geo_ascii_params(
-            self_: *mut ::std::os::raw::c_void,
-            num_geo_ascii_params: ::std::os::raw::c_int,
-            geo_ascii_params: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_del_geo_ascii_params(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_set_geo_wkt_ogc_math(
-            self_: *mut ::std::os::raw::c_void,
-            num_geo_wkt_ogc_math: ::std::os::raw::c_int,
-            geo_wkt_ogc_math: *const ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_del_geo_wkt_ogc_math(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_set_geo_ogc_wkt(
-            self_: *mut ::std::os::raw::c_void,
-            num_geo_ogc_wkt: ::std::os::raw::c_int,
-            geo_ogc_wkt: *const ::std::os::raw::c_void,
-            in_evlr: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASheader_del_geo_ogc_wkt(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASheader_update_extra_bytes_vlr(
-            self_: *mut ::std::os::raw::c_void,
-            keep_description: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASheader_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASignore_usage(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASignore_ignore_class(
-            self_: *mut ::std::os::raw::c_void,
-            classification: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASignore_dont_ignore_class(
-            self_: *mut ::std::os::raw::c_void,
-            classification: ::std::os::raw::c_uchar,
-        );
-    }
-    extern "C" {
-        pub fn LASignore_unparse(
-            self_: *mut ::std::os::raw::c_void,
-            string: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASignore_parse_1(
-            self_: *mut ::std::os::raw::c_void,
-            curr_parameter: ::std::os::raw::c_uint,
-            num_parameters: ::std::os::raw::c_uint,
-            parameters: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASignore_get_decompress_selective(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASignore_ignore(
-            self_: *mut ::std::os::raw::c_void,
-            point: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASignore_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASignore_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreader_field_header(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreader_field_point(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreader_field_npoints(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASreader_field_p_count(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASreader_has_layers(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_set_index(
-            self_: *mut ::std::os::raw::c_void,
-            index: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASreader_get_index(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreader_set_filter(
-            self_: *mut ::std::os::raw::c_void,
-            filter: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASreader_get_filter(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreader_set_transform(
-            self_: *mut ::std::os::raw::c_void,
-            transform: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASreader_get_transform(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreader_set_ignore(
-            self_: *mut ::std::os::raw::c_void,
-            ignore: *mut ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASreader_get_ignore(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreader_get_inside(self_: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASreader_inside_none(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_inside_tile(
-            self_: *mut ::std::os::raw::c_void,
-            ll_x: f32,
-            ll_y: f32,
-            size: f32,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_get_t_ll_x(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASreader_get_t_ll_y(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASreader_get_t_size(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASreader_inside_circle(
-            self_: *mut ::std::os::raw::c_void,
-            center_x: f64,
-            center_y: f64,
-            radius: f64,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_get_c_center_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_c_center_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_c_radius(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_inside_rectangle(
-            self_: *mut ::std::os::raw::c_void,
-            min_x: f64,
-            min_y: f64,
-            max_x: f64,
-            max_y: f64,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_get_r_min_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_r_min_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_r_max_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_r_max_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_read_point(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_ignore_point(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreader_compute_coordinates(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreader_get_min_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_min_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_min_z(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_max_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_max_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_max_z(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_x(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_y(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_z(self_: *mut ::std::os::raw::c_void) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_x_1(
-            self_: *mut ::std::os::raw::c_void,
-            x: ::std::os::raw::c_int,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_y_1(
-            self_: *mut ::std::os::raw::c_void,
-            y: ::std::os::raw::c_int,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_z_1(
-            self_: *mut ::std::os::raw::c_void,
-            z: ::std::os::raw::c_int,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASreader_get_X(
-            self_: *mut ::std::os::raw::c_void,
-            x: f64,
-        ) -> ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASreader_get_Y(
-            self_: *mut ::std::os::raw::c_void,
-            y: f64,
-        ) -> ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASreader_get_Z(
-            self_: *mut ::std::os::raw::c_void,
-            z: f64,
-        ) -> ::std::os::raw::c_longlong;
-    }
-    extern "C" {
-        pub fn LASreader_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreader_dealloc(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_nbits(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_nsamples(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_temporal(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_location(self_: *mut ::std::os::raw::c_void) -> *mut f32;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_XYZt(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_XYZreturn(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_XYZsample(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_s_count(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_sample(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_sampleMin(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_sampleMax(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_field_samples(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_open(
-            self_: *mut ::std::os::raw::c_void,
-            file_name: *const ::std::os::raw::c_void,
-            start_of_waveform_data_packet_record: ::std::os::raw::c_longlong,
-            wave_packet_descr: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_is_compressed(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_read_waveform(
-            self_: *mut ::std::os::raw::c_void,
-            point: *const ::std::os::raw::c_void,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_get_samples(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_has_samples(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_get_samples_xyz(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_has_samples_xyz(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_close(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASwaveform13reader_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_io_ibuffer_size(
-            self_: *mut ::std::os::raw::c_void,
-            buffer_size: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_io_ibuffer_size(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_number(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_current(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_uint;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_only(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_extension_only(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_1(
-            self_: *mut ::std::os::raw::c_void,
-            number: ::std::os::raw::c_uint,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_only_1(
-            self_: *mut ::std::os::raw::c_void,
-            number: ::std::os::raw::c_uint,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_extension_only_1(
-            self_: *mut ::std::os::raw::c_void,
-            number: ::std::os::raw::c_uint,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_base(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_name_base_1(
-            self_: *mut ::std::os::raw::c_void,
-            number: ::std::os::raw::c_uint,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_file_name(
-            self_: *mut ::std::os::raw::c_void,
-            file_name: *const ::std::os::raw::c_void,
-            unique: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_add_file_name(
-            self_: *mut ::std::os::raw::c_void,
-            file_name: *const ::std::os::raw::c_void,
-            unique: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_add_list_of_files(
-            self_: *mut ::std::os::raw::c_void,
-            list_of_files: *const ::std::os::raw::c_void,
-            unique: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_delete_file_name(
-            self_: *mut ::std::os::raw::c_void,
-            file_name_id: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_file_name_current(
-            self_: *mut ::std::os::raw::c_void,
-            file_name_id: ::std::os::raw::c_uint,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_file_format(
-            self_: *mut ::std::os::raw::c_void,
-            number: ::std::os::raw::c_uint,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_merged(self_: *mut ::std::os::raw::c_void, merged: bool);
-    }
-    extern "C" {
-        pub fn LASreadOpener_is_merged(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_stored(self_: *mut ::std::os::raw::c_void, stored: bool);
-    }
-    extern "C" {
-        pub fn LASreadOpener_is_stored(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_buffer_size(self_: *mut ::std::os::raw::c_void, buffer_size: f32);
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_buffer_size(self_: *mut ::std::os::raw::c_void) -> f32;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_neighbor_file_name(
-            self_: *mut ::std::os::raw::c_void,
-            neighbor_file_name: *const ::std::os::raw::c_void,
-            unique: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_add_neighbor_file_name(
-            self_: *mut ::std::os::raw::c_void,
-            neighbor_file_name: *const ::std::os::raw::c_void,
-            unique: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_add_neighbor_file_name_1(
-            self_: *mut ::std::os::raw::c_void,
-            file_name: *const ::std::os::raw::c_void,
-            npoints: ::std::os::raw::c_longlong,
-            min_x: f64,
-            min_y: f64,
-            max_x: f64,
-            max_y: f64,
-            unique: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_add_neighbor_list_of_files(
-            self_: *mut ::std::os::raw::c_void,
-            list_of_files: *const ::std::os::raw::c_void,
-            unique: bool,
-        ) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_auto_reoffset(
-            self_: *mut ::std::os::raw::c_void,
-            auto_reoffset: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_is_auto_reoffset(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_files_are_flightlines(
-            self_: *mut ::std::os::raw::c_void,
-            files_are_flightlines: ::std::os::raw::c_int,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_are_files_flightlines(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_files_are_flightlines_index(
-            self_: *mut ::std::os::raw::c_void,
-            files_are_flightlines_index: ::std::os::raw::c_int,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_files_flight_index(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_apply_file_source_ID(
-            self_: *mut ::std::os::raw::c_void,
-            apply_file_source_ID: bool,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_applying_file_source_ID(self_: *mut ::std::os::raw::c_void) -> bool;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_scale_factor(
-            self_: *mut ::std::os::raw::c_void,
-            scale_factor: *const ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_scale_factor(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_offset(
-            self_: *mut ::std::os::raw::c_void,
-            offset: *const ::std::os::raw::c_void,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_offset(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_translate_intensity(
-            self_: *mut ::std::os::raw::c_void,
-            translation: f32,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_scale_intensity(self_: *mut ::std::os::raw::c_void, scale: f32);
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_translate_scan_angle(
-            self_: *mut ::std::os::raw::c_void,
-            translate_scan_angle: f32,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_scale_scan_angle(
-            self_: *mut ::std::os::raw::c_void,
-            scale_scan_angle: f32,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_add_attribute(
-            self_: *mut ::std::os::raw::c_void,
-            data_type: ::std::os::raw::c_int,
-            name: *const ::std::os::raw::c_void,
-            description: *const ::std::os::raw::c_void,
-            scale: f64,
-            offset: f64,
-            pre_scale: f64,
-            pre_offset: f64,
-            no_data: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_point_type(
-            self_: *mut ::std::os::raw::c_void,
+            compressor: ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_setup(self, num_items, items, point_type, point_size, compressor)
+        }
+        #[inline]
+        pub unsafe fn is_standard(
+            &mut self,
+            num_items: ::std::os::raw::c_ushort,
+            items: *const root::LASitem,
+            point_type: *mut ::std::os::raw::c_uchar,
+            record_length: *mut ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_is_standard(self, num_items, items, point_type, record_length)
+        }
+        #[inline]
+        pub unsafe fn is_standard1(
+            &mut self,
+            point_type: *mut ::std::os::raw::c_uchar,
+            record_length: *mut ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_is_standard1(self, point_type, record_length)
+        }
+        #[inline]
+        pub unsafe fn unpack(
+            &mut self,
+            bytes: *const ::std::os::raw::c_uchar,
+            num: ::std::os::raw::c_int,
+        ) -> bool {
+            LASzip_unpack(self, bytes, num)
+        }
+        #[inline]
+        pub unsafe fn pack(
+            &mut self,
+            bytes: *mut *mut ::std::os::raw::c_uchar,
+            num: *mut ::std::os::raw::c_int,
+        ) -> bool {
+            LASzip_pack(self, bytes, num)
+        }
+        #[inline]
+        pub unsafe fn request_compatibility_mode(
+            &mut self,
+            requested_compatibility_mode: ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_request_compatibility_mode(self, requested_compatibility_mode)
+        }
+        #[inline]
+        pub unsafe fn setup1(
+            &mut self,
             point_type: ::std::os::raw::c_uchar,
-        ) -> bool;
+            point_size: ::std::os::raw::c_ushort,
+            compressor: ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_setup1(self, point_type, point_size, compressor)
+        }
+        #[inline]
+        pub unsafe fn setup2(
+            &mut self,
+            num_items: ::std::os::raw::c_ushort,
+            items: *const root::LASitem,
+            compressor: ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_setup2(self, num_items, items, compressor)
+        }
+        #[inline]
+        pub unsafe fn set_chunk_size(&mut self, chunk_size: ::std::os::raw::c_uint) -> bool {
+            LASzip_set_chunk_size(self, chunk_size)
+        }
+        #[inline]
+        pub unsafe fn request_version(
+            &mut self,
+            requested_version: ::std::os::raw::c_ushort,
+        ) -> bool {
+            LASzip_request_version(self, requested_version)
+        }
+        #[inline]
+        pub unsafe fn get_error(&self) -> *const ::std::os::raw::c_char {
+            LASzip_get_error(self)
+        }
+        #[inline]
+        pub unsafe fn new() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASzip_LASzip(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
+        #[inline]
+        pub unsafe fn destruct(&mut self) {
+            LASzip_LASzip_destructor(self)
+        }
     }
-    extern "C" {
-        pub fn LASreadOpener_set_parse_string(
-            self_: *mut ::std::os::raw::c_void,
-            parse_string: *const ::std::os::raw::c_void,
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASquantizer {
+        pub x_scale_factor: root::F64,
+        pub y_scale_factor: root::F64,
+        pub z_scale_factor: root::F64,
+        pub x_offset: root::F64,
+        pub y_offset: root::F64,
+        pub z_offset: root::F64,
+    }
+    #[test]
+    fn bindgen_test_layout_LASquantizer() {
+        assert_eq!(
+            ::std::mem::size_of::<LASquantizer>(),
+            48usize,
+            concat!("Size of: ", stringify!(LASquantizer))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASquantizer>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASquantizer))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASquantizer>())).x_scale_factor as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASquantizer),
+                "::",
+                stringify!(x_scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASquantizer>())).y_scale_factor as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASquantizer),
+                "::",
+                stringify!(y_scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASquantizer>())).z_scale_factor as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASquantizer),
+                "::",
+                stringify!(z_scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASquantizer>())).x_offset as *const _ as usize },
+            24usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASquantizer),
+                "::",
+                stringify!(x_offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASquantizer>())).y_offset as *const _ as usize },
+            32usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASquantizer),
+                "::",
+                stringify!(y_offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASquantizer>())).z_offset as *const _ as usize },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASquantizer),
+                "::",
+                stringify!(z_offset)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASattribute {
+        pub reserved: [root::U8; 2usize],
+        pub data_type: root::U8,
+        pub options: root::U8,
+        pub name: [root::CHAR; 32usize],
+        pub unused: [root::U8; 4usize],
+        pub no_data: [root::U64I64F64; 3usize],
+        pub min: [root::U64I64F64; 3usize],
+        pub max: [root::U64I64F64; 3usize],
+        pub scale: [root::F64; 3usize],
+        pub offset: [root::F64; 3usize],
+        pub description: [root::CHAR; 32usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASattribute() {
+        assert_eq!(
+            ::std::mem::size_of::<LASattribute>(),
+            192usize,
+            concat!("Size of: ", stringify!(LASattribute))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASattribute>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASattribute))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).reserved as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(reserved)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).data_type as *const _ as usize },
+            2usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(data_type)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).options as *const _ as usize },
+            3usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(options)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).name as *const _ as usize },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(name)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).unused as *const _ as usize },
+            36usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(unused)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).no_data as *const _ as usize },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(no_data)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).min as *const _ as usize },
+            64usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(min)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).max as *const _ as usize },
+            88usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(max)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).scale as *const _ as usize },
+            112usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(scale)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).offset as *const _ as usize },
+            136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattribute>())).description as *const _ as usize },
+            160usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattribute),
+                "::",
+                stringify!(description)
+            )
+        );
+    }
+    #[repr(C)]
+    pub struct LASattributer {
+        pub attributes_linked: root::BOOL,
+        pub number_attributes: root::I32,
+        pub attributes: *mut root::LASattribute,
+        pub attribute_starts: *mut root::I32,
+        pub attribute_sizes: *mut root::I32,
+    }
+    #[test]
+    fn bindgen_test_layout_LASattributer() {
+        assert_eq!(
+            ::std::mem::size_of::<LASattributer>(),
+            32usize,
+            concat!("Size of: ", stringify!(LASattributer))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASattributer>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASattributer))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASattributer>())).attributes_linked as *const _ as usize
+            },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattributer),
+                "::",
+                stringify!(attributes_linked)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASattributer>())).number_attributes as *const _ as usize
+            },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattributer),
+                "::",
+                stringify!(number_attributes)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASattributer>())).attributes as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattributer),
+                "::",
+                stringify!(attributes)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASattributer>())).attribute_starts as *const _ as usize
+            },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattributer),
+                "::",
+                stringify!(attribute_starts)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASattributer>())).attribute_sizes as *const _ as usize
+            },
+            24usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASattributer),
+                "::",
+                stringify!(attribute_sizes)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASwavepacket {
+        pub data: [root::U8; 29usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASwavepacket() {
+        assert_eq!(
+            ::std::mem::size_of::<LASwavepacket>(),
+            29usize,
+            concat!("Size of: ", stringify!(LASwavepacket))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASwavepacket>(),
+            1usize,
+            concat!("Alignment of ", stringify!(LASwavepacket))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwavepacket>())).data as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwavepacket),
+                "::",
+                stringify!(data)
+            )
+        );
+    }
+    #[repr(C)]
+    pub struct LASpoint {
+        pub X: root::I32,
+        pub Y: root::I32,
+        pub Z: root::I32,
+        pub intensity: root::U16,
+        pub _bitfield_1: root::__BindgenBitfieldUnit<[u8; 2usize], u8>,
+        pub scan_angle_rank: root::I8,
+        pub user_data: root::U8,
+        pub point_source_ID: root::U16,
+        pub extended_scan_angle: root::I16,
+        pub _bitfield_2: root::__BindgenBitfieldUnit<[u8; 1usize], u8>,
+        pub extended_classification: root::U8,
+        pub _bitfield_3: root::__BindgenBitfieldUnit<[u8; 1usize], u8>,
+        pub deleted_flag: root::U8,
+        pub dummy: [root::U8; 2usize],
+        pub gps_time_change: root::BOOL,
+        pub gps_time: root::F64,
+        pub rgb: [root::U16; 4usize],
+        pub wavepacket: root::LASwavepacket,
+        pub extra_bytes: *mut root::U8,
+        pub quantizer: *const root::LASquantizer,
+        pub coordinates: [root::F64; 3usize],
+        pub attributer: *const root::LASattributer,
+        pub point: *mut *mut root::U8,
+        pub have_gps_time: root::BOOL,
+        pub have_rgb: root::BOOL,
+        pub have_nir: root::BOOL,
+        pub have_wavepacket: root::BOOL,
+        pub extra_bytes_number: root::I32,
+        pub total_point_size: root::U32,
+        pub num_items: root::U16,
+        pub items: *mut root::LASitem,
+    }
+    #[test]
+    fn bindgen_test_layout_LASpoint() {
+        assert_eq!(
+            ::std::mem::size_of::<LASpoint>(),
+            160usize,
+            concat!("Size of: ", stringify!(LASpoint))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASpoint>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASpoint))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).X as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(X)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).Y as *const _ as usize },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(Y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).Z as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(Z)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).intensity as *const _ as usize },
+            12usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(intensity)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).scan_angle_rank as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(scan_angle_rank)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).user_data as *const _ as usize },
+            17usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(user_data)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).point_source_ID as *const _ as usize },
+            18usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(point_source_ID)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASpoint>())).extended_scan_angle as *const _ as usize
+            },
+            20usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(extended_scan_angle)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASpoint>())).extended_classification as *const _ as usize
+            },
+            23usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(extended_classification)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).deleted_flag as *const _ as usize },
+            25usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(deleted_flag)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).dummy as *const _ as usize },
+            26usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(dummy)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).gps_time_change as *const _ as usize },
+            28usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(gps_time_change)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).gps_time as *const _ as usize },
+            32usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(gps_time)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).rgb as *const _ as usize },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(rgb)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).wavepacket as *const _ as usize },
+            48usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(wavepacket)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).extra_bytes as *const _ as usize },
+            80usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(extra_bytes)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).quantizer as *const _ as usize },
+            88usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(quantizer)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).coordinates as *const _ as usize },
+            96usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(coordinates)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).attributer as *const _ as usize },
+            120usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(attributer)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).point as *const _ as usize },
+            128usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(point)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).have_gps_time as *const _ as usize },
+            136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(have_gps_time)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).have_rgb as *const _ as usize },
+            137usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(have_rgb)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).have_nir as *const _ as usize },
+            138usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(have_nir)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).have_wavepacket as *const _ as usize },
+            139usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(have_wavepacket)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).extra_bytes_number as *const _ as usize },
+            140usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(extra_bytes_number)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).total_point_size as *const _ as usize },
+            144usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(total_point_size)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).num_items as *const _ as usize },
+            148usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(num_items)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASpoint>())).items as *const _ as usize },
+            152usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASpoint),
+                "::",
+                stringify!(items)
+            )
+        );
+    }
+    impl LASpoint {
+        #[inline]
+        pub fn return_number(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 3u8) as u8) }
+        }
+        #[inline]
+        pub fn set_return_number(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(0usize, 3u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn number_of_returns(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(3usize, 3u8) as u8) }
+        }
+        #[inline]
+        pub fn set_number_of_returns(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(3usize, 3u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn scan_direction_flag(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(6usize, 1u8) as u8) }
+        }
+        #[inline]
+        pub fn set_scan_direction_flag(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(6usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn edge_of_flight_line(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(7usize, 1u8) as u8) }
+        }
+        #[inline]
+        pub fn set_edge_of_flight_line(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(7usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn classification(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(8usize, 5u8) as u8) }
+        }
+        #[inline]
+        pub fn set_classification(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(8usize, 5u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn synthetic_flag(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(13usize, 1u8) as u8) }
+        }
+        #[inline]
+        pub fn set_synthetic_flag(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(13usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn keypoint_flag(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(14usize, 1u8) as u8) }
+        }
+        #[inline]
+        pub fn set_keypoint_flag(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(14usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn withheld_flag(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_1.get(15usize, 1u8) as u8) }
+        }
+        #[inline]
+        pub fn set_withheld_flag(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_1.set(15usize, 1u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn new_bitfield_1(
+            return_number: root::U8,
+            number_of_returns: root::U8,
+            scan_direction_flag: root::U8,
+            edge_of_flight_line: root::U8,
+            classification: root::U8,
+            synthetic_flag: root::U8,
+            keypoint_flag: root::U8,
+            withheld_flag: root::U8,
+        ) -> root::__BindgenBitfieldUnit<[u8; 2usize], u8> {
+            let mut __bindgen_bitfield_unit: root::__BindgenBitfieldUnit<[u8; 2usize], u8> =
+                Default::default();
+            __bindgen_bitfield_unit.set(0usize, 3u8, {
+                let return_number: u8 = unsafe { ::std::mem::transmute(return_number) };
+                return_number as u64
+            });
+            __bindgen_bitfield_unit.set(3usize, 3u8, {
+                let number_of_returns: u8 = unsafe { ::std::mem::transmute(number_of_returns) };
+                number_of_returns as u64
+            });
+            __bindgen_bitfield_unit.set(6usize, 1u8, {
+                let scan_direction_flag: u8 = unsafe { ::std::mem::transmute(scan_direction_flag) };
+                scan_direction_flag as u64
+            });
+            __bindgen_bitfield_unit.set(7usize, 1u8, {
+                let edge_of_flight_line: u8 = unsafe { ::std::mem::transmute(edge_of_flight_line) };
+                edge_of_flight_line as u64
+            });
+            __bindgen_bitfield_unit.set(8usize, 5u8, {
+                let classification: u8 = unsafe { ::std::mem::transmute(classification) };
+                classification as u64
+            });
+            __bindgen_bitfield_unit.set(13usize, 1u8, {
+                let synthetic_flag: u8 = unsafe { ::std::mem::transmute(synthetic_flag) };
+                synthetic_flag as u64
+            });
+            __bindgen_bitfield_unit.set(14usize, 1u8, {
+                let keypoint_flag: u8 = unsafe { ::std::mem::transmute(keypoint_flag) };
+                keypoint_flag as u64
+            });
+            __bindgen_bitfield_unit.set(15usize, 1u8, {
+                let withheld_flag: u8 = unsafe { ::std::mem::transmute(withheld_flag) };
+                withheld_flag as u64
+            });
+            __bindgen_bitfield_unit
+        }
+        #[inline]
+        pub fn extended_point_type(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_2.get(0usize, 2u8) as u8) }
+        }
+        #[inline]
+        pub fn set_extended_point_type(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_2.set(0usize, 2u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn extended_scanner_channel(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_2.get(2usize, 2u8) as u8) }
+        }
+        #[inline]
+        pub fn set_extended_scanner_channel(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_2.set(2usize, 2u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn extended_classification_flags(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_2.get(4usize, 4u8) as u8) }
+        }
+        #[inline]
+        pub fn set_extended_classification_flags(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_2.set(4usize, 4u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn new_bitfield_2(
+            extended_point_type: root::U8,
+            extended_scanner_channel: root::U8,
+            extended_classification_flags: root::U8,
+        ) -> root::__BindgenBitfieldUnit<[u8; 1usize], u8> {
+            let mut __bindgen_bitfield_unit: root::__BindgenBitfieldUnit<[u8; 1usize], u8> =
+                Default::default();
+            __bindgen_bitfield_unit.set(0usize, 2u8, {
+                let extended_point_type: u8 = unsafe { ::std::mem::transmute(extended_point_type) };
+                extended_point_type as u64
+            });
+            __bindgen_bitfield_unit.set(2usize, 2u8, {
+                let extended_scanner_channel: u8 =
+                    unsafe { ::std::mem::transmute(extended_scanner_channel) };
+                extended_scanner_channel as u64
+            });
+            __bindgen_bitfield_unit.set(4usize, 4u8, {
+                let extended_classification_flags: u8 =
+                    unsafe { ::std::mem::transmute(extended_classification_flags) };
+                extended_classification_flags as u64
+            });
+            __bindgen_bitfield_unit
+        }
+        #[inline]
+        pub fn extended_return_number(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_3.get(0usize, 4u8) as u8) }
+        }
+        #[inline]
+        pub fn set_extended_return_number(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_3.set(0usize, 4u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn extended_number_of_returns(&self) -> root::U8 {
+            unsafe { ::std::mem::transmute(self._bitfield_3.get(4usize, 4u8) as u8) }
+        }
+        #[inline]
+        pub fn set_extended_number_of_returns(&mut self, val: root::U8) {
+            unsafe {
+                let val: u8 = ::std::mem::transmute(val);
+                self._bitfield_3.set(4usize, 4u8, val as u64)
+            }
+        }
+        #[inline]
+        pub fn new_bitfield_3(
+            extended_return_number: root::U8,
+            extended_number_of_returns: root::U8,
+        ) -> root::__BindgenBitfieldUnit<[u8; 1usize], u8> {
+            let mut __bindgen_bitfield_unit: root::__BindgenBitfieldUnit<[u8; 1usize], u8> =
+                Default::default();
+            __bindgen_bitfield_unit.set(0usize, 4u8, {
+                let extended_return_number: u8 =
+                    unsafe { ::std::mem::transmute(extended_return_number) };
+                extended_return_number as u64
+            });
+            __bindgen_bitfield_unit.set(4usize, 4u8, {
+                let extended_number_of_returns: u8 =
+                    unsafe { ::std::mem::transmute(extended_number_of_returns) };
+                extended_number_of_returns as u64
+            });
+            __bindgen_bitfield_unit
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr {
+        pub reserved: root::U16,
+        pub user_id: [root::CHAR; 16usize],
+        pub record_id: root::U16,
+        pub record_length_after_header: root::U16,
+        pub description: [root::CHAR; 32usize],
+        pub data: *mut root::U8,
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr>(),
+            64usize,
+            concat!("Size of: ", stringify!(LASvlr))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASvlr))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr>())).reserved as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr),
+                "::",
+                stringify!(reserved)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr>())).user_id as *const _ as usize },
+            2usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr),
+                "::",
+                stringify!(user_id)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr>())).record_id as *const _ as usize },
+            18usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr),
+                "::",
+                stringify!(record_id)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr>())).record_length_after_header as *const _ as usize
+            },
+            20usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr),
+                "::",
+                stringify!(record_length_after_header)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr>())).description as *const _ as usize },
+            22usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr),
+                "::",
+                stringify!(description)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr>())).data as *const _ as usize },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr),
+                "::",
+                stringify!(data)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASevlr {
+        pub reserved: root::U16,
+        pub user_id: [root::CHAR; 16usize],
+        pub record_id: root::U16,
+        pub record_length_after_header: root::I64,
+        pub description: [root::CHAR; 32usize],
+        pub data: *mut root::U8,
+    }
+    #[test]
+    fn bindgen_test_layout_LASevlr() {
+        assert_eq!(
+            ::std::mem::size_of::<LASevlr>(),
+            72usize,
+            concat!("Size of: ", stringify!(LASevlr))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASevlr>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASevlr))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASevlr>())).reserved as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASevlr),
+                "::",
+                stringify!(reserved)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASevlr>())).user_id as *const _ as usize },
+            2usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASevlr),
+                "::",
+                stringify!(user_id)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASevlr>())).record_id as *const _ as usize },
+            18usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASevlr),
+                "::",
+                stringify!(record_id)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASevlr>())).record_length_after_header as *const _ as usize
+            },
+            24usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASevlr),
+                "::",
+                stringify!(record_length_after_header)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASevlr>())).description as *const _ as usize },
+            32usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASevlr),
+                "::",
+                stringify!(description)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASevlr>())).data as *const _ as usize },
+            64usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASevlr),
+                "::",
+                stringify!(data)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr_geo_keys {
+        pub key_directory_version: root::U16,
+        pub key_revision: root::U16,
+        pub minor_revision: root::U16,
+        pub number_of_keys: root::U16,
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr_geo_keys() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr_geo_keys>(),
+            8usize,
+            concat!("Size of: ", stringify!(LASvlr_geo_keys))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr_geo_keys>(),
+            2usize,
+            concat!("Alignment of ", stringify!(LASvlr_geo_keys))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_geo_keys>())).key_directory_version as *const _
+                    as usize
+            },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_geo_keys),
+                "::",
+                stringify!(key_directory_version)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_geo_keys>())).key_revision as *const _ as usize
+            },
+            2usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_geo_keys),
+                "::",
+                stringify!(key_revision)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_geo_keys>())).minor_revision as *const _ as usize
+            },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_geo_keys),
+                "::",
+                stringify!(minor_revision)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_geo_keys>())).number_of_keys as *const _ as usize
+            },
+            6usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_geo_keys),
+                "::",
+                stringify!(number_of_keys)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr_key_entry {
+        pub key_id: root::U16,
+        pub tiff_tag_location: root::U16,
+        pub count: root::U16,
+        pub value_offset: root::U16,
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr_key_entry() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr_key_entry>(),
+            8usize,
+            concat!("Size of: ", stringify!(LASvlr_key_entry))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr_key_entry>(),
+            2usize,
+            concat!("Alignment of ", stringify!(LASvlr_key_entry))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_key_entry>())).key_id as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_key_entry),
+                "::",
+                stringify!(key_id)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_key_entry>())).tiff_tag_location as *const _ as usize
+            },
+            2usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_key_entry),
+                "::",
+                stringify!(tiff_tag_location)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASvlr_key_entry>())).count as *const _ as usize },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_key_entry),
+                "::",
+                stringify!(count)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_key_entry>())).value_offset as *const _ as usize
+            },
+            6usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_key_entry),
+                "::",
+                stringify!(value_offset)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr_classification {
+        pub class_number: root::U8,
+        pub description: [root::CHAR; 15usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr_classification() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr_classification>(),
+            16usize,
+            concat!("Size of: ", stringify!(LASvlr_classification))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr_classification>(),
+            1usize,
+            concat!("Alignment of ", stringify!(LASvlr_classification))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_classification>())).class_number as *const _ as usize
+            },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_classification),
+                "::",
+                stringify!(class_number)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_classification>())).description as *const _ as usize
+            },
+            1usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_classification),
+                "::",
+                stringify!(description)
+            )
+        );
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASvlr_wave_packet_descr {
+        pub data: [root::U8; 26usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASvlr_wave_packet_descr() {
+        assert_eq!(
+            ::std::mem::size_of::<LASvlr_wave_packet_descr>(),
+            26usize,
+            concat!("Size of: ", stringify!(LASvlr_wave_packet_descr))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASvlr_wave_packet_descr>(),
+            1usize,
+            concat!("Alignment of ", stringify!(LASvlr_wave_packet_descr))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASvlr_wave_packet_descr>())).data as *const _ as usize
+            },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASvlr_wave_packet_descr),
+                "::",
+                stringify!(data)
+            )
+        );
+    }
+    #[repr(C)]
+    pub struct LASheader {
+        pub _base: root::LASquantizer,
+        pub _base_1: root::LASattributer,
+        pub file_signature: [root::CHAR; 4usize],
+        pub file_source_ID: root::U16,
+        pub global_encoding: root::U16,
+        pub project_ID_GUID_data_1: root::U32,
+        pub project_ID_GUID_data_2: root::U16,
+        pub project_ID_GUID_data_3: root::U16,
+        pub project_ID_GUID_data_4: [root::U8; 8usize],
+        pub version_major: root::U8,
+        pub version_minor: root::U8,
+        pub system_identifier: [root::CHAR; 32usize],
+        pub generating_software: [root::CHAR; 32usize],
+        pub file_creation_day: root::U16,
+        pub file_creation_year: root::U16,
+        pub header_size: root::U16,
+        pub offset_to_point_data: root::U32,
+        pub number_of_variable_length_records: root::U32,
+        pub point_data_format: root::U8,
+        pub point_data_record_length: root::U16,
+        pub number_of_point_records: root::U32,
+        pub number_of_points_by_return: [root::U32; 5usize],
+        pub max_x: root::F64,
+        pub min_x: root::F64,
+        pub max_y: root::F64,
+        pub min_y: root::F64,
+        pub max_z: root::F64,
+        pub min_z: root::F64,
+        pub start_of_waveform_data_packet_record: root::U64,
+        pub start_of_first_extended_variable_length_record: root::U64,
+        pub number_of_extended_variable_length_records: root::U32,
+        pub extended_number_of_point_records: root::U64,
+        pub extended_number_of_points_by_return: [root::U64; 15usize],
+        pub user_data_in_header_size: root::U32,
+        pub user_data_in_header: *mut root::U8,
+        pub vlrs: *mut root::LASvlr,
+        pub evlrs: *mut root::LASevlr,
+        pub vlr_geo_keys: *mut root::LASvlr_geo_keys,
+        pub vlr_geo_key_entries: *mut root::LASvlr_key_entry,
+        pub vlr_geo_double_params: *mut root::F64,
+        pub vlr_geo_ascii_params: *mut root::CHAR,
+        pub vlr_geo_ogc_wkt_math: *mut root::CHAR,
+        pub vlr_geo_ogc_wkt: *mut root::CHAR,
+        pub vlr_classification: *mut root::LASvlr_classification,
+        pub vlr_wave_packet_descr: *mut *mut root::LASvlr_wave_packet_descr,
+        pub laszip: *mut root::LASzip,
+        pub vlr_lastiling: *mut root::LASvlr_lastiling,
+        pub vlr_lasoriginal: *mut root::LASvlr_lasoriginal,
+        pub user_data_after_header_size: root::U32,
+        pub user_data_after_header: *mut root::U8,
+    }
+    #[test]
+    fn bindgen_test_layout_LASheader() {
+        assert_eq!(
+            ::std::mem::size_of::<LASheader>(),
+            552usize,
+            concat!("Size of: ", stringify!(LASheader))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASheader>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASheader))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).file_signature as *const _ as usize },
+            80usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(file_signature)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).file_source_ID as *const _ as usize },
+            84usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(file_source_ID)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).global_encoding as *const _ as usize },
+            86usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(global_encoding)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).project_ID_GUID_data_1 as *const _ as usize
+            },
+            88usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(project_ID_GUID_data_1)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).project_ID_GUID_data_2 as *const _ as usize
+            },
+            92usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(project_ID_GUID_data_2)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).project_ID_GUID_data_3 as *const _ as usize
+            },
+            94usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(project_ID_GUID_data_3)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).project_ID_GUID_data_4 as *const _ as usize
+            },
+            96usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(project_ID_GUID_data_4)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).version_major as *const _ as usize },
+            104usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(version_major)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).version_minor as *const _ as usize },
+            105usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(version_minor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).system_identifier as *const _ as usize },
+            106usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(system_identifier)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).generating_software as *const _ as usize
+            },
+            138usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(generating_software)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).file_creation_day as *const _ as usize },
+            170usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(file_creation_day)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).file_creation_year as *const _ as usize
+            },
+            172usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(file_creation_year)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).header_size as *const _ as usize },
+            174usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(header_size)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).offset_to_point_data as *const _ as usize
+            },
+            176usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(offset_to_point_data)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).number_of_variable_length_records as *const _
+                    as usize
+            },
+            180usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(number_of_variable_length_records)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).point_data_format as *const _ as usize },
+            184usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(point_data_format)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).point_data_record_length as *const _ as usize
+            },
+            186usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(point_data_record_length)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).number_of_point_records as *const _ as usize
+            },
+            188usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(number_of_point_records)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).number_of_points_by_return as *const _
+                    as usize
+            },
+            192usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(number_of_points_by_return)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).max_x as *const _ as usize },
+            216usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(max_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).min_x as *const _ as usize },
+            224usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(min_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).max_y as *const _ as usize },
+            232usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(max_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).min_y as *const _ as usize },
+            240usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(min_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).max_z as *const _ as usize },
+            248usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(max_z)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).min_z as *const _ as usize },
+            256usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(min_z)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).start_of_waveform_data_packet_record
+                    as *const _ as usize
+            },
+            264usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(start_of_waveform_data_packet_record)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).start_of_first_extended_variable_length_record
+                    as *const _ as usize
+            },
+            272usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(start_of_first_extended_variable_length_record)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).number_of_extended_variable_length_records
+                    as *const _ as usize
+            },
+            280usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(number_of_extended_variable_length_records)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).extended_number_of_point_records as *const _
+                    as usize
+            },
+            288usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(extended_number_of_point_records)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).extended_number_of_points_by_return
+                    as *const _ as usize
+            },
+            296usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(extended_number_of_points_by_return)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).user_data_in_header_size as *const _ as usize
+            },
+            416usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(user_data_in_header_size)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).user_data_in_header as *const _ as usize
+            },
+            424usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(user_data_in_header)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).vlrs as *const _ as usize },
+            432usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlrs)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).evlrs as *const _ as usize },
+            440usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(evlrs)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).vlr_geo_keys as *const _ as usize },
+            448usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_geo_keys)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).vlr_geo_key_entries as *const _ as usize
+            },
+            456usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_geo_key_entries)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).vlr_geo_double_params as *const _ as usize
+            },
+            464usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_geo_double_params)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).vlr_geo_ascii_params as *const _ as usize
+            },
+            472usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_geo_ascii_params)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).vlr_geo_ogc_wkt_math as *const _ as usize
+            },
+            480usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_geo_ogc_wkt_math)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).vlr_geo_ogc_wkt as *const _ as usize },
+            488usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_geo_ogc_wkt)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).vlr_classification as *const _ as usize
+            },
+            496usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_classification)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).vlr_wave_packet_descr as *const _ as usize
+            },
+            504usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_wave_packet_descr)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).laszip as *const _ as usize },
+            512usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(laszip)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).vlr_lastiling as *const _ as usize },
+            520usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_lastiling)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASheader>())).vlr_lasoriginal as *const _ as usize },
+            528usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(vlr_lasoriginal)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).user_data_after_header_size as *const _
+                    as usize
+            },
+            536usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(user_data_after_header_size)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASheader>())).user_data_after_header as *const _ as usize
+            },
+            544usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASheader),
+                "::",
+                stringify!(user_data_after_header)
+            )
+        );
+    }
+    #[repr(C)]
+    pub struct LASignore {
+        pub ignore_mask: root::U32,
+        pub ignore_classification_mask: [root::U32; 8usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASignore() {
+        assert_eq!(
+            ::std::mem::size_of::<LASignore>(),
+            36usize,
+            concat!("Size of: ", stringify!(LASignore))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASignore>(),
+            4usize,
+            concat!("Alignment of ", stringify!(LASignore))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASignore>())).ignore_mask as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASignore),
+                "::",
+                stringify!(ignore_mask)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASignore>())).ignore_classification_mask as *const _
+                    as usize
+            },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASignore),
+                "::",
+                stringify!(ignore_classification_mask)
+            )
         );
     }
     extern "C" {
-        pub fn LASreadOpener_set_skip_lines(
-            self_: *mut ::std::os::raw::c_void,
-            number_of_lines: ::std::os::raw::c_uint,
-        );
+        #[link_name = "\u{1}_ZNK9LASignore5usageEv"]
+        pub fn LASignore_usage(this: *const root::LASignore);
     }
     extern "C" {
-        pub fn LASreadOpener_set_populate_header(
-            self_: *mut ::std::os::raw::c_void,
-            populate_header: bool,
-        );
+        #[link_name = "\u{1}_ZN9LASignore12ignore_classEh"]
+        pub fn LASignore_ignore_class(this: *mut root::LASignore, classification: root::U8);
     }
     extern "C" {
-        pub fn LASreadOpener_set_keep_lastiling(
-            self_: *mut ::std::os::raw::c_void,
-            keep_lastiling: bool,
-        );
+        #[link_name = "\u{1}_ZN9LASignore17dont_ignore_classEh"]
+        pub fn LASignore_dont_ignore_class(this: *mut root::LASignore, classification: root::U8);
     }
     extern "C" {
-        pub fn LASreadOpener_set_pipe_on(self_: *mut ::std::os::raw::c_void, pipe_on: bool);
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_parse_string(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_usage(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_decompress_selective(
-            self_: *mut ::std::os::raw::c_void,
-            decompress_selective: ::std::os::raw::c_uint,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_inside_tile(
-            self_: *mut ::std::os::raw::c_void,
-            ll_x: f32,
-            ll_y: f32,
-            size: f32,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_inside_circle(
-            self_: *mut ::std::os::raw::c_void,
-            center_x: f64,
-            center_y: f64,
-            radius: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_set_inside_rectangle(
-            self_: *mut ::std::os::raw::c_void,
-            min_x: f64,
-            min_y: f64,
-            max_x: f64,
-            max_y: f64,
-        );
-    }
-    extern "C" {
-        pub fn LASreadOpener_parse(
-            self_: *mut ::std::os::raw::c_void,
+        #[link_name = "\u{1}_ZN9LASignore5parseERiiPPc"]
+        pub fn LASignore_parse(
+            this: *mut root::LASignore,
+            i: *mut ::std::os::raw::c_int,
             argc: ::std::os::raw::c_int,
-            argv: *mut ::std::os::raw::c_void,
-            parse_ignore: bool,
-        ) -> bool;
+            argv: *mut *mut ::std::os::raw::c_char,
+        ) -> root::BOOL;
     }
     extern "C" {
-        pub fn LASreadOpener_is_piped(self_: *mut ::std::os::raw::c_void) -> bool;
+        #[link_name = "\u{1}_ZNK9LASignore7unparseEPc"]
+        pub fn LASignore_unparse(
+            this: *const root::LASignore,
+            string: *mut root::CHAR,
+        ) -> root::I32;
     }
     extern "C" {
-        pub fn LASreadOpener_is_buffered(self_: *mut ::std::os::raw::c_void) -> bool;
+        #[link_name = "\u{1}_ZN9LASignore5parseEjjPKd"]
+        pub fn LASignore_parse1(
+            this: *mut root::LASignore,
+            curr_parameter: root::U32,
+            num_parameters: root::U32,
+            parameters: *const root::F64,
+        ) -> root::BOOL;
     }
     extern "C" {
-        pub fn LASreadOpener_is_header_populated(self_: *mut ::std::os::raw::c_void) -> bool;
+        #[link_name = "\u{1}_ZNK9LASignore7unparseERjPd"]
+        pub fn LASignore_unparse1(
+            this: *const root::LASignore,
+            num_parameters: *mut root::U32,
+            parameters: *mut root::F64,
+        );
     }
     extern "C" {
-        pub fn LASreadOpener_active(self_: *mut ::std::os::raw::c_void) -> bool;
+        #[link_name = "\u{1}_ZNK9LASignore24get_decompress_selectiveEv"]
+        pub fn LASignore_get_decompress_selective(this: *const root::LASignore) -> root::U32;
     }
     extern "C" {
-        pub fn LASreadOpener_is_inside(self_: *mut ::std::os::raw::c_void) -> bool;
+        #[link_name = "\u{1}_ZNK9LASignore6ignoreEPK8LASpoint"]
+        pub fn LASignore_ignore(
+            this: *const root::LASignore,
+            point: *const root::LASpoint,
+        ) -> root::BOOL;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN9LASignoreC1Ev"]
+        pub fn LASignore_LASignore(this: *mut root::LASignore);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASignoreD1Ev"]
+        pub fn LASignore_LASignore_destructor(this: *mut root::LASignore);
+    }
+    impl LASignore {
+        #[inline]
+        pub unsafe fn usage(&self) {
+            LASignore_usage(self)
+        }
+        #[inline]
+        pub unsafe fn ignore_class(&mut self, classification: root::U8) {
+            LASignore_ignore_class(self, classification)
+        }
+        #[inline]
+        pub unsafe fn dont_ignore_class(&mut self, classification: root::U8) {
+            LASignore_dont_ignore_class(self, classification)
+        }
+        #[inline]
+        pub unsafe fn parse(
+            &mut self,
+            i: *mut ::std::os::raw::c_int,
+            argc: ::std::os::raw::c_int,
+            argv: *mut *mut ::std::os::raw::c_char,
+        ) -> root::BOOL {
+            LASignore_parse(self, i, argc, argv)
+        }
+        #[inline]
+        pub unsafe fn unparse(&self, string: *mut root::CHAR) -> root::I32 {
+            LASignore_unparse(self, string)
+        }
+        #[inline]
+        pub unsafe fn parse1(
+            &mut self,
+            curr_parameter: root::U32,
+            num_parameters: root::U32,
+            parameters: *const root::F64,
+        ) -> root::BOOL {
+            LASignore_parse1(self, curr_parameter, num_parameters, parameters)
+        }
+        #[inline]
+        pub unsafe fn unparse1(&self, num_parameters: *mut root::U32, parameters: *mut root::F64) {
+            LASignore_unparse1(self, num_parameters, parameters)
+        }
+        #[inline]
+        pub unsafe fn get_decompress_selective(&self) -> root::U32 {
+            LASignore_get_decompress_selective(self)
+        }
+        #[inline]
+        pub unsafe fn ignore(&self, point: *const root::LASpoint) -> root::BOOL {
+            LASignore_ignore(self, point)
+        }
+        #[inline]
+        pub unsafe fn new() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASignore_LASignore(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
+        #[inline]
+        pub unsafe fn destruct(&mut self) {
+            LASignore_LASignore_destructor(self)
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASindex {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASfilter {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LAStransform {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct ByteStreamIn {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASkdtreeRectangles {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    pub struct LASreader__bindgen_vtable(::std::os::raw::c_void);
+    #[repr(C)]
+    pub struct LASreader {
+        pub vtable_: *const LASreader__bindgen_vtable,
+        pub header: root::LASheader,
+        pub point: root::LASpoint,
+        pub npoints: root::I64,
+        pub p_count: root::I64,
+        pub index: *mut root::LASindex,
+        pub filter: *mut root::LASfilter,
+        pub transform: *mut root::LAStransform,
+        pub ignore: *mut root::LASignore,
+        pub inside: root::U32,
+        pub t_ll_x: root::F32,
+        pub t_ll_y: root::F32,
+        pub t_size: root::F32,
+        pub t_ur_x: root::F32,
+        pub t_ur_y: root::F32,
+        pub c_center_x: root::F64,
+        pub c_center_y: root::F64,
+        pub c_radius: root::F64,
+        pub c_radius_squared: root::F64,
+        pub r_min_x: root::F64,
+        pub r_min_y: root::F64,
+        pub r_max_x: root::F64,
+        pub r_max_y: root::F64,
+        pub orig_min_x: root::F64,
+        pub orig_min_y: root::F64,
+        pub orig_max_x: root::F64,
+        pub orig_max_y: root::F64,
+        pub read_simple: ::std::option::Option<unsafe extern "C" fn() -> root::BOOL>,
+        __filler_1: [u8; 8],
+        pub read_complex: ::std::option::Option<unsafe extern "C" fn() -> root::BOOL>,
+        __filler_2: [u8; 8],
+    }
+    #[test]
+    fn bindgen_test_layout_LASreader() {
+        assert_eq!(
+            ::std::mem::size_of::<LASreader>(),
+            920usize,
+            concat!("Size of: ", stringify!(LASreader))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASreader>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASreader))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).header as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(header)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).point as *const _ as usize },
+            560usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(point)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).npoints as *const _ as usize },
+            720usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(npoints)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).p_count as *const _ as usize },
+            728usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(p_count)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).index as *const _ as usize },
+            736usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(index)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).filter as *const _ as usize },
+            744usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(filter)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).transform as *const _ as usize },
+            752usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(transform)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).ignore as *const _ as usize },
+            760usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(ignore)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).inside as *const _ as usize },
+            768usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(inside)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).t_ll_x as *const _ as usize },
+            772usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(t_ll_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).t_ll_y as *const _ as usize },
+            776usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(t_ll_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).t_size as *const _ as usize },
+            780usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(t_size)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).t_ur_x as *const _ as usize },
+            784usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(t_ur_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).t_ur_y as *const _ as usize },
+            788usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(t_ur_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).c_center_x as *const _ as usize },
+            792usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(c_center_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).c_center_y as *const _ as usize },
+            800usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(c_center_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).c_radius as *const _ as usize },
+            808usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(c_radius)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).c_radius_squared as *const _ as usize },
+            816usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(c_radius_squared)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).r_min_x as *const _ as usize },
+            824usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(r_min_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).r_min_y as *const _ as usize },
+            832usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(r_min_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).r_max_x as *const _ as usize },
+            840usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(r_max_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).r_max_y as *const _ as usize },
+            848usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(r_max_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).orig_min_x as *const _ as usize },
+            856usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(orig_min_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).orig_min_y as *const _ as usize },
+            864usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(orig_min_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).orig_max_x as *const _ as usize },
+            872usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(orig_max_x)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).orig_max_y as *const _ as usize },
+            880usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(orig_max_y)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).read_simple as *const _ as usize },
+            888usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(read_simple)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreader>())).read_complex as *const _ as usize },
+            904usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreader),
+                "::",
+                stringify!(read_complex)
+            )
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader9set_indexEP8LASindex"]
+        pub fn LASreader_set_index(this: *mut root::LASreader, index: *mut root::LASindex);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader10set_ignoreEP9LASignore"]
+        pub fn LASreader_set_ignore(this: *mut root::LASreader, ignore: *mut root::LASignore);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader7deallocEv"]
+        pub fn LASreader_dealloc(this: *mut root::LASreader);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreaderC2Ev"]
+        pub fn LASreader_LASreader(this: *mut root::LASreader);
+    }
+    impl LASreader {
+        #[inline]
+        pub unsafe fn set_index(&mut self, index: *mut root::LASindex) {
+            LASreader_set_index(self, index)
+        }
+        #[inline]
+        pub unsafe fn set_ignore(&mut self, ignore: *mut root::LASignore) {
+            LASreader_set_ignore(self, ignore)
+        }
+        #[inline]
+        pub unsafe fn dealloc(&mut self) {
+            LASreader_dealloc(self)
+        }
+        #[inline]
+        pub unsafe fn new() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreader_LASreader(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader10set_filterEP9LASfilter"]
+        pub fn LASreader_set_filter(
+            this: *mut ::std::os::raw::c_void,
+            filter: *mut root::LASfilter,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader13set_transformEP12LAStransform"]
+        pub fn LASreader_set_transform(
+            this: *mut ::std::os::raw::c_void,
+            transform: *mut root::LAStransform,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader11inside_noneEv"]
+        pub fn LASreader_inside_none(this: *mut ::std::os::raw::c_void) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader11inside_tileEfff"]
+        pub fn LASreader_inside_tile(
+            this: *mut ::std::os::raw::c_void,
+            ll_x: root::F32,
+            ll_y: root::F32,
+            size: root::F32,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader13inside_circleEddd"]
+        pub fn LASreader_inside_circle(
+            this: *mut ::std::os::raw::c_void,
+            center_x: root::F64,
+            center_y: root::F64,
+            radius: root::F64,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreader16inside_rectangleEdddd"]
+        pub fn LASreader_inside_rectangle(
+            this: *mut ::std::os::raw::c_void,
+            min_x: root::F64,
+            min_y: root::F64,
+            max_x: root::F64,
+            max_y: root::F64,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN9LASreaderD1Ev"]
+        pub fn LASreader_LASreader_destructor(this: *mut root::LASreader);
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASwaveformDescription {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct ArithmeticDecoder {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct IntegerCompressor {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    pub struct LASwaveform13reader {
+        pub nbits: root::U32,
+        pub nsamples: root::U32,
+        pub temporal: root::U32,
+        pub location: root::F32,
+        pub XYZt: [root::F32; 3usize],
+        pub XYZreturn: [root::F64; 3usize],
+        pub XYZsample: [root::F64; 3usize],
+        pub s_count: root::U32,
+        pub sample: root::U32,
+        pub sampleMin: root::U32,
+        pub sampleMax: root::U32,
+        pub samples: *mut root::U8,
+        pub compressed: root::BOOL,
+        pub size: root::U32,
+        pub wave_packet_descr: *const *const root::LASvlr_wave_packet_descr,
+        pub file: *mut root::FILE,
+        pub stream: *mut root::ByteStreamIn,
+        pub start_of_waveform_data_packet_record: root::I64,
+        pub last_position: root::I64,
+        pub dec: *mut root::ArithmeticDecoder,
+        pub ic8: *mut root::IntegerCompressor,
+        pub ic16: *mut root::IntegerCompressor,
+    }
+    #[test]
+    fn bindgen_test_layout_LASwaveform13reader() {
+        assert_eq!(
+            ::std::mem::size_of::<LASwaveform13reader>(),
+            176usize,
+            concat!("Size of: ", stringify!(LASwaveform13reader))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASwaveform13reader>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASwaveform13reader))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).nbits as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(nbits)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).nsamples as *const _ as usize
+            },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(nsamples)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).temporal as *const _ as usize
+            },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(temporal)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).location as *const _ as usize
+            },
+            12usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(location)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).XYZt as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(XYZt)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).XYZreturn as *const _ as usize
+            },
+            32usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(XYZreturn)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).XYZsample as *const _ as usize
+            },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(XYZsample)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).s_count as *const _ as usize },
+            80usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(s_count)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).sample as *const _ as usize },
+            84usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(sample)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).sampleMin as *const _ as usize
+            },
+            88usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(sampleMin)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).sampleMax as *const _ as usize
+            },
+            92usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(sampleMax)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).samples as *const _ as usize },
+            96usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(samples)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).compressed as *const _ as usize
+            },
+            104usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(compressed)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).size as *const _ as usize },
+            108usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(size)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).wave_packet_descr as *const _
+                    as usize
+            },
+            112usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(wave_packet_descr)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).file as *const _ as usize },
+            120usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(file)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).stream as *const _ as usize },
+            128usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(stream)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).start_of_waveform_data_packet_record
+                    as *const _ as usize
+            },
+            136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(start_of_waveform_data_packet_record)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASwaveform13reader>())).last_position as *const _ as usize
+            },
+            144usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(last_position)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).dec as *const _ as usize },
+            152usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(dec)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).ic8 as *const _ as usize },
+            160usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(ic8)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASwaveform13reader>())).ic16 as *const _ as usize },
+            168usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASwaveform13reader),
+                "::",
+                stringify!(ic16)
+            )
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader4openEPKcxPKPK24LASvlr_wave_packet_descr"]
+        pub fn LASwaveform13reader_open(
+            this: *mut root::LASwaveform13reader,
+            file_name: *const ::std::os::raw::c_char,
+            start_of_waveform_data_packet_record: root::I64,
+            wave_packet_descr: *const *const root::LASvlr_wave_packet_descr,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK19LASwaveform13reader13is_compressedEv"]
+        pub fn LASwaveform13reader_is_compressed(
+            this: *const root::LASwaveform13reader,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader13read_waveformEPK8LASpoint"]
+        pub fn LASwaveform13reader_read_waveform(
+            this: *mut root::LASwaveform13reader,
+            point: *const root::LASpoint,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader11get_samplesEv"]
+        pub fn LASwaveform13reader_get_samples(this: *mut root::LASwaveform13reader) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader11has_samplesEv"]
+        pub fn LASwaveform13reader_has_samples(this: *mut root::LASwaveform13reader) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader15get_samples_xyzEv"]
+        pub fn LASwaveform13reader_get_samples_xyz(
+            this: *mut root::LASwaveform13reader,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader15has_samples_xyzEv"]
+        pub fn LASwaveform13reader_has_samples_xyz(
+            this: *mut root::LASwaveform13reader,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13reader5closeEv"]
+        pub fn LASwaveform13reader_close(this: *mut root::LASwaveform13reader);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13readerC1Ev"]
+        pub fn LASwaveform13reader_LASwaveform13reader(this: *mut root::LASwaveform13reader);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN19LASwaveform13readerD1Ev"]
+        pub fn LASwaveform13reader_LASwaveform13reader_destructor(
+            this: *mut root::LASwaveform13reader,
+        );
+    }
+    impl LASwaveform13reader {
+        #[inline]
+        pub unsafe fn open(
+            &mut self,
+            file_name: *const ::std::os::raw::c_char,
+            start_of_waveform_data_packet_record: root::I64,
+            wave_packet_descr: *const *const root::LASvlr_wave_packet_descr,
+        ) -> root::BOOL {
+            LASwaveform13reader_open(
+                self,
+                file_name,
+                start_of_waveform_data_packet_record,
+                wave_packet_descr,
+            )
+        }
+        #[inline]
+        pub unsafe fn is_compressed(&self) -> root::BOOL {
+            LASwaveform13reader_is_compressed(self)
+        }
+        #[inline]
+        pub unsafe fn read_waveform(&mut self, point: *const root::LASpoint) -> root::BOOL {
+            LASwaveform13reader_read_waveform(self, point)
+        }
+        #[inline]
+        pub unsafe fn get_samples(&mut self) -> root::BOOL {
+            LASwaveform13reader_get_samples(self)
+        }
+        #[inline]
+        pub unsafe fn has_samples(&mut self) -> root::BOOL {
+            LASwaveform13reader_has_samples(self)
+        }
+        #[inline]
+        pub unsafe fn get_samples_xyz(&mut self) -> root::BOOL {
+            LASwaveform13reader_get_samples_xyz(self)
+        }
+        #[inline]
+        pub unsafe fn has_samples_xyz(&mut self) -> root::BOOL {
+            LASwaveform13reader_has_samples_xyz(self)
+        }
+        #[inline]
+        pub unsafe fn close(&mut self) {
+            LASwaveform13reader_close(self)
+        }
+        #[inline]
+        pub unsafe fn new() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASwaveform13reader_LASwaveform13reader(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
+        #[inline]
+        pub unsafe fn destruct(&mut self) {
+            LASwaveform13reader_LASwaveform13reader_destructor(self)
+        }
+    }
+    #[repr(C)]
+    pub struct LASreadOpener {
+        pub io_ibuffer_size: root::U32,
+        pub file_name: *const root::CHAR,
+        pub merged: root::BOOL,
+        pub stored: root::BOOL,
+        pub file_name_current: root::U32,
+        pub file_names: *mut *mut root::CHAR,
+        pub file_name_number: root::U32,
+        pub file_name_allocated: root::U32,
+        pub file_names_ID: *mut root::U32,
+        pub file_names_npoints: *mut root::I64,
+        pub file_names_min_x: *mut root::F64,
+        pub file_names_min_y: *mut root::F64,
+        pub file_names_max_x: *mut root::F64,
+        pub file_names_max_y: *mut root::F64,
+        pub kdtree_rectangles: *mut root::LASkdtreeRectangles,
+        pub buffer_size: root::F32,
+        pub temp_file_base: *mut root::CHAR,
+        pub neighbor_file_names: *mut *mut root::CHAR,
+        pub neighbor_file_name_number: root::U32,
+        pub neighbor_file_name_allocated: root::U32,
+        pub neighbor_file_names_npoints: *mut root::I64,
+        pub neighbor_file_names_min_x: *mut root::F64,
+        pub neighbor_file_names_min_y: *mut root::F64,
+        pub neighbor_file_names_max_x: *mut root::F64,
+        pub neighbor_file_names_max_y: *mut root::F64,
+        pub neighbor_kdtree_rectangles: *mut root::LASkdtreeRectangles,
+        pub comma_not_point: root::BOOL,
+        pub scale_factor: *mut root::F64,
+        pub offset: *mut root::F64,
+        pub auto_reoffset: root::BOOL,
+        pub files_are_flightlines: root::I32,
+        pub files_are_flightlines_index: root::I32,
+        pub apply_file_source_ID: root::BOOL,
+        pub itxt: root::BOOL,
+        pub ipts: root::BOOL,
+        pub iptx: root::BOOL,
+        pub translate_intensity: root::F32,
+        pub scale_intensity: root::F32,
+        pub translate_scan_angle: root::F32,
+        pub scale_scan_angle: root::F32,
+        pub number_attributes: root::I32,
+        pub attribute_data_types: [root::I32; 32usize],
+        pub attribute_names: [*mut root::CHAR; 32usize],
+        pub attribute_descriptions: [*mut root::CHAR; 32usize],
+        pub attribute_scales: [root::F64; 32usize],
+        pub attribute_offsets: [root::F64; 32usize],
+        pub attribute_pre_scales: [root::F64; 32usize],
+        pub attribute_pre_offsets: [root::F64; 32usize],
+        pub attribute_no_datas: [root::F64; 32usize],
+        pub point_type: root::U8,
+        pub parse_string: *mut root::CHAR,
+        pub skip_lines: root::U32,
+        pub populate_header: root::BOOL,
+        pub keep_lastiling: root::BOOL,
+        pub pipe_on: root::BOOL,
+        pub use_stdin: root::BOOL,
+        pub unique: root::BOOL,
+        pub index: *mut root::LASindex,
+        pub filter: *mut root::LASfilter,
+        pub transform: *mut root::LAStransform,
+        pub ignore: *mut root::LASignore,
+        pub decompress_selective: root::U32,
+        pub inside_tile: *mut root::F32,
+        pub inside_circle: *mut root::F64,
+        pub inside_rectangle: *mut root::F64,
+    }
+    #[test]
+    fn bindgen_test_layout_LASreadOpener() {
+        assert_eq!(
+            ::std::mem::size_of::<LASreadOpener>(),
+            2256usize,
+            concat!("Size of: ", stringify!(LASreadOpener))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASreadOpener>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASreadOpener))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).io_ibuffer_size as *const _ as usize
+            },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(io_ibuffer_size)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).file_name as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_name)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).merged as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(merged)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).stored as *const _ as usize },
+            17usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(stored)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_name_current as *const _ as usize
+            },
+            20usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_name_current)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).file_names as *const _ as usize },
+            24usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_name_number as *const _ as usize
+            },
+            32usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_name_number)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_name_allocated as *const _ as usize
+            },
+            36usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_name_allocated)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).file_names_ID as *const _ as usize },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names_ID)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_names_npoints as *const _ as usize
+            },
+            48usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names_npoints)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_names_min_x as *const _ as usize
+            },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names_min_x)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_names_min_y as *const _ as usize
+            },
+            64usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names_min_y)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_names_max_x as *const _ as usize
+            },
+            72usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names_max_x)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).file_names_max_y as *const _ as usize
+            },
+            80usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(file_names_max_y)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).kdtree_rectangles as *const _ as usize
+            },
+            88usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(kdtree_rectangles)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).buffer_size as *const _ as usize },
+            96usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(buffer_size)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).temp_file_base as *const _ as usize
+            },
+            104usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(temp_file_base)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_names as *const _ as usize
+            },
+            112usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_names)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_name_number as *const _
+                    as usize
+            },
+            120usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_name_number)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_name_allocated as *const _
+                    as usize
+            },
+            124usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_name_allocated)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_names_npoints as *const _
+                    as usize
+            },
+            128usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_names_npoints)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_names_min_x as *const _
+                    as usize
+            },
+            136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_names_min_x)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_names_min_y as *const _
+                    as usize
+            },
+            144usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_names_min_y)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_names_max_x as *const _
+                    as usize
+            },
+            152usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_names_max_x)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_file_names_max_y as *const _
+                    as usize
+            },
+            160usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_file_names_max_y)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).neighbor_kdtree_rectangles as *const _
+                    as usize
+            },
+            168usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(neighbor_kdtree_rectangles)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).comma_not_point as *const _ as usize
+            },
+            176usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(comma_not_point)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).scale_factor as *const _ as usize },
+            184usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).offset as *const _ as usize },
+            192usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).auto_reoffset as *const _ as usize },
+            200usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(auto_reoffset)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).files_are_flightlines as *const _ as usize
+            },
+            204usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(files_are_flightlines)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).files_are_flightlines_index as *const _
+                    as usize
+            },
+            208usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(files_are_flightlines_index)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).apply_file_source_ID as *const _ as usize
+            },
+            212usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(apply_file_source_ID)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).itxt as *const _ as usize },
+            213usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(itxt)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).ipts as *const _ as usize },
+            214usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(ipts)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).iptx as *const _ as usize },
+            215usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(iptx)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).translate_intensity as *const _ as usize
+            },
+            216usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(translate_intensity)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).scale_intensity as *const _ as usize
+            },
+            220usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(scale_intensity)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).translate_scan_angle as *const _ as usize
+            },
+            224usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(translate_scan_angle)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).scale_scan_angle as *const _ as usize
+            },
+            228usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(scale_scan_angle)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).number_attributes as *const _ as usize
+            },
+            232usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(number_attributes)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_data_types as *const _ as usize
+            },
+            236usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_data_types)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_names as *const _ as usize
+            },
+            368usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_names)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_descriptions as *const _
+                    as usize
+            },
+            624usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_descriptions)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_scales as *const _ as usize
+            },
+            880usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_scales)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_offsets as *const _ as usize
+            },
+            1136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_offsets)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_pre_scales as *const _ as usize
+            },
+            1392usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_pre_scales)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_pre_offsets as *const _ as usize
+            },
+            1648usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_pre_offsets)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).attribute_no_datas as *const _ as usize
+            },
+            1904usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(attribute_no_datas)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).point_type as *const _ as usize },
+            2160usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(point_type)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).parse_string as *const _ as usize },
+            2168usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(parse_string)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).skip_lines as *const _ as usize },
+            2176usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(skip_lines)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).populate_header as *const _ as usize
+            },
+            2180usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(populate_header)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).keep_lastiling as *const _ as usize
+            },
+            2181usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(keep_lastiling)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).pipe_on as *const _ as usize },
+            2182usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(pipe_on)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).use_stdin as *const _ as usize },
+            2183usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(use_stdin)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).unique as *const _ as usize },
+            2184usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(unique)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).index as *const _ as usize },
+            2192usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(index)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).filter as *const _ as usize },
+            2200usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(filter)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).transform as *const _ as usize },
+            2208usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(transform)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).ignore as *const _ as usize },
+            2216usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(ignore)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).decompress_selective as *const _ as usize
+            },
+            2224usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(decompress_selective)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).inside_tile as *const _ as usize },
+            2232usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(inside_tile)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreadOpener>())).inside_circle as *const _ as usize },
+            2240usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(inside_circle)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreadOpener>())).inside_rectangle as *const _ as usize
+            },
+            2248usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreadOpener),
+                "::",
+                stringify!(inside_rectangle)
+            )
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener19set_io_ibuffer_sizeEj"]
+        pub fn LASreadOpener_set_io_ibuffer_size(
+            this: *mut root::LASreadOpener,
+            buffer_size: root::U32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener20get_file_name_numberEv"]
+        pub fn LASreadOpener_get_file_name_number(this: *const root::LASreadOpener) -> root::U32;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener21get_file_name_currentEv"]
+        pub fn LASreadOpener_get_file_name_current(this: *const root::LASreadOpener) -> root::U32;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener13get_file_nameEv"]
+        pub fn LASreadOpener_get_file_name(this: *const root::LASreadOpener) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener18get_file_name_onlyEv"]
+        pub fn LASreadOpener_get_file_name_only(
+            this: *const root::LASreadOpener,
+        ) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener23get_file_extension_onlyEv"]
+        pub fn LASreadOpener_get_file_extension_only(
+            this: *const root::LASreadOpener,
+        ) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener13get_file_nameEj"]
+        pub fn LASreadOpener_get_file_name1(
+            this: *const root::LASreadOpener,
+            number: root::U32,
+        ) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener18get_file_name_onlyEj"]
+        pub fn LASreadOpener_get_file_name_only1(
+            this: *const root::LASreadOpener,
+            number: root::U32,
+        ) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener23get_file_extension_onlyEj"]
+        pub fn LASreadOpener_get_file_extension_only1(
+            this: *const root::LASreadOpener,
+            number: root::U32,
+        ) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener18get_file_name_baseEv"]
+        pub fn LASreadOpener_get_file_name_base(
+            this: *const root::LASreadOpener,
+        ) -> *mut root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener18get_file_name_baseEj"]
+        pub fn LASreadOpener_get_file_name_base1(
+            this: *const root::LASreadOpener,
+            number: root::U32,
+        ) -> *mut root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener13set_file_nameEPKcb"]
+        pub fn LASreadOpener_set_file_name(
+            this: *mut root::LASreadOpener,
+            file_name: *const root::CHAR,
+            unique: root::BOOL,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener13add_file_nameEPKcb"]
+        pub fn LASreadOpener_add_file_name(
+            this: *mut root::LASreadOpener,
+            file_name: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener17add_list_of_filesEPKcb"]
+        pub fn LASreadOpener_add_list_of_files(
+            this: *mut root::LASreadOpener,
+            list_of_files: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener16delete_file_nameEj"]
+        pub fn LASreadOpener_delete_file_name(
+            this: *mut root::LASreadOpener,
+            file_name_id: root::U32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener21set_file_name_currentEj"]
+        pub fn LASreadOpener_set_file_name_current(
+            this: *mut root::LASreadOpener,
+            file_name_id: root::U32,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener15get_file_formatEj"]
+        pub fn LASreadOpener_get_file_format(
+            this: *const root::LASreadOpener,
+            number: root::U32,
+        ) -> root::I32;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener10set_mergedEb"]
+        pub fn LASreadOpener_set_merged(this: *mut root::LASreadOpener, merged: root::BOOL);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener10set_storedEb"]
+        pub fn LASreadOpener_set_stored(this: *mut root::LASreadOpener, stored: root::BOOL);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener15set_buffer_sizeEf"]
+        pub fn LASreadOpener_set_buffer_size(
+            this: *mut root::LASreadOpener,
+            buffer_size: root::F32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener15get_buffer_sizeEv"]
+        pub fn LASreadOpener_get_buffer_size(this: *const root::LASreadOpener) -> root::F32;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener22set_neighbor_file_nameEPKcb"]
+        pub fn LASreadOpener_set_neighbor_file_name(
+            this: *mut root::LASreadOpener,
+            neighbor_file_name: *const root::CHAR,
+            unique: root::BOOL,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener22add_neighbor_file_nameEPKcb"]
+        pub fn LASreadOpener_add_neighbor_file_name(
+            this: *mut root::LASreadOpener,
+            neighbor_file_name: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener22add_neighbor_file_nameEPKcxddddb"]
+        pub fn LASreadOpener_add_neighbor_file_name1(
+            this: *mut root::LASreadOpener,
+            file_name: *const root::CHAR,
+            npoints: root::I64,
+            min_x: root::F64,
+            min_y: root::F64,
+            max_x: root::F64,
+            max_y: root::F64,
+            unique: root::BOOL,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener26add_neighbor_list_of_filesEPKcb"]
+        pub fn LASreadOpener_add_neighbor_list_of_files(
+            this: *mut root::LASreadOpener,
+            list_of_files: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener17set_auto_reoffsetEb"]
+        pub fn LASreadOpener_set_auto_reoffset(
+            this: *mut root::LASreadOpener,
+            auto_reoffset: root::BOOL,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener25set_files_are_flightlinesEi"]
+        pub fn LASreadOpener_set_files_are_flightlines(
+            this: *mut root::LASreadOpener,
+            files_are_flightlines: root::I32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener31set_files_are_flightlines_indexEi"]
+        pub fn LASreadOpener_set_files_are_flightlines_index(
+            this: *mut root::LASreadOpener,
+            files_are_flightlines_index: root::I32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener24set_apply_file_source_IDEb"]
+        pub fn LASreadOpener_set_apply_file_source_ID(
+            this: *mut root::LASreadOpener,
+            apply_file_source_ID: root::BOOL,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener16set_scale_factorEPKd"]
+        pub fn LASreadOpener_set_scale_factor(
+            this: *mut root::LASreadOpener,
+            scale_factor: *const root::F64,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener10set_offsetEPKd"]
+        pub fn LASreadOpener_set_offset(this: *mut root::LASreadOpener, offset: *const root::F64);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener23set_translate_intensityEf"]
+        pub fn LASreadOpener_set_translate_intensity(
+            this: *mut root::LASreadOpener,
+            translation: root::F32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener19set_scale_intensityEf"]
+        pub fn LASreadOpener_set_scale_intensity(this: *mut root::LASreadOpener, scale: root::F32);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener24set_translate_scan_angleEf"]
+        pub fn LASreadOpener_set_translate_scan_angle(
+            this: *mut root::LASreadOpener,
+            translate_scan_angle: root::F32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener20set_scale_scan_angleEf"]
+        pub fn LASreadOpener_set_scale_scan_angle(
+            this: *mut root::LASreadOpener,
+            scale_scan_angle: root::F32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener13add_attributeEiPKcS1_ddddd"]
+        pub fn LASreadOpener_add_attribute(
+            this: *mut root::LASreadOpener,
+            data_type: root::I32,
+            name: *const root::CHAR,
+            description: *const root::CHAR,
+            scale: root::F64,
+            offset: root::F64,
+            pre_scale: root::F64,
+            pre_offset: root::F64,
+            no_data: root::F64,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener14set_point_typeEh"]
+        pub fn LASreadOpener_set_point_type(
+            this: *mut root::LASreadOpener,
+            point_type: root::U8,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener16set_parse_stringEPKc"]
+        pub fn LASreadOpener_set_parse_string(
+            this: *mut root::LASreadOpener,
+            parse_string: *const root::CHAR,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener14set_skip_linesEj"]
+        pub fn LASreadOpener_set_skip_lines(
+            this: *mut root::LASreadOpener,
+            number_of_lines: root::U32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener19set_populate_headerEb"]
+        pub fn LASreadOpener_set_populate_header(
+            this: *mut root::LASreadOpener,
+            populate_header: root::BOOL,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener18set_keep_lastilingEb"]
+        pub fn LASreadOpener_set_keep_lastiling(
+            this: *mut root::LASreadOpener,
+            keep_lastiling: root::BOOL,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener11set_pipe_onEb"]
+        pub fn LASreadOpener_set_pipe_on(this: *mut root::LASreadOpener, pipe_on: root::BOOL);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener16get_parse_stringEv"]
+        pub fn LASreadOpener_get_parse_string(
+            this: *const root::LASreadOpener,
+        ) -> *const root::CHAR;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener5usageEv"]
+        pub fn LASreadOpener_usage(this: *const root::LASreadOpener);
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener24set_decompress_selectiveEj"]
+        pub fn LASreadOpener_set_decompress_selective(
+            this: *mut root::LASreadOpener,
+            decompress_selective: root::U32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener15set_inside_tileEfff"]
+        pub fn LASreadOpener_set_inside_tile(
+            this: *mut root::LASreadOpener,
+            ll_x: root::F32,
+            ll_y: root::F32,
+            size: root::F32,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener17set_inside_circleEddd"]
+        pub fn LASreadOpener_set_inside_circle(
+            this: *mut root::LASreadOpener,
+            center_x: root::F64,
+            center_y: root::F64,
+            radius: root::F64,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener20set_inside_rectangleEdddd"]
+        pub fn LASreadOpener_set_inside_rectangle(
+            this: *mut root::LASreadOpener,
+            min_x: root::F64,
+            min_y: root::F64,
+            max_x: root::F64,
+            max_y: root::F64,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener5parseEiPPcb"]
+        pub fn LASreadOpener_parse(
+            this: *mut root::LASreadOpener,
+            argc: ::std::os::raw::c_int,
+            argv: *mut *mut ::std::os::raw::c_char,
+            parse_ignore: root::BOOL,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener8is_pipedEv"]
+        pub fn LASreadOpener_is_piped(this: *const root::LASreadOpener) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener11is_bufferedEv"]
+        pub fn LASreadOpener_is_buffered(this: *const root::LASreadOpener) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener19is_header_populatedEv"]
+        pub fn LASreadOpener_is_header_populated(this: *const root::LASreadOpener) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener6activeEv"]
+        pub fn LASreadOpener_active(this: *const root::LASreadOpener) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener9is_insideEv"]
+        pub fn LASreadOpener_is_inside(this: *const root::LASreadOpener) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK13LASreadOpener7unparseEPc"]
         pub fn LASreadOpener_unparse(
-            self_: *mut ::std::os::raw::c_void,
-            string: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
+            this: *const root::LASreadOpener,
+            string: *mut root::CHAR,
+        ) -> root::I32;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener10set_filterEP9LASfilter"]
         pub fn LASreadOpener_set_filter(
-            self_: *mut ::std::os::raw::c_void,
-            filter: *mut ::std::os::raw::c_void,
+            this: *mut root::LASreadOpener,
+            filter: *mut root::LASfilter,
         );
     }
     extern "C" {
-        pub fn LASreadOpener_get_filter(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener13set_transformEP12LAStransform"]
         pub fn LASreadOpener_set_transform(
-            self_: *mut ::std::os::raw::c_void,
-            transform: *mut ::std::os::raw::c_void,
+            this: *mut root::LASreadOpener,
+            transform: *mut root::LAStransform,
         );
     }
     extern "C" {
-        pub fn LASreadOpener_get_transform(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener10set_ignoreEP9LASignore"]
         pub fn LASreadOpener_set_ignore(
-            self_: *mut ::std::os::raw::c_void,
-            ignore: *mut ::std::os::raw::c_void,
+            this: *mut root::LASreadOpener,
+            ignore: *mut root::LASignore,
         );
     }
     extern "C" {
-        pub fn LASreadOpener_get_ignore(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZN13LASreadOpener5resetEv"]
+        pub fn LASreadOpener_reset(this: *mut root::LASreadOpener);
     }
     extern "C" {
-        pub fn LASreadOpener_reset(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_temp_file_base(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *const ::std::os::raw::c_void;
-    }
-    extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener4openEPKcb"]
         pub fn LASreadOpener_open(
-            self_: *mut ::std::os::raw::c_void,
-            other_file_name: *const ::std::os::raw::c_void,
-            reset_after_other: bool,
-        ) -> *mut ::std::os::raw::c_void;
+            this: *mut root::LASreadOpener,
+            other_file_name: *const root::CHAR,
+            reset_after_other: root::BOOL,
+        ) -> *mut root::LASreader;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener6reopenEP9LASreaderb"]
         pub fn LASreadOpener_reopen(
-            self_: *mut ::std::os::raw::c_void,
-            lasreader: *mut ::std::os::raw::c_void,
-            remain_buffered: bool,
-        ) -> bool;
+            this: *mut root::LASreadOpener,
+            lasreader: *mut root::LASreader,
+            remain_buffered: root::BOOL,
+        ) -> root::BOOL;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN13LASreadOpener15open_waveform13EPK9LASheader"]
         pub fn LASreadOpener_open_waveform13(
-            self_: *mut ::std::os::raw::c_void,
-            lasheader: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
+            this: *mut root::LASreadOpener,
+            lasheader: *const root::LASheader,
+        ) -> *mut root::LASwaveform13reader;
     }
     extern "C" {
-        pub fn LASreadOpener_get_number_attributes(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int;
+        #[link_name = "\u{1}_ZN13LASreadOpenerC1Ev"]
+        pub fn LASreadOpener_LASreadOpener(this: *mut root::LASreadOpener);
     }
     extern "C" {
-        pub fn LASreadOpener_get_attribute_data_type(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> ::std::os::raw::c_int;
+        #[link_name = "\u{1}_ZN13LASreadOpenerD1Ev"]
+        pub fn LASreadOpener_LASreadOpener_destructor(this: *mut root::LASreadOpener);
     }
-    extern "C" {
-        pub fn LASreadOpener_get_attribute_name(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> *const ::std::os::raw::c_void;
+    impl LASreadOpener {
+        #[inline]
+        pub unsafe fn set_io_ibuffer_size(&mut self, buffer_size: root::U32) {
+            LASreadOpener_set_io_ibuffer_size(self, buffer_size)
+        }
+        #[inline]
+        pub unsafe fn get_file_name_number(&self) -> root::U32 {
+            LASreadOpener_get_file_name_number(self)
+        }
+        #[inline]
+        pub unsafe fn get_file_name_current(&self) -> root::U32 {
+            LASreadOpener_get_file_name_current(self)
+        }
+        #[inline]
+        pub unsafe fn get_file_name(&self) -> *const root::CHAR {
+            LASreadOpener_get_file_name(self)
+        }
+        #[inline]
+        pub unsafe fn get_file_name_only(&self) -> *const root::CHAR {
+            LASreadOpener_get_file_name_only(self)
+        }
+        #[inline]
+        pub unsafe fn get_file_extension_only(&self) -> *const root::CHAR {
+            LASreadOpener_get_file_extension_only(self)
+        }
+        #[inline]
+        pub unsafe fn get_file_name1(&self, number: root::U32) -> *const root::CHAR {
+            LASreadOpener_get_file_name1(self, number)
+        }
+        #[inline]
+        pub unsafe fn get_file_name_only1(&self, number: root::U32) -> *const root::CHAR {
+            LASreadOpener_get_file_name_only1(self, number)
+        }
+        #[inline]
+        pub unsafe fn get_file_extension_only1(&self, number: root::U32) -> *const root::CHAR {
+            LASreadOpener_get_file_extension_only1(self, number)
+        }
+        #[inline]
+        pub unsafe fn get_file_name_base(&self) -> *mut root::CHAR {
+            LASreadOpener_get_file_name_base(self)
+        }
+        #[inline]
+        pub unsafe fn get_file_name_base1(&self, number: root::U32) -> *mut root::CHAR {
+            LASreadOpener_get_file_name_base1(self, number)
+        }
+        #[inline]
+        pub unsafe fn set_file_name(&mut self, file_name: *const root::CHAR, unique: root::BOOL) {
+            LASreadOpener_set_file_name(self, file_name, unique)
+        }
+        #[inline]
+        pub unsafe fn add_file_name(
+            &mut self,
+            file_name: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_add_file_name(self, file_name, unique)
+        }
+        #[inline]
+        pub unsafe fn add_list_of_files(
+            &mut self,
+            list_of_files: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_add_list_of_files(self, list_of_files, unique)
+        }
+        #[inline]
+        pub unsafe fn delete_file_name(&mut self, file_name_id: root::U32) {
+            LASreadOpener_delete_file_name(self, file_name_id)
+        }
+        #[inline]
+        pub unsafe fn set_file_name_current(&mut self, file_name_id: root::U32) -> root::BOOL {
+            LASreadOpener_set_file_name_current(self, file_name_id)
+        }
+        #[inline]
+        pub unsafe fn get_file_format(&self, number: root::U32) -> root::I32 {
+            LASreadOpener_get_file_format(self, number)
+        }
+        #[inline]
+        pub unsafe fn set_merged(&mut self, merged: root::BOOL) {
+            LASreadOpener_set_merged(self, merged)
+        }
+        #[inline]
+        pub unsafe fn set_stored(&mut self, stored: root::BOOL) {
+            LASreadOpener_set_stored(self, stored)
+        }
+        #[inline]
+        pub unsafe fn set_buffer_size(&mut self, buffer_size: root::F32) {
+            LASreadOpener_set_buffer_size(self, buffer_size)
+        }
+        #[inline]
+        pub unsafe fn get_buffer_size(&self) -> root::F32 {
+            LASreadOpener_get_buffer_size(self)
+        }
+        #[inline]
+        pub unsafe fn set_neighbor_file_name(
+            &mut self,
+            neighbor_file_name: *const root::CHAR,
+            unique: root::BOOL,
+        ) {
+            LASreadOpener_set_neighbor_file_name(self, neighbor_file_name, unique)
+        }
+        #[inline]
+        pub unsafe fn add_neighbor_file_name(
+            &mut self,
+            neighbor_file_name: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_add_neighbor_file_name(self, neighbor_file_name, unique)
+        }
+        #[inline]
+        pub unsafe fn add_neighbor_file_name1(
+            &mut self,
+            file_name: *const root::CHAR,
+            npoints: root::I64,
+            min_x: root::F64,
+            min_y: root::F64,
+            max_x: root::F64,
+            max_y: root::F64,
+            unique: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_add_neighbor_file_name1(
+                self, file_name, npoints, min_x, min_y, max_x, max_y, unique,
+            )
+        }
+        #[inline]
+        pub unsafe fn add_neighbor_list_of_files(
+            &mut self,
+            list_of_files: *const root::CHAR,
+            unique: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_add_neighbor_list_of_files(self, list_of_files, unique)
+        }
+        #[inline]
+        pub unsafe fn set_auto_reoffset(&mut self, auto_reoffset: root::BOOL) {
+            LASreadOpener_set_auto_reoffset(self, auto_reoffset)
+        }
+        #[inline]
+        pub unsafe fn set_files_are_flightlines(&mut self, files_are_flightlines: root::I32) {
+            LASreadOpener_set_files_are_flightlines(self, files_are_flightlines)
+        }
+        #[inline]
+        pub unsafe fn set_files_are_flightlines_index(
+            &mut self,
+            files_are_flightlines_index: root::I32,
+        ) {
+            LASreadOpener_set_files_are_flightlines_index(self, files_are_flightlines_index)
+        }
+        #[inline]
+        pub unsafe fn set_apply_file_source_ID(&mut self, apply_file_source_ID: root::BOOL) {
+            LASreadOpener_set_apply_file_source_ID(self, apply_file_source_ID)
+        }
+        #[inline]
+        pub unsafe fn set_scale_factor(&mut self, scale_factor: *const root::F64) {
+            LASreadOpener_set_scale_factor(self, scale_factor)
+        }
+        #[inline]
+        pub unsafe fn set_offset(&mut self, offset: *const root::F64) {
+            LASreadOpener_set_offset(self, offset)
+        }
+        #[inline]
+        pub unsafe fn set_translate_intensity(&mut self, translation: root::F32) {
+            LASreadOpener_set_translate_intensity(self, translation)
+        }
+        #[inline]
+        pub unsafe fn set_scale_intensity(&mut self, scale: root::F32) {
+            LASreadOpener_set_scale_intensity(self, scale)
+        }
+        #[inline]
+        pub unsafe fn set_translate_scan_angle(&mut self, translate_scan_angle: root::F32) {
+            LASreadOpener_set_translate_scan_angle(self, translate_scan_angle)
+        }
+        #[inline]
+        pub unsafe fn set_scale_scan_angle(&mut self, scale_scan_angle: root::F32) {
+            LASreadOpener_set_scale_scan_angle(self, scale_scan_angle)
+        }
+        #[inline]
+        pub unsafe fn add_attribute(
+            &mut self,
+            data_type: root::I32,
+            name: *const root::CHAR,
+            description: *const root::CHAR,
+            scale: root::F64,
+            offset: root::F64,
+            pre_scale: root::F64,
+            pre_offset: root::F64,
+            no_data: root::F64,
+        ) {
+            LASreadOpener_add_attribute(
+                self,
+                data_type,
+                name,
+                description,
+                scale,
+                offset,
+                pre_scale,
+                pre_offset,
+                no_data,
+            )
+        }
+        #[inline]
+        pub unsafe fn set_point_type(&mut self, point_type: root::U8) -> root::BOOL {
+            LASreadOpener_set_point_type(self, point_type)
+        }
+        #[inline]
+        pub unsafe fn set_parse_string(&mut self, parse_string: *const root::CHAR) {
+            LASreadOpener_set_parse_string(self, parse_string)
+        }
+        #[inline]
+        pub unsafe fn set_skip_lines(&mut self, number_of_lines: root::U32) {
+            LASreadOpener_set_skip_lines(self, number_of_lines)
+        }
+        #[inline]
+        pub unsafe fn set_populate_header(&mut self, populate_header: root::BOOL) {
+            LASreadOpener_set_populate_header(self, populate_header)
+        }
+        #[inline]
+        pub unsafe fn set_keep_lastiling(&mut self, keep_lastiling: root::BOOL) {
+            LASreadOpener_set_keep_lastiling(self, keep_lastiling)
+        }
+        #[inline]
+        pub unsafe fn set_pipe_on(&mut self, pipe_on: root::BOOL) {
+            LASreadOpener_set_pipe_on(self, pipe_on)
+        }
+        #[inline]
+        pub unsafe fn get_parse_string(&self) -> *const root::CHAR {
+            LASreadOpener_get_parse_string(self)
+        }
+        #[inline]
+        pub unsafe fn usage(&self) {
+            LASreadOpener_usage(self)
+        }
+        #[inline]
+        pub unsafe fn set_decompress_selective(&mut self, decompress_selective: root::U32) {
+            LASreadOpener_set_decompress_selective(self, decompress_selective)
+        }
+        #[inline]
+        pub unsafe fn set_inside_tile(
+            &mut self,
+            ll_x: root::F32,
+            ll_y: root::F32,
+            size: root::F32,
+        ) {
+            LASreadOpener_set_inside_tile(self, ll_x, ll_y, size)
+        }
+        #[inline]
+        pub unsafe fn set_inside_circle(
+            &mut self,
+            center_x: root::F64,
+            center_y: root::F64,
+            radius: root::F64,
+        ) {
+            LASreadOpener_set_inside_circle(self, center_x, center_y, radius)
+        }
+        #[inline]
+        pub unsafe fn set_inside_rectangle(
+            &mut self,
+            min_x: root::F64,
+            min_y: root::F64,
+            max_x: root::F64,
+            max_y: root::F64,
+        ) {
+            LASreadOpener_set_inside_rectangle(self, min_x, min_y, max_x, max_y)
+        }
+        #[inline]
+        pub unsafe fn parse(
+            &mut self,
+            argc: ::std::os::raw::c_int,
+            argv: *mut *mut ::std::os::raw::c_char,
+            parse_ignore: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_parse(self, argc, argv, parse_ignore)
+        }
+        #[inline]
+        pub unsafe fn is_piped(&self) -> root::BOOL {
+            LASreadOpener_is_piped(self)
+        }
+        #[inline]
+        pub unsafe fn is_buffered(&self) -> root::BOOL {
+            LASreadOpener_is_buffered(self)
+        }
+        #[inline]
+        pub unsafe fn is_header_populated(&self) -> root::BOOL {
+            LASreadOpener_is_header_populated(self)
+        }
+        #[inline]
+        pub unsafe fn active(&self) -> root::BOOL {
+            LASreadOpener_active(self)
+        }
+        #[inline]
+        pub unsafe fn is_inside(&self) -> root::BOOL {
+            LASreadOpener_is_inside(self)
+        }
+        #[inline]
+        pub unsafe fn unparse(&self, string: *mut root::CHAR) -> root::I32 {
+            LASreadOpener_unparse(self, string)
+        }
+        #[inline]
+        pub unsafe fn set_filter(&mut self, filter: *mut root::LASfilter) {
+            LASreadOpener_set_filter(self, filter)
+        }
+        #[inline]
+        pub unsafe fn set_transform(&mut self, transform: *mut root::LAStransform) {
+            LASreadOpener_set_transform(self, transform)
+        }
+        #[inline]
+        pub unsafe fn set_ignore(&mut self, ignore: *mut root::LASignore) {
+            LASreadOpener_set_ignore(self, ignore)
+        }
+        #[inline]
+        pub unsafe fn reset(&mut self) {
+            LASreadOpener_reset(self)
+        }
+        #[inline]
+        pub unsafe fn open(
+            &mut self,
+            other_file_name: *const root::CHAR,
+            reset_after_other: root::BOOL,
+        ) -> *mut root::LASreader {
+            LASreadOpener_open(self, other_file_name, reset_after_other)
+        }
+        #[inline]
+        pub unsafe fn reopen(
+            &mut self,
+            lasreader: *mut root::LASreader,
+            remain_buffered: root::BOOL,
+        ) -> root::BOOL {
+            LASreadOpener_reopen(self, lasreader, remain_buffered)
+        }
+        #[inline]
+        pub unsafe fn open_waveform13(
+            &mut self,
+            lasheader: *const root::LASheader,
+        ) -> *mut root::LASwaveform13reader {
+            LASreadOpener_open_waveform13(self, lasheader)
+        }
+        #[inline]
+        pub unsafe fn new() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreadOpener_LASreadOpener(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
+        #[inline]
+        pub unsafe fn destruct(&mut self) {
+            LASreadOpener_LASreadOpener_destructor(self)
+        }
     }
-    extern "C" {
-        pub fn LASreadOpener_get_attribute_description(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> *const ::std::os::raw::c_void;
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LASreadPoint {
+        _unused: [u8; 0],
     }
-    extern "C" {
-        pub fn LASreadOpener_get_attribute_scale(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> f64;
+    #[repr(C)]
+    pub struct LASreaderLAS {
+        pub _base: root::LASreader,
+        pub file: *mut root::FILE,
+        pub file_name: *mut root::CHAR,
+        pub stream: *mut root::ByteStreamIn,
+        pub delete_stream: root::BOOL,
+        pub reader: *mut root::LASreadPoint,
+        pub checked_end: root::BOOL,
     }
-    extern "C" {
-        pub fn LASreadOpener_get_attribute_offset(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASreadOpener_get_attribute_no_data(
-            self_: *mut ::std::os::raw::c_void,
-            index: ::std::os::raw::c_uint,
-        ) -> f64;
-    }
-    extern "C" {
-        pub fn LASreadOpener_create() -> *mut ::std::os::raw::c_void;
-    }
-    extern "C" {
-        pub fn LASreadOpener_destroy(self_: *mut ::std::os::raw::c_void);
-    }
-    extern "C" {
-        pub fn LASreaderLAS_set_delete_stream(
-            self_: *mut ::std::os::raw::c_void,
-            delete_stream: bool,
+    #[test]
+    fn bindgen_test_layout_LASreaderLAS() {
+        assert_eq!(
+            ::std::mem::size_of::<LASreaderLAS>(),
+            968usize,
+            concat!("Size of: ", stringify!(LASreaderLAS))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASreaderLAS>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASreaderLAS))
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLAS>())).file as *const _ as usize },
+            920usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLAS),
+                "::",
+                stringify!(file)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLAS>())).file_name as *const _ as usize },
+            928usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLAS),
+                "::",
+                stringify!(file_name)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLAS>())).stream as *const _ as usize },
+            936usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLAS),
+                "::",
+                stringify!(stream)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLAS>())).delete_stream as *const _ as usize },
+            944usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLAS),
+                "::",
+                stringify!(delete_stream)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLAS>())).reader as *const _ as usize },
+            952usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLAS),
+                "::",
+                stringify!(reader)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLAS>())).checked_end as *const _ as usize },
+            960usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLAS),
+                "::",
+                stringify!(checked_end)
+            )
         );
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN12LASreaderLAS4openEPKcibj"]
         pub fn LASreaderLAS_open(
-            self_: *mut ::std::os::raw::c_void,
-            file_name: *const ::std::os::raw::c_void,
-            io_buffer_size: ::std::os::raw::c_int,
-            peek_only: bool,
-            decompress_selective: ::std::os::raw::c_uint,
-        ) -> bool;
+            this: *mut root::LASreaderLAS,
+            file_name: *const ::std::os::raw::c_char,
+            io_buffer_size: root::I32,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL;
     }
     extern "C" {
-        pub fn LASreaderLAS_open_1(
-            self_: *mut ::std::os::raw::c_void,
-            file: *mut ::std::os::raw::c_void,
-            peek_only: bool,
-            decompress_selective: ::std::os::raw::c_uint,
-        ) -> bool;
+        #[link_name = "\u{1}_ZN12LASreaderLAS4openEP8_IO_FILEbj"]
+        pub fn LASreaderLAS_open1(
+            this: *mut root::LASreaderLAS,
+            file: *mut root::FILE,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL;
     }
     extern "C" {
-        pub fn LASreaderLAS_open_3(
-            self_: *mut ::std::os::raw::c_void,
-            stream: *mut ::std::os::raw::c_void,
-            peek_only: bool,
-            decompress_selective: ::std::os::raw::c_uint,
-        ) -> bool;
+        #[link_name = "\u{1}_ZN12LASreaderLAS4openERSibjb"]
+        pub fn LASreaderLAS_open2(
+            this: *mut root::LASreaderLAS,
+            stream: *mut root::std::istream,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+            seekable: root::BOOL,
+        ) -> root::BOOL;
     }
     extern "C" {
-        pub fn LASreaderLAS_get_format(self_: *mut ::std::os::raw::c_void)
-            -> ::std::os::raw::c_int;
+        #[link_name = "\u{1}_ZN12LASreaderLASC1Ev"]
+        pub fn LASreaderLAS_LASreaderLAS(this: *mut root::LASreaderLAS);
+    }
+    impl LASreaderLAS {
+        #[inline]
+        pub unsafe fn open(
+            &mut self,
+            file_name: *const ::std::os::raw::c_char,
+            io_buffer_size: root::I32,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL {
+            LASreaderLAS_open(
+                self,
+                file_name,
+                io_buffer_size,
+                peek_only,
+                decompress_selective,
+            )
+        }
+        #[inline]
+        pub unsafe fn open1(
+            &mut self,
+            file: *mut root::FILE,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL {
+            LASreaderLAS_open1(self, file, peek_only, decompress_selective)
+        }
+        #[inline]
+        pub unsafe fn open2(
+            &mut self,
+            stream: *mut root::std::istream,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+            seekable: root::BOOL,
+        ) -> root::BOOL {
+            LASreaderLAS_open2(self, stream, peek_only, decompress_selective, seekable)
+        }
+        #[inline]
+        pub unsafe fn new() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreaderLAS_LASreaderLAS(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
     }
     extern "C" {
+        #[link_name = "\u{1}_ZN12LASreaderLAS4openEP12ByteStreamInbj"]
+        pub fn LASreaderLAS_open3(
+            this: *mut ::std::os::raw::c_void,
+            stream: *mut root::ByteStreamIn,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZNK12LASreaderLAS10get_formatEv"]
+        pub fn LASreaderLAS_get_format(this: *mut ::std::os::raw::c_void) -> root::I32;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN12LASreaderLAS4seekEx"]
         pub fn LASreaderLAS_seek(
-            self_: *mut ::std::os::raw::c_void,
-            p_index: ::std::os::raw::c_longlong,
-        ) -> bool;
+            this: *mut ::std::os::raw::c_void,
+            p_index: root::I64,
+        ) -> root::BOOL;
     }
     extern "C" {
+        #[link_name = "\u{1}_ZNK12LASreaderLAS10get_streamEv"]
         pub fn LASreaderLAS_get_stream(
-            self_: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void;
+            this: *mut ::std::os::raw::c_void,
+        ) -> *mut root::ByteStreamIn;
     }
     extern "C" {
-        pub fn LASreaderLAS_close(self_: *mut ::std::os::raw::c_void, close_stream: bool);
+        #[link_name = "\u{1}_ZN12LASreaderLAS5closeEb"]
+        pub fn LASreaderLAS_close(this: *mut ::std::os::raw::c_void, close_stream: root::BOOL);
     }
     extern "C" {
-        pub fn LASreaderLAS_create() -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZN12LASreaderLASD1Ev"]
+        pub fn LASreaderLAS_LASreaderLAS_destructor(this: *mut root::LASreaderLAS);
     }
     extern "C" {
-        pub fn LASreaderLAS_destroy(self_: *mut ::std::os::raw::c_void);
+        #[link_name = "\u{1}_ZN12LASreaderLAS18read_point_defaultEv"]
+        pub fn LASreaderLAS_read_point_default(this: *mut ::std::os::raw::c_void) -> root::BOOL;
+    }
+    #[repr(C)]
+    pub struct LASreaderLASrescale {
+        pub __bindgen_padding_0: [u8; 8usize],
+        pub rescale_x: root::BOOL,
+        pub rescale_y: root::BOOL,
+        pub rescale_z: root::BOOL,
+        pub check_for_overflow: root::BOOL,
+        pub scale_factor: [root::F64; 3usize],
+        pub orig_x_scale_factor: root::F64,
+        pub orig_y_scale_factor: root::F64,
+        pub orig_z_scale_factor: root::F64,
+        pub __bindgen_padding_1: [u64; 121usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASreaderLASrescale() {
+        assert_eq!(
+            ::std::mem::size_of::<LASreaderLASrescale>(),
+            1032usize,
+            concat!("Size of: ", stringify!(LASreaderLASrescale))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASreaderLASrescale>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASreaderLASrescale))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).rescale_x as *const _ as usize
+            },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(rescale_x)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).rescale_y as *const _ as usize
+            },
+            9usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(rescale_y)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).rescale_z as *const _ as usize
+            },
+            10usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(rescale_z)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).check_for_overflow as *const _
+                    as usize
+            },
+            11usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(check_for_overflow)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).scale_factor as *const _ as usize
+            },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).orig_x_scale_factor as *const _
+                    as usize
+            },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(orig_x_scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).orig_y_scale_factor as *const _
+                    as usize
+            },
+            48usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(orig_y_scale_factor)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASrescale>())).orig_z_scale_factor as *const _
+                    as usize
+            },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASrescale),
+                "::",
+                stringify!(orig_z_scale_factor)
+            )
+        );
     }
     extern "C" {
-        pub fn LASreaderLASrescale_create(
-            x_scale_factor: f64,
-            y_scale_factor: f64,
-            z_scale_factor: f64,
-            check_for_overflow: bool,
-        ) -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZN19LASreaderLASrescaleC1Edddb"]
+        pub fn LASreaderLASrescale_LASreaderLASrescale(
+            this: *mut root::LASreaderLASrescale,
+            x_scale_factor: root::F64,
+            y_scale_factor: root::F64,
+            z_scale_factor: root::F64,
+            check_for_overflow: root::BOOL,
+        );
+    }
+    impl LASreaderLASrescale {
+        #[inline]
+        pub unsafe fn new(
+            x_scale_factor: root::F64,
+            y_scale_factor: root::F64,
+            z_scale_factor: root::F64,
+            check_for_overflow: root::BOOL,
+        ) -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreaderLASrescale_LASreaderLASrescale(
+                __bindgen_tmp.as_mut_ptr(),
+                x_scale_factor,
+                y_scale_factor,
+                z_scale_factor,
+                check_for_overflow,
+            );
+            __bindgen_tmp.assume_init()
+        }
     }
     extern "C" {
-        pub fn LASreaderLASreoffset_create(
-            x_offset: f64,
-            y_offset: f64,
-            z_offset: f64,
-        ) -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZTv0_n128_N19LASreaderLASrescale4openEP12ByteStreamInbj"]
+        pub fn LASreaderLASrescale_open(
+            this: *mut ::std::os::raw::c_void,
+            stream: *mut root::ByteStreamIn,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL;
     }
     extern "C" {
-        pub fn LASreaderLASreoffset_create_1() -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZTv0_n120_N19LASreaderLASrescale18read_point_defaultEv"]
+        pub fn LASreaderLASrescale_read_point_default(
+            this: *mut ::std::os::raw::c_void,
+        ) -> root::BOOL;
+    }
+    #[repr(C)]
+    pub struct LASreaderLASreoffset {
+        pub __bindgen_padding_0: [u8; 8usize],
+        pub auto_reoffset: root::BOOL,
+        pub reoffset_x: root::BOOL,
+        pub reoffset_y: root::BOOL,
+        pub reoffset_z: root::BOOL,
+        pub offset: [root::F64; 3usize],
+        pub orig_x_offset: root::F64,
+        pub orig_y_offset: root::F64,
+        pub orig_z_offset: root::F64,
+        pub __bindgen_padding_1: [u64; 121usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASreaderLASreoffset() {
+        assert_eq!(
+            ::std::mem::size_of::<LASreaderLASreoffset>(),
+            1032usize,
+            concat!("Size of: ", stringify!(LASreaderLASreoffset))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASreaderLASreoffset>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASreaderLASreoffset))
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).auto_reoffset as *const _ as usize
+            },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(auto_reoffset)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).reoffset_x as *const _ as usize
+            },
+            9usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(reoffset_x)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).reoffset_y as *const _ as usize
+            },
+            10usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(reoffset_y)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).reoffset_z as *const _ as usize
+            },
+            11usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(reoffset_z)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::std::ptr::null::<LASreaderLASreoffset>())).offset as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(offset)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).orig_x_offset as *const _ as usize
+            },
+            40usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(orig_x_offset)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).orig_y_offset as *const _ as usize
+            },
+            48usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(orig_y_offset)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::std::ptr::null::<LASreaderLASreoffset>())).orig_z_offset as *const _ as usize
+            },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(LASreaderLASreoffset),
+                "::",
+                stringify!(orig_z_offset)
+            )
+        );
     }
     extern "C" {
-        pub fn LASreaderLASrescalereoffset_create(
-            x_scale_factor: f64,
-            y_scale_factor: f64,
-            z_scale_factor: f64,
-            x_offset: f64,
-            y_offset: f64,
-            z_offset: f64,
-        ) -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZN20LASreaderLASreoffsetC1Eddd"]
+        pub fn LASreaderLASreoffset_LASreaderLASreoffset(
+            this: *mut root::LASreaderLASreoffset,
+            x_offset: root::F64,
+            y_offset: root::F64,
+            z_offset: root::F64,
+        );
     }
     extern "C" {
-        pub fn LASreaderLASrescalereoffset_create_1(
-            x_scale_factor: f64,
-            y_scale_factor: f64,
-            z_scale_factor: f64,
-        ) -> *mut ::std::os::raw::c_void;
+        #[link_name = "\u{1}_ZN20LASreaderLASreoffsetC1Ev"]
+        pub fn LASreaderLASreoffset_LASreaderLASreoffset1(this: *mut root::LASreaderLASreoffset);
+    }
+    impl LASreaderLASreoffset {
+        #[inline]
+        pub unsafe fn new(x_offset: root::F64, y_offset: root::F64, z_offset: root::F64) -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreaderLASreoffset_LASreaderLASreoffset(
+                __bindgen_tmp.as_mut_ptr(),
+                x_offset,
+                y_offset,
+                z_offset,
+            );
+            __bindgen_tmp.assume_init()
+        }
+        #[inline]
+        pub unsafe fn new1() -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreaderLASreoffset_LASreaderLASreoffset1(__bindgen_tmp.as_mut_ptr());
+            __bindgen_tmp.assume_init()
+        }
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZTv0_n128_N20LASreaderLASreoffset4openEP12ByteStreamInbj"]
+        pub fn LASreaderLASreoffset_open(
+            this: *mut ::std::os::raw::c_void,
+            stream: *mut root::ByteStreamIn,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZTv0_n120_N20LASreaderLASreoffset18read_point_defaultEv"]
+        pub fn LASreaderLASreoffset_read_point_default(
+            this: *mut ::std::os::raw::c_void,
+        ) -> root::BOOL;
+    }
+    #[repr(C)]
+    #[repr(align(8))]
+    pub struct LASreaderLASrescalereoffset {
+        pub _bindgen_opaque_blob: [u64; 137usize],
+    }
+    #[test]
+    fn bindgen_test_layout_LASreaderLASrescalereoffset() {
+        assert_eq!(
+            ::std::mem::size_of::<LASreaderLASrescalereoffset>(),
+            1096usize,
+            concat!("Size of: ", stringify!(LASreaderLASrescalereoffset))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<LASreaderLASrescalereoffset>(),
+            8usize,
+            concat!("Alignment of ", stringify!(LASreaderLASrescalereoffset))
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN27LASreaderLASrescalereoffsetC1Edddddd"]
+        pub fn LASreaderLASrescalereoffset_LASreaderLASrescalereoffset(
+            this: *mut root::LASreaderLASrescalereoffset,
+            x_scale_factor: root::F64,
+            y_scale_factor: root::F64,
+            z_scale_factor: root::F64,
+            x_offset: root::F64,
+            y_offset: root::F64,
+            z_offset: root::F64,
+        );
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN27LASreaderLASrescalereoffsetC1Eddd"]
+        pub fn LASreaderLASrescalereoffset_LASreaderLASrescalereoffset1(
+            this: *mut root::LASreaderLASrescalereoffset,
+            x_scale_factor: root::F64,
+            y_scale_factor: root::F64,
+            z_scale_factor: root::F64,
+        );
+    }
+    impl LASreaderLASrescalereoffset {
+        #[inline]
+        pub unsafe fn new(
+            x_scale_factor: root::F64,
+            y_scale_factor: root::F64,
+            z_scale_factor: root::F64,
+            x_offset: root::F64,
+            y_offset: root::F64,
+            z_offset: root::F64,
+        ) -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreaderLASrescalereoffset_LASreaderLASrescalereoffset(
+                __bindgen_tmp.as_mut_ptr(),
+                x_scale_factor,
+                y_scale_factor,
+                z_scale_factor,
+                x_offset,
+                y_offset,
+                z_offset,
+            );
+            __bindgen_tmp.assume_init()
+        }
+        #[inline]
+        pub unsafe fn new1(
+            x_scale_factor: root::F64,
+            y_scale_factor: root::F64,
+            z_scale_factor: root::F64,
+        ) -> Self {
+            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+            LASreaderLASrescalereoffset_LASreaderLASrescalereoffset1(
+                __bindgen_tmp.as_mut_ptr(),
+                x_scale_factor,
+                y_scale_factor,
+                z_scale_factor,
+            );
+            __bindgen_tmp.assume_init()
+        }
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZTv0_n128_N27LASreaderLASrescalereoffset4openEP12ByteStreamInbj"]
+        pub fn LASreaderLASrescalereoffset_open(
+            this: *mut ::std::os::raw::c_void,
+            stream: *mut root::ByteStreamIn,
+            peek_only: root::BOOL,
+            decompress_selective: root::U32,
+        ) -> root::BOOL;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZTv0_n120_N27LASreaderLASrescalereoffset18read_point_defaultEv"]
+        pub fn LASreaderLASrescalereoffset_read_point_default(
+            this: *mut ::std::os::raw::c_void,
+        ) -> root::BOOL;
     }
 }
