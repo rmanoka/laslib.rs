@@ -16,7 +16,7 @@ impl LasReader {
         let path_str = CString::new(
             path.as_os_str().as_bytes()).unwrap();
 
-        let handle = unsafe{ LASreaderLAS::new() };
+        let mut handle = unsafe{ LASreaderLAS::new() };
         let result = unsafe{ handle.open(
             path_str.as_ptr(),
             LAS_TOOLS_IO_IBUFFER_SIZE,
@@ -29,17 +29,24 @@ impl LasReader {
             bail!("couldn't open: {}", path.display())
         }
     }
-    // pub fn seek(&mut self, idx: i64) -> bool {
-    //     unsafe {LASreaderLAS_seek(
-    //         self.handle,
-    //         idx,
-    //     )}
-    // }
-    // pub fn len(&self) -> i64 {
-    //     unsafe{ *LASreader_field_npoints(
-    //         self.handle,
-    //     )}
-    // }
+    pub fn seek(&mut self, idx: i64) -> bool {
+        unsafe {root::LASreaderLAS_seek(
+            &mut self.handle as *mut LASreaderLAS as *mut c_void,
+            idx,
+        )}
+    }
+    pub fn len(&self) -> i64 {
+        self.handle._base.npoints
+    }
+    pub fn read_point(&mut self) -> bool {
+        use lastools_sys::hacks::LASreader_read_point;
+        unsafe {
+            LASreader_read_point(
+                &mut self.handle._base as *mut LASreader
+                    as *mut c_void
+            )
+        }
+    }
     // pub fn next_point(&mut self) -> Option<LasPoint> {
     //     let flag = unsafe{LASreader_read_point(
     //         self.handle
@@ -90,21 +97,33 @@ impl LasReader {
 
 // unsafe impl Send for LasReader {}
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     #[test]
-//     #[ignore]
-//     fn iterate_las() {
-//         let path = std::env::var_os("LASFILE")
-//             .expect("env LASFILE not set");
-//         let mut reader = LasReader::open(Path::new(&path))
-//             .expect("open las");
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    #[ignore]
+    fn iterate_las() {
+        use std::path::PathBuf;
+        use std::time::Instant;
+        let path: PathBuf = std::env::var_os("LASFILE")
+            .expect("env LASFILE not set").into();
 
-//         let num = reader.len();
-//         let last = 100.max(num);
-//         reader.seek(num - last);
-//         let count = reader.iter().count() as i64;
-//         assert_eq!(count, last);
-//     }
-// }
+        let start = Instant::now();
+
+        let mut reader = LasReader::open(&path)
+            .expect("open las");
+        let num = reader.len();
+
+        eprintln!("Loaded {} with {} points", path.display(), num);
+        eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
+
+        let last = 100.min(num);
+        reader.seek(last);
+        eprintln!("Seeked to idx {}", last);
+        let mut count = 0;
+        while reader.read_point() { count += 1; }
+        eprintln!("Read {} points", count);
+        eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
+        assert_eq!(last + count, num);
+    }
+}

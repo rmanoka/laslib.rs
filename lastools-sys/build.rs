@@ -1,4 +1,3 @@
-
 #[allow(dead_code)]
 #[cfg(feature = "bindgen")]
 fn write_bindings() {
@@ -21,7 +20,6 @@ fn write_bindings() {
         .enable_cxx_namespaces()
         .clang_args(&["-x", "c++"])
 
-        .generate_inline_functions(true)
         .whitelist_type("LAS.*")
         .whitelist_type("U64.*")
         .opaque_type("[^L][^A].*")
@@ -39,9 +37,40 @@ fn write_bindings() {
         .expect("Couldn't write bindings!");
 }
 
+#[allow(unused_imports)]
+use std::path::Path;
+#[cfg(feature = "bindgen")]
+fn write_hacks(dst: &Path) {
+    use std::env;
+    use std::path::PathBuf;
+
+    let header = dst.join("include").join("cwrapper.h");
+    let bindings = bindgen::Builder::default()
+        .header(header.to_str().unwrap())
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .enable_cxx_namespaces()
+        .clang_args(&["-x", "c++"])
+        .generate()
+        .expect("Unable to generate bindings");
+
+    let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+    bindings
+        .write_to_file(out_path.join("bindings-hacks.rs"))
+        .expect("Couldn't write bindings!");
+
+}
+
 fn main() {
     // Tell cargo to tell rustc to link the system bzip2
     // shared library.
-    println!("cargo:rustc-link-lib=las");
+    let dst = cmake::build("hacks");
 
+    println!("cargo:rustc-link-search=native={}", dst.join("lib").display());
+    println!("cargo:rustc-link-lib=laslib-hacks");
+    println!("cargo:rustc-link-lib=las");
+    println!("cargo:rustc-link-lib=stdc++");
+    #[cfg(feature = "bindgen")]
+    write_bindings();
+    #[cfg(feature = "bindgen")]
+    write_hacks(&dst);
 }

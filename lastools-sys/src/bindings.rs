@@ -104,8 +104,8 @@ pub mod root {
     pub type U8 = u8;
     pub type U64 = u64;
     pub type I64 = i64;
-    pub type F32 = u32;
-    pub type F64 = u64;
+    pub type F32 = f32;
+    pub type F64 = f64;
     pub type BOOL = bool;
     #[repr(C)]
     #[repr(align(8))]
@@ -212,10 +212,6 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZN16LASvlr_lastilingC1Ev"]
-        pub fn LASvlr_lastiling_LASvlr_lastiling(this: *mut root::LASvlr_lastiling);
-    }
     impl LASvlr_lastiling {
         #[inline]
         pub fn implicit_levels(&self) -> root::U32 {
@@ -271,12 +267,6 @@ pub mod root {
                 reversible as u64
             });
             __bindgen_bitfield_unit
-        }
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASvlr_lastiling_LASvlr_lastiling(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
         }
     }
     #[repr(C)]
@@ -400,18 +390,6 @@ pub mod root {
                 stringify!(position)
             )
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN18LASvlr_lasoriginalC1Ev"]
-        pub fn LASvlr_lasoriginal_LASvlr_lasoriginal(this: *mut root::LASvlr_lasoriginal);
-    }
-    impl LASvlr_lasoriginal {
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASvlr_lasoriginal_LASvlr_lasoriginal(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
     }
     pub type SIGNED_INT64 = u64;
     #[repr(C)]
@@ -991,66 +969,6 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASquantizer5get_xEi"]
-        pub fn LASquantizer_get_x(this: *const root::LASquantizer, X: root::I32) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASquantizer5get_yEi"]
-        pub fn LASquantizer_get_y(this: *const root::LASquantizer, Y: root::I32) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASquantizer5get_zEi"]
-        pub fn LASquantizer_get_z(this: *const root::LASquantizer, Z: root::I32) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASquantizer5get_XEd"]
-        pub fn LASquantizer_get_X(this: *const root::LASquantizer, x: root::F64) -> root::I64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASquantizer5get_YEd"]
-        pub fn LASquantizer_get_Y(this: *const root::LASquantizer, y: root::F64) -> root::I64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASquantizer5get_ZEd"]
-        pub fn LASquantizer_get_Z(this: *const root::LASquantizer, z: root::F64) -> root::I64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASquantizerC1Ev"]
-        pub fn LASquantizer_LASquantizer(this: *mut root::LASquantizer);
-    }
-    impl LASquantizer {
-        #[inline]
-        pub unsafe fn get_x(&self, X: root::I32) -> root::F64 {
-            LASquantizer_get_x(self, X)
-        }
-        #[inline]
-        pub unsafe fn get_y(&self, Y: root::I32) -> root::F64 {
-            LASquantizer_get_y(self, Y)
-        }
-        #[inline]
-        pub unsafe fn get_z(&self, Z: root::I32) -> root::F64 {
-            LASquantizer_get_z(self, Z)
-        }
-        #[inline]
-        pub unsafe fn get_X(&self, x: root::F64) -> root::I64 {
-            LASquantizer_get_X(self, x)
-        }
-        #[inline]
-        pub unsafe fn get_Y(&self, y: root::F64) -> root::I64 {
-            LASquantizer_get_Y(self, y)
-        }
-        #[inline]
-        pub unsafe fn get_Z(&self, z: root::F64) -> root::I64 {
-            LASquantizer_get_Z(self, z)
-        }
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASquantizer_LASquantizer(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
-    }
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct LASattribute {
@@ -1189,448 +1107,6 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEh"]
-        pub fn LASattribute_set_no_data(
-            this: *mut root::LASattribute,
-            no_data: root::U8,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEc"]
-        pub fn LASattribute_set_no_data1(
-            this: *mut root::LASattribute,
-            no_data: root::I8,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEt"]
-        pub fn LASattribute_set_no_data2(
-            this: *mut root::LASattribute,
-            no_data: root::U16,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEs"]
-        pub fn LASattribute_set_no_data3(
-            this: *mut root::LASattribute,
-            no_data: root::I16,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEj"]
-        pub fn LASattribute_set_no_data4(
-            this: *mut root::LASattribute,
-            no_data: root::U32,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEi"]
-        pub fn LASattribute_set_no_data5(
-            this: *mut root::LASattribute,
-            no_data: root::I32,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEy"]
-        pub fn LASattribute_set_no_data6(
-            this: *mut root::LASattribute,
-            no_data: root::U64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEx"]
-        pub fn LASattribute_set_no_data7(
-            this: *mut root::LASattribute,
-            no_data: root::I64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEf"]
-        pub fn LASattribute_set_no_data8(
-            this: *mut root::LASattribute,
-            no_data: root::F32,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11set_no_dataEd"]
-        pub fn LASattribute_set_no_data9(
-            this: *mut root::LASattribute,
-            no_data: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEPh"]
-        pub fn LASattribute_set_min(this: *mut root::LASattribute, min: *mut root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute10update_minEPh"]
-        pub fn LASattribute_update_min(this: *mut root::LASattribute, min: *mut root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEh"]
-        pub fn LASattribute_set_min1(this: *mut root::LASattribute, min: root::U8) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEc"]
-        pub fn LASattribute_set_min2(this: *mut root::LASattribute, min: root::I8) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEt"]
-        pub fn LASattribute_set_min3(this: *mut root::LASattribute, min: root::U16) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEs"]
-        pub fn LASattribute_set_min4(this: *mut root::LASattribute, min: root::I16) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEj"]
-        pub fn LASattribute_set_min5(this: *mut root::LASattribute, min: root::U32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEi"]
-        pub fn LASattribute_set_min6(this: *mut root::LASattribute, min: root::I32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEy"]
-        pub fn LASattribute_set_min7(this: *mut root::LASattribute, min: root::U64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEx"]
-        pub fn LASattribute_set_min8(this: *mut root::LASattribute, min: root::I64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEf"]
-        pub fn LASattribute_set_min9(this: *mut root::LASattribute, min: root::F32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_minEd"]
-        pub fn LASattribute_set_min10(this: *mut root::LASattribute, min: root::F64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEPh"]
-        pub fn LASattribute_set_max(this: *mut root::LASattribute, max: *mut root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute10update_maxEPh"]
-        pub fn LASattribute_update_max(this: *mut root::LASattribute, max: *mut root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEh"]
-        pub fn LASattribute_set_max1(this: *mut root::LASattribute, max: root::U8) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEc"]
-        pub fn LASattribute_set_max2(this: *mut root::LASattribute, max: root::I8) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEt"]
-        pub fn LASattribute_set_max3(this: *mut root::LASattribute, max: root::U16) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEs"]
-        pub fn LASattribute_set_max4(this: *mut root::LASattribute, max: root::I16) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEj"]
-        pub fn LASattribute_set_max5(this: *mut root::LASattribute, max: root::U32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEi"]
-        pub fn LASattribute_set_max6(this: *mut root::LASattribute, max: root::I32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEy"]
-        pub fn LASattribute_set_max7(this: *mut root::LASattribute, max: root::U64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEx"]
-        pub fn LASattribute_set_max8(this: *mut root::LASattribute, max: root::I64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEf"]
-        pub fn LASattribute_set_max9(this: *mut root::LASattribute, max: root::F32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute7set_maxEd"]
-        pub fn LASattribute_set_max10(this: *mut root::LASattribute, max: root::F64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute9set_scaleEd"]
-        pub fn LASattribute_set_scale(
-            this: *mut root::LASattribute,
-            scale: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute10set_offsetEd"]
-        pub fn LASattribute_set_offset(
-            this: *mut root::LASattribute,
-            offset: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute11unset_scaleEv"]
-        pub fn LASattribute_unset_scale(this: *mut root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattribute12unset_offsetEv"]
-        pub fn LASattribute_unset_offset(this: *mut root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute11has_no_dataEv"]
-        pub fn LASattribute_has_no_data(this: *const root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute7has_minEv"]
-        pub fn LASattribute_has_min(this: *const root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute7has_maxEv"]
-        pub fn LASattribute_has_max(this: *const root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute9has_scaleEv"]
-        pub fn LASattribute_has_scale(this: *const root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute10has_offsetEv"]
-        pub fn LASattribute_has_offset(this: *const root::LASattribute) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute8get_sizeEv"]
-        pub fn LASattribute_get_size(this: *const root::LASattribute) -> root::U32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute18get_value_as_floatEPh"]
-        pub fn LASattribute_get_value_as_float(
-            this: *const root::LASattribute,
-            pointer: *mut root::U8,
-        ) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK12LASattribute18set_value_as_floatEPhd"]
-        pub fn LASattribute_set_value_as_float(
-            this: *const root::LASattribute,
-            pointer: *mut root::U8,
-            value: root::F64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattributeC1Eh"]
-        pub fn LASattribute_LASattribute(this: *mut root::LASattribute, size: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN12LASattributeC1EjPKcS1_"]
-        pub fn LASattribute_LASattribute1(
-            this: *mut root::LASattribute,
-            type_: root::U32,
-            name: *const root::CHAR,
-            description: *const root::CHAR,
-        );
-    }
-    impl LASattribute {
-        #[inline]
-        pub unsafe fn set_no_data(&mut self, no_data: root::U8) -> root::BOOL {
-            LASattribute_set_no_data(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data1(&mut self, no_data: root::I8) -> root::BOOL {
-            LASattribute_set_no_data1(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data2(&mut self, no_data: root::U16) -> root::BOOL {
-            LASattribute_set_no_data2(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data3(&mut self, no_data: root::I16) -> root::BOOL {
-            LASattribute_set_no_data3(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data4(&mut self, no_data: root::U32) -> root::BOOL {
-            LASattribute_set_no_data4(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data5(&mut self, no_data: root::I32) -> root::BOOL {
-            LASattribute_set_no_data5(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data6(&mut self, no_data: root::U64) -> root::BOOL {
-            LASattribute_set_no_data6(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data7(&mut self, no_data: root::I64) -> root::BOOL {
-            LASattribute_set_no_data7(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data8(&mut self, no_data: root::F32) -> root::BOOL {
-            LASattribute_set_no_data8(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_no_data9(&mut self, no_data: root::F64) -> root::BOOL {
-            LASattribute_set_no_data9(self, no_data)
-        }
-        #[inline]
-        pub unsafe fn set_min(&mut self, min: *mut root::U8) {
-            LASattribute_set_min(self, min)
-        }
-        #[inline]
-        pub unsafe fn update_min(&mut self, min: *mut root::U8) {
-            LASattribute_update_min(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min1(&mut self, min: root::U8) -> root::BOOL {
-            LASattribute_set_min1(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min2(&mut self, min: root::I8) -> root::BOOL {
-            LASattribute_set_min2(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min3(&mut self, min: root::U16) -> root::BOOL {
-            LASattribute_set_min3(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min4(&mut self, min: root::I16) -> root::BOOL {
-            LASattribute_set_min4(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min5(&mut self, min: root::U32) -> root::BOOL {
-            LASattribute_set_min5(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min6(&mut self, min: root::I32) -> root::BOOL {
-            LASattribute_set_min6(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min7(&mut self, min: root::U64) -> root::BOOL {
-            LASattribute_set_min7(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min8(&mut self, min: root::I64) -> root::BOOL {
-            LASattribute_set_min8(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min9(&mut self, min: root::F32) -> root::BOOL {
-            LASattribute_set_min9(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_min10(&mut self, min: root::F64) -> root::BOOL {
-            LASattribute_set_min10(self, min)
-        }
-        #[inline]
-        pub unsafe fn set_max(&mut self, max: *mut root::U8) {
-            LASattribute_set_max(self, max)
-        }
-        #[inline]
-        pub unsafe fn update_max(&mut self, max: *mut root::U8) {
-            LASattribute_update_max(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max1(&mut self, max: root::U8) -> root::BOOL {
-            LASattribute_set_max1(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max2(&mut self, max: root::I8) -> root::BOOL {
-            LASattribute_set_max2(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max3(&mut self, max: root::U16) -> root::BOOL {
-            LASattribute_set_max3(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max4(&mut self, max: root::I16) -> root::BOOL {
-            LASattribute_set_max4(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max5(&mut self, max: root::U32) -> root::BOOL {
-            LASattribute_set_max5(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max6(&mut self, max: root::I32) -> root::BOOL {
-            LASattribute_set_max6(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max7(&mut self, max: root::U64) -> root::BOOL {
-            LASattribute_set_max7(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max8(&mut self, max: root::I64) -> root::BOOL {
-            LASattribute_set_max8(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max9(&mut self, max: root::F32) -> root::BOOL {
-            LASattribute_set_max9(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_max10(&mut self, max: root::F64) -> root::BOOL {
-            LASattribute_set_max10(self, max)
-        }
-        #[inline]
-        pub unsafe fn set_scale(&mut self, scale: root::F64) -> root::BOOL {
-            LASattribute_set_scale(self, scale)
-        }
-        #[inline]
-        pub unsafe fn set_offset(&mut self, offset: root::F64) -> root::BOOL {
-            LASattribute_set_offset(self, offset)
-        }
-        #[inline]
-        pub unsafe fn unset_scale(&mut self) -> root::BOOL {
-            LASattribute_unset_scale(self)
-        }
-        #[inline]
-        pub unsafe fn unset_offset(&mut self) -> root::BOOL {
-            LASattribute_unset_offset(self)
-        }
-        #[inline]
-        pub unsafe fn has_no_data(&self) -> root::BOOL {
-            LASattribute_has_no_data(self)
-        }
-        #[inline]
-        pub unsafe fn has_min(&self) -> root::BOOL {
-            LASattribute_has_min(self)
-        }
-        #[inline]
-        pub unsafe fn has_max(&self) -> root::BOOL {
-            LASattribute_has_max(self)
-        }
-        #[inline]
-        pub unsafe fn has_scale(&self) -> root::BOOL {
-            LASattribute_has_scale(self)
-        }
-        #[inline]
-        pub unsafe fn has_offset(&self) -> root::BOOL {
-            LASattribute_has_offset(self)
-        }
-        #[inline]
-        pub unsafe fn get_size(&self) -> root::U32 {
-            LASattribute_get_size(self)
-        }
-        #[inline]
-        pub unsafe fn get_value_as_float(&self, pointer: *mut root::U8) -> root::F64 {
-            LASattribute_get_value_as_float(self, pointer)
-        }
-        #[inline]
-        pub unsafe fn set_value_as_float(&self, pointer: *mut root::U8, value: root::F64) {
-            LASattribute_set_value_as_float(self, pointer, value)
-        }
-        #[inline]
-        pub unsafe fn new(size: root::U8) -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASattribute_LASattribute(__bindgen_tmp.as_mut_ptr(), size);
-            __bindgen_tmp.assume_init()
-        }
-        #[inline]
-        pub unsafe fn new1(
-            type_: root::U32,
-            name: *const root::CHAR,
-            description: *const root::CHAR,
-        ) -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASattribute_LASattribute1(__bindgen_tmp.as_mut_ptr(), type_, name, description);
-            __bindgen_tmp.assume_init()
-        }
-    }
     #[repr(C)]
     pub struct LASattributer {
         pub attributes_linked: root::BOOL,
@@ -1710,146 +1186,6 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributer16clean_attributesEv"]
-        pub fn LASattributer_clean_attributes(this: *mut root::LASattributer);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributer15init_attributesEjP12LASattribute"]
-        pub fn LASattributer_init_attributes(
-            this: *mut root::LASattributer,
-            number_attributes: root::U32,
-            attributes: *mut root::LASattribute,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributer13add_attributeE12LASattribute"]
-        pub fn LASattributer_add_attribute(
-            this: *mut root::LASattributer,
-            attribute: root::LASattribute,
-        ) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASattributer19get_attributes_sizeEv"]
-        pub fn LASattributer_get_attributes_size(this: *const root::LASattributer) -> root::I16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASattributer19get_attribute_indexEPKc"]
-        pub fn LASattributer_get_attribute_index(
-            this: *const root::LASattributer,
-            name: *const root::CHAR,
-        ) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASattributer19get_attribute_startEPKc"]
-        pub fn LASattributer_get_attribute_start(
-            this: *const root::LASattributer,
-            name: *const root::CHAR,
-        ) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASattributer19get_attribute_startEi"]
-        pub fn LASattributer_get_attribute_start1(
-            this: *const root::LASattributer,
-            index: root::I32,
-        ) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASattributer18get_attribute_sizeEi"]
-        pub fn LASattributer_get_attribute_size(
-            this: *const root::LASattributer,
-            index: root::I32,
-        ) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASattributer18get_attribute_nameEi"]
-        pub fn LASattributer_get_attribute_name(
-            this: *const root::LASattributer,
-            index: root::I32,
-        ) -> *const root::CHAR;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributer16remove_attributeEi"]
-        pub fn LASattributer_remove_attribute(
-            this: *mut root::LASattributer,
-            index: root::I32,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributer16remove_attributeEPKc"]
-        pub fn LASattributer_remove_attribute1(
-            this: *mut root::LASattributer,
-            name: *const root::CHAR,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributerC1Ev"]
-        pub fn LASattributer_LASattributer(this: *mut root::LASattributer);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASattributerD1Ev"]
-        pub fn LASattributer_LASattributer_destructor(this: *mut root::LASattributer);
-    }
-    impl LASattributer {
-        #[inline]
-        pub unsafe fn clean_attributes(&mut self) {
-            LASattributer_clean_attributes(self)
-        }
-        #[inline]
-        pub unsafe fn init_attributes(
-            &mut self,
-            number_attributes: root::U32,
-            attributes: *mut root::LASattribute,
-        ) -> root::BOOL {
-            LASattributer_init_attributes(self, number_attributes, attributes)
-        }
-        #[inline]
-        pub unsafe fn add_attribute(&mut self, attribute: root::LASattribute) -> root::I32 {
-            LASattributer_add_attribute(self, attribute)
-        }
-        #[inline]
-        pub unsafe fn get_attributes_size(&self) -> root::I16 {
-            LASattributer_get_attributes_size(self)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_index(&self, name: *const root::CHAR) -> root::I32 {
-            LASattributer_get_attribute_index(self, name)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_start(&self, name: *const root::CHAR) -> root::I32 {
-            LASattributer_get_attribute_start(self, name)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_start1(&self, index: root::I32) -> root::I32 {
-            LASattributer_get_attribute_start1(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_size(&self, index: root::I32) -> root::I32 {
-            LASattributer_get_attribute_size(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_name(&self, index: root::I32) -> *const root::CHAR {
-            LASattributer_get_attribute_name(self, index)
-        }
-        #[inline]
-        pub unsafe fn remove_attribute(&mut self, index: root::I32) -> root::BOOL {
-            LASattributer_remove_attribute(self, index)
-        }
-        #[inline]
-        pub unsafe fn remove_attribute1(&mut self, name: *const root::CHAR) -> root::BOOL {
-            LASattributer_remove_attribute1(self, name)
-        }
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASattributer_LASattributer(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
-        #[inline]
-        pub unsafe fn destruct(&mut self) {
-            LASattributer_LASattributer_destructor(self)
-        }
-    }
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct LASwavepacket {
@@ -1877,146 +1213,6 @@ pub mod root {
                 stringify!(data)
             )
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket4zeroEv"]
-        pub fn LASwavepacket_zero(this: *mut root::LASwavepacket);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket8getIndexEv"]
-        pub fn LASwavepacket_getIndex(this: *const root::LASwavepacket) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket9getOffsetEv"]
-        pub fn LASwavepacket_getOffset(this: *const root::LASwavepacket) -> root::U64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket7getSizeEv"]
-        pub fn LASwavepacket_getSize(this: *const root::LASwavepacket) -> root::U32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket11getLocationEv"]
-        pub fn LASwavepacket_getLocation(this: *const root::LASwavepacket) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket5getXtEv"]
-        pub fn LASwavepacket_getXt(this: *const root::LASwavepacket) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket5getYtEv"]
-        pub fn LASwavepacket_getYt(this: *const root::LASwavepacket) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASwavepacket5getZtEv"]
-        pub fn LASwavepacket_getZt(this: *const root::LASwavepacket) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket8setIndexEh"]
-        pub fn LASwavepacket_setIndex(this: *mut root::LASwavepacket, index: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket9setOffsetEy"]
-        pub fn LASwavepacket_setOffset(this: *mut root::LASwavepacket, offset: root::U64);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket7setSizeEj"]
-        pub fn LASwavepacket_setSize(this: *mut root::LASwavepacket, size: root::U32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket11setLocationEf"]
-        pub fn LASwavepacket_setLocation(this: *mut root::LASwavepacket, location: root::F32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket5setXtEf"]
-        pub fn LASwavepacket_setXt(this: *mut root::LASwavepacket, xt: root::F32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket5setYtEf"]
-        pub fn LASwavepacket_setYt(this: *mut root::LASwavepacket, yt: root::F32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket5setZtEf"]
-        pub fn LASwavepacket_setZt(this: *mut root::LASwavepacket, zt: root::F32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacket13flipDirectionEv"]
-        pub fn LASwavepacket_flipDirection(this: *mut root::LASwavepacket);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASwavepacketC1Ev"]
-        pub fn LASwavepacket_LASwavepacket(this: *mut root::LASwavepacket);
-    }
-    impl LASwavepacket {
-        #[inline]
-        pub unsafe fn zero(&mut self) {
-            LASwavepacket_zero(self)
-        }
-        #[inline]
-        pub unsafe fn getIndex(&self) -> root::U8 {
-            LASwavepacket_getIndex(self)
-        }
-        #[inline]
-        pub unsafe fn getOffset(&self) -> root::U64 {
-            LASwavepacket_getOffset(self)
-        }
-        #[inline]
-        pub unsafe fn getSize(&self) -> root::U32 {
-            LASwavepacket_getSize(self)
-        }
-        #[inline]
-        pub unsafe fn getLocation(&self) -> root::F32 {
-            LASwavepacket_getLocation(self)
-        }
-        #[inline]
-        pub unsafe fn getXt(&self) -> root::F32 {
-            LASwavepacket_getXt(self)
-        }
-        #[inline]
-        pub unsafe fn getYt(&self) -> root::F32 {
-            LASwavepacket_getYt(self)
-        }
-        #[inline]
-        pub unsafe fn getZt(&self) -> root::F32 {
-            LASwavepacket_getZt(self)
-        }
-        #[inline]
-        pub unsafe fn setIndex(&mut self, index: root::U8) {
-            LASwavepacket_setIndex(self, index)
-        }
-        #[inline]
-        pub unsafe fn setOffset(&mut self, offset: root::U64) {
-            LASwavepacket_setOffset(self, offset)
-        }
-        #[inline]
-        pub unsafe fn setSize(&mut self, size: root::U32) {
-            LASwavepacket_setSize(self, size)
-        }
-        #[inline]
-        pub unsafe fn setLocation(&mut self, location: root::F32) {
-            LASwavepacket_setLocation(self, location)
-        }
-        #[inline]
-        pub unsafe fn setXt(&mut self, xt: root::F32) {
-            LASwavepacket_setXt(self, xt)
-        }
-        #[inline]
-        pub unsafe fn setYt(&mut self, yt: root::F32) {
-            LASwavepacket_setYt(self, yt)
-        }
-        #[inline]
-        pub unsafe fn setZt(&mut self, zt: root::F32) {
-            LASwavepacket_setZt(self, zt)
-        }
-        #[inline]
-        pub unsafe fn flipDirection(&mut self) {
-            LASwavepacket_flipDirection(self)
-        }
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASwavepacket_LASwavepacket(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
     }
     #[repr(C)]
     pub struct LASpoint {
@@ -2349,666 +1545,13 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint7copy_toEPh"]
-        pub fn LASpoint_copy_to(this: *const root::LASpoint, buffer: *mut root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint9copy_fromEPKh"]
-        pub fn LASpoint_copy_from(this: *mut root::LASpoint, buffer: *const root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint4initEPK12LASquantizerhtPK13LASattributer"]
-        pub fn LASpoint_init(
-            this: *mut root::LASpoint,
-            quantizer: *const root::LASquantizer,
-            point_type: root::U8,
-            point_size: root::U16,
-            attributer: *const root::LASattributer,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint4initEPK12LASquantizerjPK7LASitemPK13LASattributer"]
-        pub fn LASpoint_init1(
-            this: *mut root::LASpoint,
-            quantizer: *const root::LASquantizer,
-            num_items: root::U32,
-            items: *const root::LASitem,
-            attributer: *const root::LASattributer,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint16inside_rectangleEdddd"]
-        pub fn LASpoint_inside_rectangle(
-            this: *const root::LASpoint,
-            r_min_x: root::F64,
-            r_min_y: root::F64,
-            r_max_x: root::F64,
-            r_max_y: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint11inside_tileEffff"]
-        pub fn LASpoint_inside_tile(
-            this: *const root::LASpoint,
-            ll_x: root::F32,
-            ll_y: root::F32,
-            ur_x: root::F32,
-            ur_y: root::F32,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13inside_circleEddd"]
-        pub fn LASpoint_inside_circle(
-            this: *const root::LASpoint,
-            center_x: root::F64,
-            center_y: root::F64,
-            squared_radius: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint10inside_boxEdddddd"]
-        pub fn LASpoint_inside_box(
-            this: *const root::LASpoint,
-            min_x: root::F64,
-            min_y: root::F64,
-            min_z: root::F64,
-            max_x: root::F64,
-            max_y: root::F64,
-            max_z: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint19inside_bounding_boxEdddddd"]
-        pub fn LASpoint_inside_bounding_box(
-            this: *const root::LASpoint,
-            min_x: root::F64,
-            min_y: root::F64,
-            min_z: root::F64,
-            max_x: root::F64,
-            max_y: root::F64,
-            max_z: root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint7is_zeroEv"]
-        pub fn LASpoint_is_zero(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint4zeroEv"]
-        pub fn LASpoint_zero(this: *mut root::LASpoint);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5cleanEv"]
-        pub fn LASpoint_clean(this: *mut root::LASpoint);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint8is_firstEv"]
-        pub fn LASpoint_is_first(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint15is_intermediateEv"]
-        pub fn LASpoint_is_intermediate(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint7is_lastEv"]
-        pub fn LASpoint_is_last(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint9is_singleEv"]
-        pub fn LASpoint_is_single(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint16is_first_of_manyEv"]
-        pub fn LASpoint_is_first_of_many(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint15is_last_of_manyEv"]
-        pub fn LASpoint_is_last_of_many(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_XEv"]
-        pub fn LASpoint_get_X(this: *const root::LASpoint) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_YEv"]
-        pub fn LASpoint_get_Y(this: *const root::LASpoint) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_ZEv"]
-        pub fn LASpoint_get_Z(this: *const root::LASpoint) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_intensityEv"]
-        pub fn LASpoint_get_intensity(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint17get_return_numberEv"]
-        pub fn LASpoint_get_return_number(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint21get_number_of_returnsEv"]
-        pub fn LASpoint_get_number_of_returns(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint23get_scan_direction_flagEv"]
-        pub fn LASpoint_get_scan_direction_flag(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint23get_edge_of_flight_lineEv"]
-        pub fn LASpoint_get_edge_of_flight_line(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint18get_classificationEv"]
-        pub fn LASpoint_get_classification(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint18get_synthetic_flagEv"]
-        pub fn LASpoint_get_synthetic_flag(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint17get_keypoint_flagEv"]
-        pub fn LASpoint_get_keypoint_flag(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint17get_withheld_flagEv"]
-        pub fn LASpoint_get_withheld_flag(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint19get_scan_angle_rankEv"]
-        pub fn LASpoint_get_scan_angle_rank(this: *const root::LASpoint) -> root::I8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_user_dataEv"]
-        pub fn LASpoint_get_user_data(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint19get_point_source_IDEv"]
-        pub fn LASpoint_get_point_source_ID(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint16get_deleted_flagEv"]
-        pub fn LASpoint_get_deleted_flag(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint12get_gps_timeEv"]
-        pub fn LASpoint_get_gps_time(this: *const root::LASpoint) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint7get_RGBEv"]
-        pub fn LASpoint_get_RGB(this: *const root::LASpoint) -> *const root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint8get_RGBIEv"]
-        pub fn LASpoint_get_RGBI(this: *const root::LASpoint) -> *const root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint8get_RGBIEj"]
-        pub fn LASpoint_get_RGBI1(this: *const root::LASpoint, band: root::U32) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_REv"]
-        pub fn LASpoint_get_R(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_GEv"]
-        pub fn LASpoint_get_G(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_BEv"]
-        pub fn LASpoint_get_B(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_IEv"]
-        pub fn LASpoint_get_I(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint7get_NIREv"]
-        pub fn LASpoint_get_NIR(this: *const root::LASpoint) -> root::U16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_XEi"]
-        pub fn LASpoint_set_X(this: *mut root::LASpoint, X: root::I32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_YEi"]
-        pub fn LASpoint_set_Y(this: *mut root::LASpoint, Y: root::I32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_ZEi"]
-        pub fn LASpoint_set_Z(this: *mut root::LASpoint, Z: root::I32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_intensityEt"]
-        pub fn LASpoint_set_intensity(this: *mut root::LASpoint, intensity: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint17set_return_numberEh"]
-        pub fn LASpoint_set_return_number(this: *mut root::LASpoint, return_number: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint21set_number_of_returnsEh"]
-        pub fn LASpoint_set_number_of_returns(
-            this: *mut root::LASpoint,
-            number_of_returns: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint23set_scan_direction_flagEh"]
-        pub fn LASpoint_set_scan_direction_flag(
-            this: *mut root::LASpoint,
-            scan_direction_flag: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint23set_edge_of_flight_lineEh"]
-        pub fn LASpoint_set_edge_of_flight_line(
-            this: *mut root::LASpoint,
-            edge_of_flight_line: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint18set_classificationEh"]
-        pub fn LASpoint_set_classification(this: *mut root::LASpoint, classification: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint18set_synthetic_flagEh"]
-        pub fn LASpoint_set_synthetic_flag(this: *mut root::LASpoint, synthetic_flag: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint17set_keypoint_flagEh"]
-        pub fn LASpoint_set_keypoint_flag(this: *mut root::LASpoint, keypoint_flag: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint17set_withheld_flagEh"]
-        pub fn LASpoint_set_withheld_flag(this: *mut root::LASpoint, withheld_flag: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint19set_scan_angle_rankEc"]
-        pub fn LASpoint_set_scan_angle_rank(this: *mut root::LASpoint, scan_angle_rank: root::I8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_user_dataEh"]
-        pub fn LASpoint_set_user_data(this: *mut root::LASpoint, user_data: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint19set_point_source_IDEt"]
-        pub fn LASpoint_set_point_source_ID(this: *mut root::LASpoint, point_source_ID: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint16set_deleted_flagEh"]
-        pub fn LASpoint_set_deleted_flag(this: *mut root::LASpoint, deleted_flag: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint12set_gps_timeEd"]
-        pub fn LASpoint_set_gps_time(this: *mut root::LASpoint, gps_time: root::F64);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint7set_RGBEPKt"]
-        pub fn LASpoint_set_RGB(this: *mut root::LASpoint, rgb: *const root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint8set_RGBIEPKt"]
-        pub fn LASpoint_set_RGBI(this: *mut root::LASpoint, rgb: *const root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint8set_RGBIEjt"]
-        pub fn LASpoint_set_RGBI1(this: *mut root::LASpoint, band: root::U32, value: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_REt"]
-        pub fn LASpoint_set_R(this: *mut root::LASpoint, R: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_GEt"]
-        pub fn LASpoint_set_G(this: *mut root::LASpoint, G: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_BEt"]
-        pub fn LASpoint_set_B(this: *mut root::LASpoint, B: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_IEt"]
-        pub fn LASpoint_set_I(this: *mut root::LASpoint, I: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint7set_NIREt"]
-        pub fn LASpoint_set_NIR(this: *mut root::LASpoint, NIR: root::U16);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_xEv"]
-        pub fn LASpoint_get_x(this: *const root::LASpoint) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_yEv"]
-        pub fn LASpoint_get_y(this: *const root::LASpoint) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint5get_zEv"]
-        pub fn LASpoint_get_z(this: *const root::LASpoint) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_xEd"]
-        pub fn LASpoint_set_x(this: *mut root::LASpoint, x: root::F64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_yEd"]
-        pub fn LASpoint_set_y(this: *mut root::LASpoint, y: root::F64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint5set_zEd"]
-        pub fn LASpoint_set_z(this: *mut root::LASpoint, z: root::F64) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint22is_extended_point_typeEv"]
-        pub fn LASpoint_is_extended_point_type(this: *const root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint27get_extended_classificationEv"]
-        pub fn LASpoint_get_extended_classification(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint26get_extended_return_numberEv"]
-        pub fn LASpoint_get_extended_return_number(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint30get_extended_number_of_returnsEv"]
-        pub fn LASpoint_get_extended_number_of_returns(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint23get_extended_scan_angleEv"]
-        pub fn LASpoint_get_extended_scan_angle(this: *const root::LASpoint) -> root::I16;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint25get_extended_overlap_flagEv"]
-        pub fn LASpoint_get_extended_overlap_flag(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint28get_extended_scanner_channelEv"]
-        pub fn LASpoint_get_extended_scanner_channel(this: *const root::LASpoint) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint27set_extended_classificationEh"]
-        pub fn LASpoint_set_extended_classification(
-            this: *mut root::LASpoint,
-            extended_classification: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint26set_extended_return_numberEh"]
-        pub fn LASpoint_set_extended_return_number(
-            this: *mut root::LASpoint,
-            extended_return_number: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint30set_extended_number_of_returnsEh"]
-        pub fn LASpoint_set_extended_number_of_returns(
-            this: *mut root::LASpoint,
-            extended_number_of_returns: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint23set_extended_scan_angleEs"]
-        pub fn LASpoint_set_extended_scan_angle(
-            this: *mut root::LASpoint,
-            extended_scan_angle: root::I16,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint25set_extended_overlap_flagEh"]
-        pub fn LASpoint_set_extended_overlap_flag(
-            this: *mut root::LASpoint,
-            extended_overlap_flag: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint28set_extended_scanner_channelEh"]
-        pub fn LASpoint_set_extended_scanner_channel(
-            this: *mut root::LASpoint,
-            extended_scanner_channel: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint14get_scan_angleEv"]
-        pub fn LASpoint_get_scan_angle(this: *const root::LASpoint) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint18get_abs_scan_angleEv"]
-        pub fn LASpoint_get_abs_scan_angle(this: *const root::LASpoint) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint14set_scan_angleEf"]
-        pub fn LASpoint_set_scan_angle(this: *mut root::LASpoint, scan_angle: root::F32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint19compute_coordinatesEv"]
-        pub fn LASpoint_compute_coordinates(this: *mut root::LASpoint);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint11compute_XYZEv"]
-        pub fn LASpoint_compute_XYZ(this: *mut root::LASpoint) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint11compute_XYZEPK12LASquantizer"]
-        pub fn LASpoint_compute_XYZ1(
-            this: *mut root::LASpoint,
-            quantizer: *const root::LASquantizer,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13has_attributeEj"]
-        pub fn LASpoint_has_attribute(this: *const root::LASpoint, index: root::U32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEjPh"]
-        pub fn LASpoint_get_attribute(
-            this: *const root::LASpoint,
-            index: root::U32,
-            data: *mut root::U8,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEjPKh"]
-        pub fn LASpoint_set_attribute(
-            this: *mut root::LASpoint,
-            index: root::U32,
-            data: *const root::U8,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint18get_attribute_nameEj"]
-        pub fn LASpoint_get_attribute_name(
-            this: *const root::LASpoint,
-            index: root::U32,
-        ) -> *const root::CHAR;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint22get_attribute_as_floatEj"]
-        pub fn LASpoint_get_attribute_as_float(
-            this: *const root::LASpoint,
-            index: root::U32,
-        ) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint22set_attribute_as_floatEjd"]
-        pub fn LASpoint_set_attribute_as_float(
-            this: *const root::LASpoint,
-            index: root::U32,
-            value: root::F64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRh"]
-        pub fn LASpoint_get_attribute1(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEih"]
-        pub fn LASpoint_set_attribute1(this: *mut root::LASpoint, start: root::I32, data: root::U8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRc"]
-        pub fn LASpoint_get_attribute2(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::I8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEic"]
-        pub fn LASpoint_set_attribute2(this: *mut root::LASpoint, start: root::I32, data: root::I8);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRt"]
-        pub fn LASpoint_get_attribute3(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::U16,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEit"]
-        pub fn LASpoint_set_attribute3(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::U16,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRs"]
-        pub fn LASpoint_get_attribute4(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::I16,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEis"]
-        pub fn LASpoint_set_attribute4(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::I16,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRj"]
-        pub fn LASpoint_get_attribute5(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::U32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEij"]
-        pub fn LASpoint_set_attribute5(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::U32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRi"]
-        pub fn LASpoint_get_attribute6(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::I32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEii"]
-        pub fn LASpoint_set_attribute6(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::I32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRy"]
-        pub fn LASpoint_get_attribute7(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::U64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEiy"]
-        pub fn LASpoint_set_attribute7(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::U64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRx"]
-        pub fn LASpoint_get_attribute8(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::I64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEix"]
-        pub fn LASpoint_set_attribute8(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::I64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRf"]
-        pub fn LASpoint_get_attribute9(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::F32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEif"]
-        pub fn LASpoint_set_attribute9(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::F32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK8LASpoint13get_attributeEiRd"]
-        pub fn LASpoint_get_attribute10(
-            this: *const root::LASpoint,
-            start: root::I32,
-            data: *mut root::F64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpoint13set_attributeEid"]
-        pub fn LASpoint_set_attribute10(
-            this: *mut root::LASpoint,
-            start: root::I32,
-            data: root::F64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpointC1ERKS_"]
-        pub fn LASpoint_LASpoint(this: *mut root::LASpoint, other: *const root::LASpoint);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpointC1Ev"]
-        pub fn LASpoint_LASpoint1(this: *mut root::LASpoint);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN8LASpointD1Ev"]
-        pub fn LASpoint_LASpoint_destructor(this: *mut root::LASpoint);
-    }
     impl LASpoint {
         #[inline]
         pub fn return_number(&self) -> root::U8 {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 3u8) as u8) }
         }
         #[inline]
-        pub fn set_return_number_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_return_number(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(0usize, 3u8, val as u64)
@@ -3019,7 +1562,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(3usize, 3u8) as u8) }
         }
         #[inline]
-        pub fn set_number_of_returns_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_number_of_returns(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(3usize, 3u8, val as u64)
@@ -3030,7 +1573,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(6usize, 1u8) as u8) }
         }
         #[inline]
-        pub fn set_scan_direction_flag_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_scan_direction_flag(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(6usize, 1u8, val as u64)
@@ -3041,7 +1584,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(7usize, 1u8) as u8) }
         }
         #[inline]
-        pub fn set_edge_of_flight_line_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_edge_of_flight_line(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(7usize, 1u8, val as u64)
@@ -3052,7 +1595,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(8usize, 5u8) as u8) }
         }
         #[inline]
-        pub fn set_classification_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_classification(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(8usize, 5u8, val as u64)
@@ -3063,7 +1606,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(13usize, 1u8) as u8) }
         }
         #[inline]
-        pub fn set_synthetic_flag_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_synthetic_flag(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(13usize, 1u8, val as u64)
@@ -3074,7 +1617,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(14usize, 1u8) as u8) }
         }
         #[inline]
-        pub fn set_keypoint_flag_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_keypoint_flag(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(14usize, 1u8, val as u64)
@@ -3085,7 +1628,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_1.get(15usize, 1u8) as u8) }
         }
         #[inline]
-        pub fn set_withheld_flag_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_withheld_flag(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_1.set(15usize, 1u8, val as u64)
@@ -3154,7 +1697,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_2.get(2usize, 2u8) as u8) }
         }
         #[inline]
-        pub fn set_extended_scanner_channel_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_extended_scanner_channel(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_2.set(2usize, 2u8, val as u64)
@@ -3200,7 +1743,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_3.get(0usize, 4u8) as u8) }
         }
         #[inline]
-        pub fn set_extended_return_number_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_extended_return_number(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_3.set(0usize, 4u8, val as u64)
@@ -3211,7 +1754,7 @@ pub mod root {
             unsafe { ::std::mem::transmute(self._bitfield_3.get(4usize, 4u8) as u8) }
         }
         #[inline]
-        pub fn set_extended_number_of_returns_bindgen_bitfield(&mut self, val: root::U8) {
+        pub fn set_extended_number_of_returns(&mut self, val: root::U8) {
             unsafe {
                 let val: u8 = ::std::mem::transmute(val);
                 self._bitfield_3.set(4usize, 4u8, val as u64)
@@ -3235,550 +1778,6 @@ pub mod root {
                 extended_number_of_returns as u64
             });
             __bindgen_bitfield_unit
-        }
-        #[inline]
-        pub unsafe fn copy_to(&self, buffer: *mut root::U8) {
-            LASpoint_copy_to(self, buffer)
-        }
-        #[inline]
-        pub unsafe fn copy_from(&mut self, buffer: *const root::U8) {
-            LASpoint_copy_from(self, buffer)
-        }
-        #[inline]
-        pub unsafe fn init(
-            &mut self,
-            quantizer: *const root::LASquantizer,
-            point_type: root::U8,
-            point_size: root::U16,
-            attributer: *const root::LASattributer,
-        ) -> root::BOOL {
-            LASpoint_init(self, quantizer, point_type, point_size, attributer)
-        }
-        #[inline]
-        pub unsafe fn init1(
-            &mut self,
-            quantizer: *const root::LASquantizer,
-            num_items: root::U32,
-            items: *const root::LASitem,
-            attributer: *const root::LASattributer,
-        ) -> root::BOOL {
-            LASpoint_init1(self, quantizer, num_items, items, attributer)
-        }
-        #[inline]
-        pub unsafe fn inside_rectangle(
-            &self,
-            r_min_x: root::F64,
-            r_min_y: root::F64,
-            r_max_x: root::F64,
-            r_max_y: root::F64,
-        ) -> root::BOOL {
-            LASpoint_inside_rectangle(self, r_min_x, r_min_y, r_max_x, r_max_y)
-        }
-        #[inline]
-        pub unsafe fn inside_tile(
-            &self,
-            ll_x: root::F32,
-            ll_y: root::F32,
-            ur_x: root::F32,
-            ur_y: root::F32,
-        ) -> root::BOOL {
-            LASpoint_inside_tile(self, ll_x, ll_y, ur_x, ur_y)
-        }
-        #[inline]
-        pub unsafe fn inside_circle(
-            &self,
-            center_x: root::F64,
-            center_y: root::F64,
-            squared_radius: root::F64,
-        ) -> root::BOOL {
-            LASpoint_inside_circle(self, center_x, center_y, squared_radius)
-        }
-        #[inline]
-        pub unsafe fn inside_box(
-            &self,
-            min_x: root::F64,
-            min_y: root::F64,
-            min_z: root::F64,
-            max_x: root::F64,
-            max_y: root::F64,
-            max_z: root::F64,
-        ) -> root::BOOL {
-            LASpoint_inside_box(self, min_x, min_y, min_z, max_x, max_y, max_z)
-        }
-        #[inline]
-        pub unsafe fn inside_bounding_box(
-            &self,
-            min_x: root::F64,
-            min_y: root::F64,
-            min_z: root::F64,
-            max_x: root::F64,
-            max_y: root::F64,
-            max_z: root::F64,
-        ) -> root::BOOL {
-            LASpoint_inside_bounding_box(self, min_x, min_y, min_z, max_x, max_y, max_z)
-        }
-        #[inline]
-        pub unsafe fn is_zero(&self) -> root::BOOL {
-            LASpoint_is_zero(self)
-        }
-        #[inline]
-        pub unsafe fn zero(&mut self) {
-            LASpoint_zero(self)
-        }
-        #[inline]
-        pub unsafe fn clean(&mut self) {
-            LASpoint_clean(self)
-        }
-        #[inline]
-        pub unsafe fn is_first(&self) -> root::BOOL {
-            LASpoint_is_first(self)
-        }
-        #[inline]
-        pub unsafe fn is_intermediate(&self) -> root::BOOL {
-            LASpoint_is_intermediate(self)
-        }
-        #[inline]
-        pub unsafe fn is_last(&self) -> root::BOOL {
-            LASpoint_is_last(self)
-        }
-        #[inline]
-        pub unsafe fn is_single(&self) -> root::BOOL {
-            LASpoint_is_single(self)
-        }
-        #[inline]
-        pub unsafe fn is_first_of_many(&self) -> root::BOOL {
-            LASpoint_is_first_of_many(self)
-        }
-        #[inline]
-        pub unsafe fn is_last_of_many(&self) -> root::BOOL {
-            LASpoint_is_last_of_many(self)
-        }
-        #[inline]
-        pub unsafe fn get_X(&self) -> root::I32 {
-            LASpoint_get_X(self)
-        }
-        #[inline]
-        pub unsafe fn get_Y(&self) -> root::I32 {
-            LASpoint_get_Y(self)
-        }
-        #[inline]
-        pub unsafe fn get_Z(&self) -> root::I32 {
-            LASpoint_get_Z(self)
-        }
-        #[inline]
-        pub unsafe fn get_intensity(&self) -> root::U16 {
-            LASpoint_get_intensity(self)
-        }
-        #[inline]
-        pub unsafe fn get_return_number(&self) -> root::U8 {
-            LASpoint_get_return_number(self)
-        }
-        #[inline]
-        pub unsafe fn get_number_of_returns(&self) -> root::U8 {
-            LASpoint_get_number_of_returns(self)
-        }
-        #[inline]
-        pub unsafe fn get_scan_direction_flag(&self) -> root::U8 {
-            LASpoint_get_scan_direction_flag(self)
-        }
-        #[inline]
-        pub unsafe fn get_edge_of_flight_line(&self) -> root::U8 {
-            LASpoint_get_edge_of_flight_line(self)
-        }
-        #[inline]
-        pub unsafe fn get_classification(&self) -> root::U8 {
-            LASpoint_get_classification(self)
-        }
-        #[inline]
-        pub unsafe fn get_synthetic_flag(&self) -> root::U8 {
-            LASpoint_get_synthetic_flag(self)
-        }
-        #[inline]
-        pub unsafe fn get_keypoint_flag(&self) -> root::U8 {
-            LASpoint_get_keypoint_flag(self)
-        }
-        #[inline]
-        pub unsafe fn get_withheld_flag(&self) -> root::U8 {
-            LASpoint_get_withheld_flag(self)
-        }
-        #[inline]
-        pub unsafe fn get_scan_angle_rank(&self) -> root::I8 {
-            LASpoint_get_scan_angle_rank(self)
-        }
-        #[inline]
-        pub unsafe fn get_user_data(&self) -> root::U8 {
-            LASpoint_get_user_data(self)
-        }
-        #[inline]
-        pub unsafe fn get_point_source_ID(&self) -> root::U16 {
-            LASpoint_get_point_source_ID(self)
-        }
-        #[inline]
-        pub unsafe fn get_deleted_flag(&self) -> root::U8 {
-            LASpoint_get_deleted_flag(self)
-        }
-        #[inline]
-        pub unsafe fn get_gps_time(&self) -> root::F64 {
-            LASpoint_get_gps_time(self)
-        }
-        #[inline]
-        pub unsafe fn get_RGB(&self) -> *const root::U16 {
-            LASpoint_get_RGB(self)
-        }
-        #[inline]
-        pub unsafe fn get_RGBI(&self) -> *const root::U16 {
-            LASpoint_get_RGBI(self)
-        }
-        #[inline]
-        pub unsafe fn get_RGBI1(&self, band: root::U32) -> root::U16 {
-            LASpoint_get_RGBI1(self, band)
-        }
-        #[inline]
-        pub unsafe fn get_R(&self) -> root::U16 {
-            LASpoint_get_R(self)
-        }
-        #[inline]
-        pub unsafe fn get_G(&self) -> root::U16 {
-            LASpoint_get_G(self)
-        }
-        #[inline]
-        pub unsafe fn get_B(&self) -> root::U16 {
-            LASpoint_get_B(self)
-        }
-        #[inline]
-        pub unsafe fn get_I(&self) -> root::U16 {
-            LASpoint_get_I(self)
-        }
-        #[inline]
-        pub unsafe fn get_NIR(&self) -> root::U16 {
-            LASpoint_get_NIR(self)
-        }
-        #[inline]
-        pub unsafe fn set_X(&mut self, X: root::I32) {
-            LASpoint_set_X(self, X)
-        }
-        #[inline]
-        pub unsafe fn set_Y(&mut self, Y: root::I32) {
-            LASpoint_set_Y(self, Y)
-        }
-        #[inline]
-        pub unsafe fn set_Z(&mut self, Z: root::I32) {
-            LASpoint_set_Z(self, Z)
-        }
-        #[inline]
-        pub unsafe fn set_intensity(&mut self, intensity: root::U16) {
-            LASpoint_set_intensity(self, intensity)
-        }
-        #[inline]
-        pub unsafe fn set_return_number(&mut self, return_number: root::U8) {
-            LASpoint_set_return_number(self, return_number)
-        }
-        #[inline]
-        pub unsafe fn set_number_of_returns(&mut self, number_of_returns: root::U8) {
-            LASpoint_set_number_of_returns(self, number_of_returns)
-        }
-        #[inline]
-        pub unsafe fn set_scan_direction_flag(&mut self, scan_direction_flag: root::U8) {
-            LASpoint_set_scan_direction_flag(self, scan_direction_flag)
-        }
-        #[inline]
-        pub unsafe fn set_edge_of_flight_line(&mut self, edge_of_flight_line: root::U8) {
-            LASpoint_set_edge_of_flight_line(self, edge_of_flight_line)
-        }
-        #[inline]
-        pub unsafe fn set_classification(&mut self, classification: root::U8) {
-            LASpoint_set_classification(self, classification)
-        }
-        #[inline]
-        pub unsafe fn set_synthetic_flag(&mut self, synthetic_flag: root::U8) {
-            LASpoint_set_synthetic_flag(self, synthetic_flag)
-        }
-        #[inline]
-        pub unsafe fn set_keypoint_flag(&mut self, keypoint_flag: root::U8) {
-            LASpoint_set_keypoint_flag(self, keypoint_flag)
-        }
-        #[inline]
-        pub unsafe fn set_withheld_flag(&mut self, withheld_flag: root::U8) {
-            LASpoint_set_withheld_flag(self, withheld_flag)
-        }
-        #[inline]
-        pub unsafe fn set_scan_angle_rank(&mut self, scan_angle_rank: root::I8) {
-            LASpoint_set_scan_angle_rank(self, scan_angle_rank)
-        }
-        #[inline]
-        pub unsafe fn set_user_data(&mut self, user_data: root::U8) {
-            LASpoint_set_user_data(self, user_data)
-        }
-        #[inline]
-        pub unsafe fn set_point_source_ID(&mut self, point_source_ID: root::U16) {
-            LASpoint_set_point_source_ID(self, point_source_ID)
-        }
-        #[inline]
-        pub unsafe fn set_deleted_flag(&mut self, deleted_flag: root::U8) {
-            LASpoint_set_deleted_flag(self, deleted_flag)
-        }
-        #[inline]
-        pub unsafe fn set_gps_time(&mut self, gps_time: root::F64) {
-            LASpoint_set_gps_time(self, gps_time)
-        }
-        #[inline]
-        pub unsafe fn set_RGB(&mut self, rgb: *const root::U16) {
-            LASpoint_set_RGB(self, rgb)
-        }
-        #[inline]
-        pub unsafe fn set_RGBI(&mut self, rgb: *const root::U16) {
-            LASpoint_set_RGBI(self, rgb)
-        }
-        #[inline]
-        pub unsafe fn set_RGBI1(&mut self, band: root::U32, value: root::U16) {
-            LASpoint_set_RGBI1(self, band, value)
-        }
-        #[inline]
-        pub unsafe fn set_R(&mut self, R: root::U16) {
-            LASpoint_set_R(self, R)
-        }
-        #[inline]
-        pub unsafe fn set_G(&mut self, G: root::U16) {
-            LASpoint_set_G(self, G)
-        }
-        #[inline]
-        pub unsafe fn set_B(&mut self, B: root::U16) {
-            LASpoint_set_B(self, B)
-        }
-        #[inline]
-        pub unsafe fn set_I(&mut self, I: root::U16) {
-            LASpoint_set_I(self, I)
-        }
-        #[inline]
-        pub unsafe fn set_NIR(&mut self, NIR: root::U16) {
-            LASpoint_set_NIR(self, NIR)
-        }
-        #[inline]
-        pub unsafe fn get_x(&self) -> root::F64 {
-            LASpoint_get_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_y(&self) -> root::F64 {
-            LASpoint_get_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_z(&self) -> root::F64 {
-            LASpoint_get_z(self)
-        }
-        #[inline]
-        pub unsafe fn set_x(&mut self, x: root::F64) -> root::BOOL {
-            LASpoint_set_x(self, x)
-        }
-        #[inline]
-        pub unsafe fn set_y(&mut self, y: root::F64) -> root::BOOL {
-            LASpoint_set_y(self, y)
-        }
-        #[inline]
-        pub unsafe fn set_z(&mut self, z: root::F64) -> root::BOOL {
-            LASpoint_set_z(self, z)
-        }
-        #[inline]
-        pub unsafe fn is_extended_point_type(&self) -> root::BOOL {
-            LASpoint_is_extended_point_type(self)
-        }
-        #[inline]
-        pub unsafe fn get_extended_classification(&self) -> root::U8 {
-            LASpoint_get_extended_classification(self)
-        }
-        #[inline]
-        pub unsafe fn get_extended_return_number(&self) -> root::U8 {
-            LASpoint_get_extended_return_number(self)
-        }
-        #[inline]
-        pub unsafe fn get_extended_number_of_returns(&self) -> root::U8 {
-            LASpoint_get_extended_number_of_returns(self)
-        }
-        #[inline]
-        pub unsafe fn get_extended_scan_angle(&self) -> root::I16 {
-            LASpoint_get_extended_scan_angle(self)
-        }
-        #[inline]
-        pub unsafe fn get_extended_overlap_flag(&self) -> root::U8 {
-            LASpoint_get_extended_overlap_flag(self)
-        }
-        #[inline]
-        pub unsafe fn get_extended_scanner_channel(&self) -> root::U8 {
-            LASpoint_get_extended_scanner_channel(self)
-        }
-        #[inline]
-        pub unsafe fn set_extended_classification(&mut self, extended_classification: root::U8) {
-            LASpoint_set_extended_classification(self, extended_classification)
-        }
-        #[inline]
-        pub unsafe fn set_extended_return_number(&mut self, extended_return_number: root::U8) {
-            LASpoint_set_extended_return_number(self, extended_return_number)
-        }
-        #[inline]
-        pub unsafe fn set_extended_number_of_returns(
-            &mut self,
-            extended_number_of_returns: root::U8,
-        ) {
-            LASpoint_set_extended_number_of_returns(self, extended_number_of_returns)
-        }
-        #[inline]
-        pub unsafe fn set_extended_scan_angle(&mut self, extended_scan_angle: root::I16) {
-            LASpoint_set_extended_scan_angle(self, extended_scan_angle)
-        }
-        #[inline]
-        pub unsafe fn set_extended_overlap_flag(&mut self, extended_overlap_flag: root::U8) {
-            LASpoint_set_extended_overlap_flag(self, extended_overlap_flag)
-        }
-        #[inline]
-        pub unsafe fn set_extended_scanner_channel(&mut self, extended_scanner_channel: root::U8) {
-            LASpoint_set_extended_scanner_channel(self, extended_scanner_channel)
-        }
-        #[inline]
-        pub unsafe fn get_scan_angle(&self) -> root::F32 {
-            LASpoint_get_scan_angle(self)
-        }
-        #[inline]
-        pub unsafe fn get_abs_scan_angle(&self) -> root::F32 {
-            LASpoint_get_abs_scan_angle(self)
-        }
-        #[inline]
-        pub unsafe fn set_scan_angle(&mut self, scan_angle: root::F32) {
-            LASpoint_set_scan_angle(self, scan_angle)
-        }
-        #[inline]
-        pub unsafe fn compute_coordinates(&mut self) {
-            LASpoint_compute_coordinates(self)
-        }
-        #[inline]
-        pub unsafe fn compute_XYZ(&mut self) -> root::BOOL {
-            LASpoint_compute_XYZ(self)
-        }
-        #[inline]
-        pub unsafe fn compute_XYZ1(&mut self, quantizer: *const root::LASquantizer) -> root::BOOL {
-            LASpoint_compute_XYZ1(self, quantizer)
-        }
-        #[inline]
-        pub unsafe fn has_attribute(&self, index: root::U32) -> root::BOOL {
-            LASpoint_has_attribute(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute(&self, index: root::U32, data: *mut root::U8) -> root::BOOL {
-            LASpoint_get_attribute(self, index, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute(
-            &mut self,
-            index: root::U32,
-            data: *const root::U8,
-        ) -> root::BOOL {
-            LASpoint_set_attribute(self, index, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_name(&self, index: root::U32) -> *const root::CHAR {
-            LASpoint_get_attribute_name(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_as_float(&self, index: root::U32) -> root::F64 {
-            LASpoint_get_attribute_as_float(self, index)
-        }
-        #[inline]
-        pub unsafe fn set_attribute_as_float(&self, index: root::U32, value: root::F64) {
-            LASpoint_set_attribute_as_float(self, index, value)
-        }
-        #[inline]
-        pub unsafe fn get_attribute1(&self, start: root::I32, data: *mut root::U8) {
-            LASpoint_get_attribute1(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute1(&mut self, start: root::I32, data: root::U8) {
-            LASpoint_set_attribute1(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute2(&self, start: root::I32, data: *mut root::I8) {
-            LASpoint_get_attribute2(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute2(&mut self, start: root::I32, data: root::I8) {
-            LASpoint_set_attribute2(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute3(&self, start: root::I32, data: *mut root::U16) {
-            LASpoint_get_attribute3(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute3(&mut self, start: root::I32, data: root::U16) {
-            LASpoint_set_attribute3(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute4(&self, start: root::I32, data: *mut root::I16) {
-            LASpoint_get_attribute4(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute4(&mut self, start: root::I32, data: root::I16) {
-            LASpoint_set_attribute4(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute5(&self, start: root::I32, data: *mut root::U32) {
-            LASpoint_get_attribute5(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute5(&mut self, start: root::I32, data: root::U32) {
-            LASpoint_set_attribute5(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute6(&self, start: root::I32, data: *mut root::I32) {
-            LASpoint_get_attribute6(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute6(&mut self, start: root::I32, data: root::I32) {
-            LASpoint_set_attribute6(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute7(&self, start: root::I32, data: *mut root::U64) {
-            LASpoint_get_attribute7(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute7(&mut self, start: root::I32, data: root::U64) {
-            LASpoint_set_attribute7(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute8(&self, start: root::I32, data: *mut root::I64) {
-            LASpoint_get_attribute8(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute8(&mut self, start: root::I32, data: root::I64) {
-            LASpoint_set_attribute8(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute9(&self, start: root::I32, data: *mut root::F32) {
-            LASpoint_get_attribute9(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute9(&mut self, start: root::I32, data: root::F32) {
-            LASpoint_set_attribute9(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn get_attribute10(&self, start: root::I32, data: *mut root::F64) {
-            LASpoint_get_attribute10(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn set_attribute10(&mut self, start: root::I32, data: root::F64) {
-            LASpoint_set_attribute10(self, start, data)
-        }
-        #[inline]
-        pub unsafe fn new(other: *const root::LASpoint) -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASpoint_LASpoint(__bindgen_tmp.as_mut_ptr(), other);
-            __bindgen_tmp.assume_init()
-        }
-        #[inline]
-        pub unsafe fn new1() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASpoint_LASpoint1(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
-        #[inline]
-        pub unsafe fn destruct(&mut self) {
-            LASpoint_LASpoint_destructor(self)
         }
     }
     #[repr(C)]
@@ -3866,18 +1865,6 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZN6LASvlrC1Ev"]
-        pub fn LASvlr_LASvlr(this: *mut root::LASvlr);
-    }
-    impl LASvlr {
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASvlr_LASvlr(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
-    }
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct LASevlr {
@@ -3962,18 +1949,6 @@ pub mod root {
                 stringify!(data)
             )
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN7LASevlrC1Ev"]
-        pub fn LASevlr_LASevlr(this: *mut root::LASevlr);
-    }
-    impl LASevlr {
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASevlr_LASevlr(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
     }
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -4182,154 +2157,6 @@ pub mod root {
                 stringify!(data)
             )
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr5cleanEv"]
-        pub fn LASvlr_wave_packet_descr_clean(this: *mut root::LASvlr_wave_packet_descr);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK24LASvlr_wave_packet_descr16getBitsPerSampleEv"]
-        pub fn LASvlr_wave_packet_descr_getBitsPerSample(
-            this: *const root::LASvlr_wave_packet_descr,
-        ) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK24LASvlr_wave_packet_descr18getCompressionTypeEv"]
-        pub fn LASvlr_wave_packet_descr_getCompressionType(
-            this: *const root::LASvlr_wave_packet_descr,
-        ) -> root::U8;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK24LASvlr_wave_packet_descr18getNumberOfSamplesEv"]
-        pub fn LASvlr_wave_packet_descr_getNumberOfSamples(
-            this: *const root::LASvlr_wave_packet_descr,
-        ) -> root::U32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK24LASvlr_wave_packet_descr18getTemporalSpacingEv"]
-        pub fn LASvlr_wave_packet_descr_getTemporalSpacing(
-            this: *const root::LASvlr_wave_packet_descr,
-        ) -> root::U32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK24LASvlr_wave_packet_descr16getDigitizerGainEv"]
-        pub fn LASvlr_wave_packet_descr_getDigitizerGain(
-            this: *const root::LASvlr_wave_packet_descr,
-        ) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK24LASvlr_wave_packet_descr18getDigitizerOffsetEv"]
-        pub fn LASvlr_wave_packet_descr_getDigitizerOffset(
-            this: *const root::LASvlr_wave_packet_descr,
-        ) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr16setBitsPerSampleEh"]
-        pub fn LASvlr_wave_packet_descr_setBitsPerSample(
-            this: *mut root::LASvlr_wave_packet_descr,
-            bps: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr18setCompressionTypeEh"]
-        pub fn LASvlr_wave_packet_descr_setCompressionType(
-            this: *mut root::LASvlr_wave_packet_descr,
-            compression: root::U8,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr18setNumberOfSamplesEj"]
-        pub fn LASvlr_wave_packet_descr_setNumberOfSamples(
-            this: *mut root::LASvlr_wave_packet_descr,
-            samples: root::U32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr18setTemporalSpacingEj"]
-        pub fn LASvlr_wave_packet_descr_setTemporalSpacing(
-            this: *mut root::LASvlr_wave_packet_descr,
-            spacing: root::U32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr16setDigitizerGainEd"]
-        pub fn LASvlr_wave_packet_descr_setDigitizerGain(
-            this: *mut root::LASvlr_wave_packet_descr,
-            gain: root::F64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descr18setDigitizerOffsetEd"]
-        pub fn LASvlr_wave_packet_descr_setDigitizerOffset(
-            this: *mut root::LASvlr_wave_packet_descr,
-            offset: root::F64,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN24LASvlr_wave_packet_descrC1Ev"]
-        pub fn LASvlr_wave_packet_descr_LASvlr_wave_packet_descr(
-            this: *mut root::LASvlr_wave_packet_descr,
-        );
-    }
-    impl LASvlr_wave_packet_descr {
-        #[inline]
-        pub unsafe fn clean(&mut self) {
-            LASvlr_wave_packet_descr_clean(self)
-        }
-        #[inline]
-        pub unsafe fn getBitsPerSample(&self) -> root::U8 {
-            LASvlr_wave_packet_descr_getBitsPerSample(self)
-        }
-        #[inline]
-        pub unsafe fn getCompressionType(&self) -> root::U8 {
-            LASvlr_wave_packet_descr_getCompressionType(self)
-        }
-        #[inline]
-        pub unsafe fn getNumberOfSamples(&self) -> root::U32 {
-            LASvlr_wave_packet_descr_getNumberOfSamples(self)
-        }
-        #[inline]
-        pub unsafe fn getTemporalSpacing(&self) -> root::U32 {
-            LASvlr_wave_packet_descr_getTemporalSpacing(self)
-        }
-        #[inline]
-        pub unsafe fn getDigitizerGain(&self) -> root::F64 {
-            LASvlr_wave_packet_descr_getDigitizerGain(self)
-        }
-        #[inline]
-        pub unsafe fn getDigitizerOffset(&self) -> root::F64 {
-            LASvlr_wave_packet_descr_getDigitizerOffset(self)
-        }
-        #[inline]
-        pub unsafe fn setBitsPerSample(&mut self, bps: root::U8) {
-            LASvlr_wave_packet_descr_setBitsPerSample(self, bps)
-        }
-        #[inline]
-        pub unsafe fn setCompressionType(&mut self, compression: root::U8) {
-            LASvlr_wave_packet_descr_setCompressionType(self, compression)
-        }
-        #[inline]
-        pub unsafe fn setNumberOfSamples(&mut self, samples: root::U32) {
-            LASvlr_wave_packet_descr_setNumberOfSamples(self, samples)
-        }
-        #[inline]
-        pub unsafe fn setTemporalSpacing(&mut self, spacing: root::U32) {
-            LASvlr_wave_packet_descr_setTemporalSpacing(self, spacing)
-        }
-        #[inline]
-        pub unsafe fn setDigitizerGain(&mut self, gain: root::F64) {
-            LASvlr_wave_packet_descr_setDigitizerGain(self, gain)
-        }
-        #[inline]
-        pub unsafe fn setDigitizerOffset(&mut self, offset: root::F64) {
-            LASvlr_wave_packet_descr_setDigitizerOffset(self, offset)
-        }
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASvlr_wave_packet_descr_LASvlr_wave_packet_descr(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
     }
     #[repr(C)]
     pub struct LASheader {
@@ -4937,522 +2764,6 @@ pub mod root {
             )
         );
     }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader16set_bounding_boxEddddddbb"]
-        pub fn LASheader_set_bounding_box(
-            this: *mut root::LASheader,
-            min_x: root::F64,
-            min_y: root::F64,
-            min_z: root::F64,
-            max_x: root::F64,
-            max_y: root::F64,
-            max_z: root::F64,
-            auto_scale: root::BOOL,
-            auto_offset: root::BOOL,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader23set_global_encoding_bitEi"]
-        pub fn LASheader_set_global_encoding_bit(this: *mut root::LASheader, bit: root::I32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader25unset_global_encoding_bitEi"]
-        pub fn LASheader_unset_global_encoding_bit(this: *mut root::LASheader, bit: root::I32);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASheader23get_global_encoding_bitEi"]
-        pub fn LASheader_get_global_encoding_bit(
-            this: *const root::LASheader,
-            bit: root::I32,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader16clean_las_headerEv"]
-        pub fn LASheader_clean_las_header(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader25clean_user_data_in_headerEv"]
-        pub fn LASheader_clean_user_data_in_header(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader10clean_vlrsEv"]
-        pub fn LASheader_clean_vlrs(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader11clean_evlrsEv"]
-        pub fn LASheader_clean_evlrs(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader12clean_laszipEv"]
-        pub fn LASheader_clean_laszip(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader15clean_lastilingEv"]
-        pub fn LASheader_clean_lastiling(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader17clean_lasoriginalEv"]
-        pub fn LASheader_clean_lasoriginal(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader28clean_user_data_after_headerEv"]
-        pub fn LASheader_clean_user_data_after_header(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader5cleanEv"]
-        pub fn LASheader_clean(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader6unlinkEv"]
-        pub fn LASheader_unlink(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASheader5checkEv"]
-        pub fn LASheader_check(this: *const root::LASheader) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASheader13is_compressedEv"]
-        pub fn LASheader_is_compressed(this: *const root::LASheader) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASheader9is_lonlatEf"]
-        pub fn LASheader_is_lonlat(this: *const root::LASheader, extend: root::F32) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader7add_vlrEPKcttPhbS1_b"]
-        pub fn LASheader_add_vlr(
-            this: *mut root::LASheader,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-            record_length_after_header: root::U16,
-            data: *mut root::U8,
-            keep_description: root::BOOL,
-            description: *const root::CHAR,
-            keep_existing: root::BOOL,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASheader7get_vlrEPKct"]
-        pub fn LASheader_get_vlr(
-            this: *const root::LASheader,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-        ) -> *const root::LASvlr;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader10remove_vlrEjb"]
-        pub fn LASheader_remove_vlr(
-            this: *mut root::LASheader,
-            i: root::U32,
-            delete_data: root::BOOL,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader10remove_vlrEPKct"]
-        pub fn LASheader_remove_vlr1(
-            this: *mut root::LASheader,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader8add_evlrEPKctxPhbS1_b"]
-        pub fn LASheader_add_evlr(
-            this: *mut root::LASheader,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-            record_length_after_header: root::I64,
-            data: *mut root::U8,
-            keep_description: root::BOOL,
-            description: *const root::CHAR,
-            keep_existing: root::BOOL,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader11remove_evlrEjb"]
-        pub fn LASheader_remove_evlr(
-            this: *mut root::LASheader,
-            i: root::U32,
-            delete_data: root::BOOL,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader11remove_evlrEPKct"]
-        pub fn LASheader_remove_evlr1(
-            this: *mut root::LASheader,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader13set_lastilingEjjjbbffff"]
-        pub fn LASheader_set_lastiling(
-            this: *mut root::LASheader,
-            level: root::U32,
-            level_index: root::U32,
-            implicit_levels: root::U32,
-            buffer: root::BOOL,
-            reversible: root::BOOL,
-            min_x: root::F32,
-            max_x: root::F32,
-            min_y: root::F32,
-            max_y: root::F32,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader15set_lasoriginalEv"]
-        pub fn LASheader_set_lasoriginal(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader19restore_lasoriginalEv"]
-        pub fn LASheader_restore_lasoriginal(this: *mut root::LASheader) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader12set_geo_keysEiPK16LASvlr_key_entry"]
-        pub fn LASheader_set_geo_keys(
-            this: *mut root::LASheader,
-            number_of_keys: root::I32,
-            geo_keys: *const root::LASvlr_key_entry,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader21set_geo_double_paramsEiPKd"]
-        pub fn LASheader_set_geo_double_params(
-            this: *mut root::LASheader,
-            num_geo_double_params: root::I32,
-            geo_double_params: *const root::F64,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader21del_geo_double_paramsEv"]
-        pub fn LASheader_del_geo_double_params(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader20set_geo_ascii_paramsEiPKc"]
-        pub fn LASheader_set_geo_ascii_params(
-            this: *mut root::LASheader,
-            num_geo_ascii_params: root::I32,
-            geo_ascii_params: *const root::CHAR,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader20del_geo_ascii_paramsEv"]
-        pub fn LASheader_del_geo_ascii_params(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader20set_geo_wkt_ogc_mathEiPKc"]
-        pub fn LASheader_set_geo_wkt_ogc_math(
-            this: *mut root::LASheader,
-            num_geo_wkt_ogc_math: root::I32,
-            geo_wkt_ogc_math: *const root::CHAR,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader20del_geo_wkt_ogc_mathEv"]
-        pub fn LASheader_del_geo_wkt_ogc_math(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader15set_geo_ogc_wktEiPKcb"]
-        pub fn LASheader_set_geo_ogc_wkt(
-            this: *mut root::LASheader,
-            num_geo_ogc_wkt: root::I32,
-            geo_ogc_wkt: *const root::CHAR,
-            in_evlr: root::BOOL,
-        );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader15del_geo_ogc_wktEv"]
-        pub fn LASheader_del_geo_ogc_wkt(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheader22update_extra_bytes_vlrEb"]
-        pub fn LASheader_update_extra_bytes_vlr(
-            this: *mut root::LASheader,
-            keep_description: root::BOOL,
-        ) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheaderC1Ev"]
-        pub fn LASheader_LASheader(this: *mut root::LASheader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASheaderD1Ev"]
-        pub fn LASheader_LASheader_destructor(this: *mut root::LASheader);
-    }
-    impl LASheader {
-        #[inline]
-        pub unsafe fn set_bounding_box(
-            &mut self,
-            min_x: root::F64,
-            min_y: root::F64,
-            min_z: root::F64,
-            max_x: root::F64,
-            max_y: root::F64,
-            max_z: root::F64,
-            auto_scale: root::BOOL,
-            auto_offset: root::BOOL,
-        ) {
-            LASheader_set_bounding_box(
-                self,
-                min_x,
-                min_y,
-                min_z,
-                max_x,
-                max_y,
-                max_z,
-                auto_scale,
-                auto_offset,
-            )
-        }
-        #[inline]
-        pub unsafe fn set_global_encoding_bit(&mut self, bit: root::I32) {
-            LASheader_set_global_encoding_bit(self, bit)
-        }
-        #[inline]
-        pub unsafe fn unset_global_encoding_bit(&mut self, bit: root::I32) {
-            LASheader_unset_global_encoding_bit(self, bit)
-        }
-        #[inline]
-        pub unsafe fn get_global_encoding_bit(&self, bit: root::I32) -> root::BOOL {
-            LASheader_get_global_encoding_bit(self, bit)
-        }
-        #[inline]
-        pub unsafe fn clean_las_header(&mut self) {
-            LASheader_clean_las_header(self)
-        }
-        #[inline]
-        pub unsafe fn clean_user_data_in_header(&mut self) {
-            LASheader_clean_user_data_in_header(self)
-        }
-        #[inline]
-        pub unsafe fn clean_vlrs(&mut self) {
-            LASheader_clean_vlrs(self)
-        }
-        #[inline]
-        pub unsafe fn clean_evlrs(&mut self) {
-            LASheader_clean_evlrs(self)
-        }
-        #[inline]
-        pub unsafe fn clean_laszip(&mut self) {
-            LASheader_clean_laszip(self)
-        }
-        #[inline]
-        pub unsafe fn clean_lastiling(&mut self) {
-            LASheader_clean_lastiling(self)
-        }
-        #[inline]
-        pub unsafe fn clean_lasoriginal(&mut self) {
-            LASheader_clean_lasoriginal(self)
-        }
-        #[inline]
-        pub unsafe fn clean_user_data_after_header(&mut self) {
-            LASheader_clean_user_data_after_header(self)
-        }
-        #[inline]
-        pub unsafe fn clean(&mut self) {
-            LASheader_clean(self)
-        }
-        #[inline]
-        pub unsafe fn unlink(&mut self) {
-            LASheader_unlink(self)
-        }
-        #[inline]
-        pub unsafe fn check(&self) -> root::BOOL {
-            LASheader_check(self)
-        }
-        #[inline]
-        pub unsafe fn is_compressed(&self) -> root::BOOL {
-            LASheader_is_compressed(self)
-        }
-        #[inline]
-        pub unsafe fn is_lonlat(&self, extend: root::F32) -> root::BOOL {
-            LASheader_is_lonlat(self, extend)
-        }
-        #[inline]
-        pub unsafe fn add_vlr(
-            &mut self,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-            record_length_after_header: root::U16,
-            data: *mut root::U8,
-            keep_description: root::BOOL,
-            description: *const root::CHAR,
-            keep_existing: root::BOOL,
-        ) -> root::BOOL {
-            LASheader_add_vlr(
-                self,
-                user_id,
-                record_id,
-                record_length_after_header,
-                data,
-                keep_description,
-                description,
-                keep_existing,
-            )
-        }
-        #[inline]
-        pub unsafe fn get_vlr(
-            &self,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-        ) -> *const root::LASvlr {
-            LASheader_get_vlr(self, user_id, record_id)
-        }
-        #[inline]
-        pub unsafe fn remove_vlr(&mut self, i: root::U32, delete_data: root::BOOL) -> root::BOOL {
-            LASheader_remove_vlr(self, i, delete_data)
-        }
-        #[inline]
-        pub unsafe fn remove_vlr1(
-            &mut self,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-        ) -> root::BOOL {
-            LASheader_remove_vlr1(self, user_id, record_id)
-        }
-        #[inline]
-        pub unsafe fn add_evlr(
-            &mut self,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-            record_length_after_header: root::I64,
-            data: *mut root::U8,
-            keep_description: root::BOOL,
-            description: *const root::CHAR,
-            keep_existing: root::BOOL,
-        ) {
-            LASheader_add_evlr(
-                self,
-                user_id,
-                record_id,
-                record_length_after_header,
-                data,
-                keep_description,
-                description,
-                keep_existing,
-            )
-        }
-        #[inline]
-        pub unsafe fn remove_evlr(&mut self, i: root::U32, delete_data: root::BOOL) -> root::BOOL {
-            LASheader_remove_evlr(self, i, delete_data)
-        }
-        #[inline]
-        pub unsafe fn remove_evlr1(
-            &mut self,
-            user_id: *const root::CHAR,
-            record_id: root::U16,
-        ) -> root::BOOL {
-            LASheader_remove_evlr1(self, user_id, record_id)
-        }
-        #[inline]
-        pub unsafe fn set_lastiling(
-            &mut self,
-            level: root::U32,
-            level_index: root::U32,
-            implicit_levels: root::U32,
-            buffer: root::BOOL,
-            reversible: root::BOOL,
-            min_x: root::F32,
-            max_x: root::F32,
-            min_y: root::F32,
-            max_y: root::F32,
-        ) {
-            LASheader_set_lastiling(
-                self,
-                level,
-                level_index,
-                implicit_levels,
-                buffer,
-                reversible,
-                min_x,
-                max_x,
-                min_y,
-                max_y,
-            )
-        }
-        #[inline]
-        pub unsafe fn set_lasoriginal(&mut self) {
-            LASheader_set_lasoriginal(self)
-        }
-        #[inline]
-        pub unsafe fn restore_lasoriginal(&mut self) -> root::BOOL {
-            LASheader_restore_lasoriginal(self)
-        }
-        #[inline]
-        pub unsafe fn set_geo_keys(
-            &mut self,
-            number_of_keys: root::I32,
-            geo_keys: *const root::LASvlr_key_entry,
-        ) -> root::BOOL {
-            LASheader_set_geo_keys(self, number_of_keys, geo_keys)
-        }
-        #[inline]
-        pub unsafe fn set_geo_double_params(
-            &mut self,
-            num_geo_double_params: root::I32,
-            geo_double_params: *const root::F64,
-        ) -> root::BOOL {
-            LASheader_set_geo_double_params(self, num_geo_double_params, geo_double_params)
-        }
-        #[inline]
-        pub unsafe fn del_geo_double_params(&mut self) {
-            LASheader_del_geo_double_params(self)
-        }
-        #[inline]
-        pub unsafe fn set_geo_ascii_params(
-            &mut self,
-            num_geo_ascii_params: root::I32,
-            geo_ascii_params: *const root::CHAR,
-        ) -> root::BOOL {
-            LASheader_set_geo_ascii_params(self, num_geo_ascii_params, geo_ascii_params)
-        }
-        #[inline]
-        pub unsafe fn del_geo_ascii_params(&mut self) {
-            LASheader_del_geo_ascii_params(self)
-        }
-        #[inline]
-        pub unsafe fn set_geo_wkt_ogc_math(
-            &mut self,
-            num_geo_wkt_ogc_math: root::I32,
-            geo_wkt_ogc_math: *const root::CHAR,
-        ) {
-            LASheader_set_geo_wkt_ogc_math(self, num_geo_wkt_ogc_math, geo_wkt_ogc_math)
-        }
-        #[inline]
-        pub unsafe fn del_geo_wkt_ogc_math(&mut self) {
-            LASheader_del_geo_wkt_ogc_math(self)
-        }
-        #[inline]
-        pub unsafe fn set_geo_ogc_wkt(
-            &mut self,
-            num_geo_ogc_wkt: root::I32,
-            geo_ogc_wkt: *const root::CHAR,
-            in_evlr: root::BOOL,
-        ) {
-            LASheader_set_geo_ogc_wkt(self, num_geo_ogc_wkt, geo_ogc_wkt, in_evlr)
-        }
-        #[inline]
-        pub unsafe fn del_geo_ogc_wkt(&mut self) {
-            LASheader_del_geo_ogc_wkt(self)
-        }
-        #[inline]
-        pub unsafe fn update_extra_bytes_vlr(
-            &mut self,
-            keep_description: root::BOOL,
-        ) -> root::BOOL {
-            LASheader_update_extra_bytes_vlr(self, keep_description)
-        }
-        #[inline]
-        pub unsafe fn new() -> Self {
-            let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
-            LASheader_LASheader(__bindgen_tmp.as_mut_ptr());
-            __bindgen_tmp.assume_init()
-        }
-        #[inline]
-        pub unsafe fn destruct(&mut self) {
-            LASheader_LASheader_destructor(self)
-        }
-    }
     #[repr(C)]
     pub struct LASignore {
         pub ignore_mask: root::U32,
@@ -5673,9 +2984,9 @@ pub mod root {
         pub orig_max_x: root::F64,
         pub orig_max_y: root::F64,
         pub read_simple: ::std::option::Option<unsafe extern "C" fn() -> root::BOOL>,
-        __dummy_filler_1: [u8; 8],
+        __filler_1: [u8; 8],
         pub read_complex: ::std::option::Option<unsafe extern "C" fn() -> root::BOOL>,
-        __dummy_filler_2: [u8; 8],
+        __filler_2: [u8; 8],
     }
     #[test]
     fn bindgen_test_layout_LASreader() {
@@ -5975,140 +3286,8 @@ pub mod root {
         pub fn LASreader_set_index(this: *mut root::LASreader, index: *mut root::LASindex);
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_indexEv"]
-        pub fn LASreader_get_index(this: *const root::LASreader) -> *mut root::LASindex;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10get_filterEv"]
-        pub fn LASreader_get_filter(this: *const root::LASreader) -> *mut root::LASfilter;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader13get_transformEv"]
-        pub fn LASreader_get_transform(this: *const root::LASreader) -> *mut root::LAStransform;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN9LASreader10set_ignoreEP9LASignore"]
         pub fn LASreader_set_ignore(this: *mut root::LASreader, ignore: *mut root::LASignore);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10get_ignoreEv"]
-        pub fn LASreader_get_ignore(this: *const root::LASreader) -> *mut root::LASignore;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10get_insideEv"]
-        pub fn LASreader_get_inside(this: *const root::LASreader) -> root::U32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10get_t_ll_xEv"]
-        pub fn LASreader_get_t_ll_x(this: *const root::LASreader) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10get_t_ll_yEv"]
-        pub fn LASreader_get_t_ll_y(this: *const root::LASreader) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10get_t_sizeEv"]
-        pub fn LASreader_get_t_size(this: *const root::LASreader) -> root::F32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader14get_c_center_xEv"]
-        pub fn LASreader_get_c_center_x(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader14get_c_center_yEv"]
-        pub fn LASreader_get_c_center_y(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader12get_c_radiusEv"]
-        pub fn LASreader_get_c_radius(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader11get_r_min_xEv"]
-        pub fn LASreader_get_r_min_x(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader11get_r_min_yEv"]
-        pub fn LASreader_get_r_min_y(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader11get_r_max_xEv"]
-        pub fn LASreader_get_r_max_x(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader11get_r_max_yEv"]
-        pub fn LASreader_get_r_max_y(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASreader10read_pointEv"]
-        pub fn LASreader_read_point(this: *mut root::LASreader) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASreader12ignore_pointEv"]
-        pub fn LASreader_ignore_point(this: *mut root::LASreader) -> root::BOOL;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN9LASreader19compute_coordinatesEv"]
-        pub fn LASreader_compute_coordinates(this: *mut root::LASreader);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_min_xEv"]
-        pub fn LASreader_get_min_x(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_min_yEv"]
-        pub fn LASreader_get_min_y(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_min_zEv"]
-        pub fn LASreader_get_min_z(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_max_xEv"]
-        pub fn LASreader_get_max_x(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_max_yEv"]
-        pub fn LASreader_get_max_y(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader9get_max_zEv"]
-        pub fn LASreader_get_max_z(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_xEv"]
-        pub fn LASreader_get_x(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_yEv"]
-        pub fn LASreader_get_y(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_zEv"]
-        pub fn LASreader_get_z(this: *const root::LASreader) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_xEi"]
-        pub fn LASreader_get_x1(this: *const root::LASreader, x: root::I32) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_yEi"]
-        pub fn LASreader_get_y1(this: *const root::LASreader, y: root::I32) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_zEi"]
-        pub fn LASreader_get_z1(this: *const root::LASreader, z: root::I32) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_XEd"]
-        pub fn LASreader_get_X(this: *const root::LASreader, x: root::F64) -> root::I64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_YEd"]
-        pub fn LASreader_get_Y(this: *const root::LASreader, y: root::F64) -> root::I64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader5get_ZEd"]
-        pub fn LASreader_get_Z(this: *const root::LASreader, z: root::F64) -> root::I64;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN9LASreader7deallocEv"]
@@ -6124,140 +3303,8 @@ pub mod root {
             LASreader_set_index(self, index)
         }
         #[inline]
-        pub unsafe fn get_index(&self) -> *mut root::LASindex {
-            LASreader_get_index(self)
-        }
-        #[inline]
-        pub unsafe fn get_filter(&self) -> *mut root::LASfilter {
-            LASreader_get_filter(self)
-        }
-        #[inline]
-        pub unsafe fn get_transform(&self) -> *mut root::LAStransform {
-            LASreader_get_transform(self)
-        }
-        #[inline]
         pub unsafe fn set_ignore(&mut self, ignore: *mut root::LASignore) {
             LASreader_set_ignore(self, ignore)
-        }
-        #[inline]
-        pub unsafe fn get_ignore(&self) -> *mut root::LASignore {
-            LASreader_get_ignore(self)
-        }
-        #[inline]
-        pub unsafe fn get_inside(&self) -> root::U32 {
-            LASreader_get_inside(self)
-        }
-        #[inline]
-        pub unsafe fn get_t_ll_x(&self) -> root::F32 {
-            LASreader_get_t_ll_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_t_ll_y(&self) -> root::F32 {
-            LASreader_get_t_ll_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_t_size(&self) -> root::F32 {
-            LASreader_get_t_size(self)
-        }
-        #[inline]
-        pub unsafe fn get_c_center_x(&self) -> root::F64 {
-            LASreader_get_c_center_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_c_center_y(&self) -> root::F64 {
-            LASreader_get_c_center_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_c_radius(&self) -> root::F64 {
-            LASreader_get_c_radius(self)
-        }
-        #[inline]
-        pub unsafe fn get_r_min_x(&self) -> root::F64 {
-            LASreader_get_r_min_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_r_min_y(&self) -> root::F64 {
-            LASreader_get_r_min_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_r_max_x(&self) -> root::F64 {
-            LASreader_get_r_max_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_r_max_y(&self) -> root::F64 {
-            LASreader_get_r_max_y(self)
-        }
-        #[inline]
-        pub unsafe fn read_point(&mut self) -> root::BOOL {
-            LASreader_read_point(self)
-        }
-        #[inline]
-        pub unsafe fn ignore_point(&mut self) -> root::BOOL {
-            LASreader_ignore_point(self)
-        }
-        #[inline]
-        pub unsafe fn compute_coordinates(&mut self) {
-            LASreader_compute_coordinates(self)
-        }
-        #[inline]
-        pub unsafe fn get_min_x(&self) -> root::F64 {
-            LASreader_get_min_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_min_y(&self) -> root::F64 {
-            LASreader_get_min_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_min_z(&self) -> root::F64 {
-            LASreader_get_min_z(self)
-        }
-        #[inline]
-        pub unsafe fn get_max_x(&self) -> root::F64 {
-            LASreader_get_max_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_max_y(&self) -> root::F64 {
-            LASreader_get_max_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_max_z(&self) -> root::F64 {
-            LASreader_get_max_z(self)
-        }
-        #[inline]
-        pub unsafe fn get_x(&self) -> root::F64 {
-            LASreader_get_x(self)
-        }
-        #[inline]
-        pub unsafe fn get_y(&self) -> root::F64 {
-            LASreader_get_y(self)
-        }
-        #[inline]
-        pub unsafe fn get_z(&self) -> root::F64 {
-            LASreader_get_z(self)
-        }
-        #[inline]
-        pub unsafe fn get_x1(&self, x: root::I32) -> root::F64 {
-            LASreader_get_x1(self, x)
-        }
-        #[inline]
-        pub unsafe fn get_y1(&self, y: root::I32) -> root::F64 {
-            LASreader_get_y1(self, y)
-        }
-        #[inline]
-        pub unsafe fn get_z1(&self, z: root::I32) -> root::F64 {
-            LASreader_get_z1(self, z)
-        }
-        #[inline]
-        pub unsafe fn get_X(&self, x: root::F64) -> root::I64 {
-            LASreader_get_X(self, x)
-        }
-        #[inline]
-        pub unsafe fn get_Y(&self, y: root::F64) -> root::I64 {
-            LASreader_get_Y(self, y)
-        }
-        #[inline]
-        pub unsafe fn get_Z(&self, z: root::F64) -> root::I64 {
-            LASreader_get_Z(self, z)
         }
         #[inline]
         pub unsafe fn dealloc(&mut self) {
@@ -6269,10 +3316,6 @@ pub mod root {
             LASreader_LASreader(__bindgen_tmp.as_mut_ptr());
             __bindgen_tmp.assume_init()
         }
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK9LASreader10has_layersEv"]
-        pub fn LASreader_has_layers(this: *mut ::std::os::raw::c_void) -> root::BOOL;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN9LASreader10set_filterEP9LASfilter"]
@@ -7562,10 +4605,6 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener19get_io_ibuffer_sizeEv"]
-        pub fn LASreadOpener_get_io_ibuffer_size(this: *const root::LASreadOpener) -> root::U32;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZNK13LASreadOpener20get_file_name_numberEv"]
         pub fn LASreadOpener_get_file_name_number(this: *const root::LASreadOpener) -> root::U32;
     }
@@ -7673,16 +4712,8 @@ pub mod root {
         pub fn LASreadOpener_set_merged(this: *mut root::LASreadOpener, merged: root::BOOL);
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener9is_mergedEv"]
-        pub fn LASreadOpener_is_merged(this: *const root::LASreadOpener) -> root::BOOL;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener10set_storedEb"]
         pub fn LASreadOpener_set_stored(this: *mut root::LASreadOpener, stored: root::BOOL);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener9is_storedEv"]
-        pub fn LASreadOpener_is_stored(this: *const root::LASreadOpener) -> root::BOOL;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener15set_buffer_sizeEf"]
@@ -7740,19 +4771,11 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener16is_auto_reoffsetEv"]
-        pub fn LASreadOpener_is_auto_reoffset(this: *const root::LASreadOpener) -> root::BOOL;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener25set_files_are_flightlinesEi"]
         pub fn LASreadOpener_set_files_are_flightlines(
             this: *mut root::LASreadOpener,
             files_are_flightlines: root::I32,
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener21are_files_flightlinesEv"]
-        pub fn LASreadOpener_are_files_flightlines(this: *const root::LASreadOpener) -> root::I32;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener31set_files_are_flightlines_indexEi"]
@@ -7762,21 +4785,11 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener22get_files_flight_indexEv"]
-        pub fn LASreadOpener_get_files_flight_index(this: *const root::LASreadOpener) -> root::I32;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener24set_apply_file_source_IDEb"]
         pub fn LASreadOpener_set_apply_file_source_ID(
             this: *mut root::LASreadOpener,
             apply_file_source_ID: root::BOOL,
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener23applying_file_source_IDEv"]
-        pub fn LASreadOpener_applying_file_source_ID(
-            this: *const root::LASreadOpener,
-        ) -> root::BOOL;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener16set_scale_factorEPKd"]
@@ -7786,17 +4799,8 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener16get_scale_factorEv"]
-        pub fn LASreadOpener_get_scale_factor(this: *const root::LASreadOpener)
-            -> *const root::F64;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener10set_offsetEPKd"]
         pub fn LASreadOpener_set_offset(this: *mut root::LASreadOpener, offset: *const root::F64);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener10get_offsetEv"]
-        pub fn LASreadOpener_get_offset(this: *const root::LASreadOpener) -> *const root::F64;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener23set_translate_intensityEf"]
@@ -7965,21 +4969,11 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13LASreadOpener10get_filterEv"]
-        pub fn LASreadOpener_get_filter(this: *mut root::LASreadOpener) -> *mut root::LASfilter;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener13set_transformEP12LAStransform"]
         pub fn LASreadOpener_set_transform(
             this: *mut root::LASreadOpener,
             transform: *mut root::LAStransform,
         );
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZN13LASreadOpener13get_transformEv"]
-        pub fn LASreadOpener_get_transform(
-            this: *mut root::LASreadOpener,
-        ) -> *mut root::LAStransform;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener10set_ignoreEP9LASignore"]
@@ -7989,18 +4983,8 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13LASreadOpener10get_ignoreEv"]
-        pub fn LASreadOpener_get_ignore(this: *mut root::LASreadOpener) -> *mut root::LASignore;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener5resetEv"]
         pub fn LASreadOpener_reset(this: *mut root::LASreadOpener);
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener18get_temp_file_baseEv"]
-        pub fn LASreadOpener_get_temp_file_base(
-            this: *const root::LASreadOpener,
-        ) -> *const root::CHAR;
     }
     extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpener4openEPKcb"]
@@ -8026,52 +5010,6 @@ pub mod root {
         ) -> *mut root::LASwaveform13reader;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener21get_number_attributesEv"]
-        pub fn LASreadOpener_get_number_attributes(this: *const root::LASreadOpener) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener23get_attribute_data_typeEj"]
-        pub fn LASreadOpener_get_attribute_data_type(
-            this: *const root::LASreadOpener,
-            index: root::U32,
-        ) -> root::I32;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener18get_attribute_nameEj"]
-        pub fn LASreadOpener_get_attribute_name(
-            this: *const root::LASreadOpener,
-            index: root::U32,
-        ) -> *const root::CHAR;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener25get_attribute_descriptionEj"]
-        pub fn LASreadOpener_get_attribute_description(
-            this: *const root::LASreadOpener,
-            index: root::U32,
-        ) -> *const root::CHAR;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener19get_attribute_scaleEj"]
-        pub fn LASreadOpener_get_attribute_scale(
-            this: *const root::LASreadOpener,
-            index: root::U32,
-        ) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener20get_attribute_offsetEj"]
-        pub fn LASreadOpener_get_attribute_offset(
-            this: *const root::LASreadOpener,
-            index: root::U32,
-        ) -> root::F64;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK13LASreadOpener21get_attribute_no_dataEj"]
-        pub fn LASreadOpener_get_attribute_no_data(
-            this: *const root::LASreadOpener,
-            index: root::U32,
-        ) -> root::F64;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN13LASreadOpenerC1Ev"]
         pub fn LASreadOpener_LASreadOpener(this: *mut root::LASreadOpener);
     }
@@ -8083,10 +5021,6 @@ pub mod root {
         #[inline]
         pub unsafe fn set_io_ibuffer_size(&mut self, buffer_size: root::U32) {
             LASreadOpener_set_io_ibuffer_size(self, buffer_size)
-        }
-        #[inline]
-        pub unsafe fn get_io_ibuffer_size(&self) -> root::U32 {
-            LASreadOpener_get_io_ibuffer_size(self)
         }
         #[inline]
         pub unsafe fn get_file_name_number(&self) -> root::U32 {
@@ -8165,16 +5099,8 @@ pub mod root {
             LASreadOpener_set_merged(self, merged)
         }
         #[inline]
-        pub unsafe fn is_merged(&self) -> root::BOOL {
-            LASreadOpener_is_merged(self)
-        }
-        #[inline]
         pub unsafe fn set_stored(&mut self, stored: root::BOOL) {
             LASreadOpener_set_stored(self, stored)
-        }
-        #[inline]
-        pub unsafe fn is_stored(&self) -> root::BOOL {
-            LASreadOpener_is_stored(self)
         }
         #[inline]
         pub unsafe fn set_buffer_size(&mut self, buffer_size: root::F32) {
@@ -8228,16 +5154,8 @@ pub mod root {
             LASreadOpener_set_auto_reoffset(self, auto_reoffset)
         }
         #[inline]
-        pub unsafe fn is_auto_reoffset(&self) -> root::BOOL {
-            LASreadOpener_is_auto_reoffset(self)
-        }
-        #[inline]
         pub unsafe fn set_files_are_flightlines(&mut self, files_are_flightlines: root::I32) {
             LASreadOpener_set_files_are_flightlines(self, files_are_flightlines)
-        }
-        #[inline]
-        pub unsafe fn are_files_flightlines(&self) -> root::I32 {
-            LASreadOpener_are_files_flightlines(self)
         }
         #[inline]
         pub unsafe fn set_files_are_flightlines_index(
@@ -8247,32 +5165,16 @@ pub mod root {
             LASreadOpener_set_files_are_flightlines_index(self, files_are_flightlines_index)
         }
         #[inline]
-        pub unsafe fn get_files_flight_index(&self) -> root::I32 {
-            LASreadOpener_get_files_flight_index(self)
-        }
-        #[inline]
         pub unsafe fn set_apply_file_source_ID(&mut self, apply_file_source_ID: root::BOOL) {
             LASreadOpener_set_apply_file_source_ID(self, apply_file_source_ID)
-        }
-        #[inline]
-        pub unsafe fn applying_file_source_ID(&self) -> root::BOOL {
-            LASreadOpener_applying_file_source_ID(self)
         }
         #[inline]
         pub unsafe fn set_scale_factor(&mut self, scale_factor: *const root::F64) {
             LASreadOpener_set_scale_factor(self, scale_factor)
         }
         #[inline]
-        pub unsafe fn get_scale_factor(&self) -> *const root::F64 {
-            LASreadOpener_get_scale_factor(self)
-        }
-        #[inline]
         pub unsafe fn set_offset(&mut self, offset: *const root::F64) {
             LASreadOpener_set_offset(self, offset)
-        }
-        #[inline]
-        pub unsafe fn get_offset(&self) -> *const root::F64 {
-            LASreadOpener_get_offset(self)
         }
         #[inline]
         pub unsafe fn set_translate_intensity(&mut self, translation: root::F32) {
@@ -8416,32 +5318,16 @@ pub mod root {
             LASreadOpener_set_filter(self, filter)
         }
         #[inline]
-        pub unsafe fn get_filter(&mut self) -> *mut root::LASfilter {
-            LASreadOpener_get_filter(self)
-        }
-        #[inline]
         pub unsafe fn set_transform(&mut self, transform: *mut root::LAStransform) {
             LASreadOpener_set_transform(self, transform)
-        }
-        #[inline]
-        pub unsafe fn get_transform(&mut self) -> *mut root::LAStransform {
-            LASreadOpener_get_transform(self)
         }
         #[inline]
         pub unsafe fn set_ignore(&mut self, ignore: *mut root::LASignore) {
             LASreadOpener_set_ignore(self, ignore)
         }
         #[inline]
-        pub unsafe fn get_ignore(&mut self) -> *mut root::LASignore {
-            LASreadOpener_get_ignore(self)
-        }
-        #[inline]
         pub unsafe fn reset(&mut self) {
             LASreadOpener_reset(self)
-        }
-        #[inline]
-        pub unsafe fn get_temp_file_base(&self) -> *const root::CHAR {
-            LASreadOpener_get_temp_file_base(self)
         }
         #[inline]
         pub unsafe fn open(
@@ -8465,34 +5351,6 @@ pub mod root {
             lasheader: *const root::LASheader,
         ) -> *mut root::LASwaveform13reader {
             LASreadOpener_open_waveform13(self, lasheader)
-        }
-        #[inline]
-        pub unsafe fn get_number_attributes(&self) -> root::I32 {
-            LASreadOpener_get_number_attributes(self)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_data_type(&self, index: root::U32) -> root::I32 {
-            LASreadOpener_get_attribute_data_type(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_name(&self, index: root::U32) -> *const root::CHAR {
-            LASreadOpener_get_attribute_name(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_description(&self, index: root::U32) -> *const root::CHAR {
-            LASreadOpener_get_attribute_description(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_scale(&self, index: root::U32) -> root::F64 {
-            LASreadOpener_get_attribute_scale(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_offset(&self, index: root::U32) -> root::F64 {
-            LASreadOpener_get_attribute_offset(self, index)
-        }
-        #[inline]
-        pub unsafe fn get_attribute_no_data(&self, index: root::U32) -> root::F64 {
-            LASreadOpener_get_attribute_no_data(self, index)
         }
         #[inline]
         pub unsafe fn new() -> Self {
@@ -8594,13 +5452,6 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12LASreaderLAS17set_delete_streamEb"]
-        pub fn LASreaderLAS_set_delete_stream(
-            this: *mut root::LASreaderLAS,
-            delete_stream: root::BOOL,
-        );
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN12LASreaderLAS4openEPKcibj"]
         pub fn LASreaderLAS_open(
             this: *mut root::LASreaderLAS,
@@ -8634,10 +5485,6 @@ pub mod root {
         pub fn LASreaderLAS_LASreaderLAS(this: *mut root::LASreaderLAS);
     }
     impl LASreaderLAS {
-        #[inline]
-        pub unsafe fn set_delete_stream(&mut self, delete_stream: root::BOOL) {
-            LASreaderLAS_set_delete_stream(self, delete_stream)
-        }
         #[inline]
         pub unsafe fn open(
             &mut self,
