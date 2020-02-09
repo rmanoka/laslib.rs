@@ -4,3 +4,4 @@ pub mod reader;
 pub use reader::LasReader;
 
 pub mod iter;
+pub use iter::PointsIter;

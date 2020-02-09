@@ -4,7 +4,7 @@ use std::os::unix::ffi::*;
 
 use std::path::Path;
 
-use super::{LasPoint};
+use super::{LasPoint, PointsIter};
 
 pub struct LasReader {
     handle: LASreaderLAS,
@@ -65,6 +65,11 @@ impl LasReader {
         self.point_index
     }
 
+    pub fn points_iter<'a, F, T>(&'a mut self, f: &'a mut F) -> PointsIter<'a, F, T>
+    where F: for<'b> FnMut(&'b LasPoint) -> T {
+        PointsIter::from(self, f)
+    }
+
     fn close(&mut self, close_stream: bool) {
         unsafe {
             root::LASreaderLAS_close(
@@ -101,16 +106,16 @@ mod tests {
 
         eprintln!("Loaded {} with {} points", path.display(), num);
 
-        let last = 100.min(num);
-        reader.seek(last);
-        eprintln!("Seeked to idx {}", last);
+        let idx = 9_000_000.min(num);
+        reader.seek(idx);
+        eprintln!("Seeked to idx {}", idx);
         eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
 
-        let mut count = 0;
-        while reader.read_point() { count += 1; }
+        let count = reader.points_iter(&mut |_| ()).count()
+            as u64;
         eprintln!("Read {} points", count);
         eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
 
-        assert_eq!(count, num - last);
+        assert_eq!(count, num - idx);
     }
 }
