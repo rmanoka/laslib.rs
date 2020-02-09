@@ -8,6 +8,7 @@ pub mod hacks {
         pub fn LASreader_read_point(self_: *mut ::std::os::raw::c_void) -> bool;
     }
 }
+mod point;
 
 use std::os::raw::*;
 pub const LASZIP_DECOMPRESS_SELECTIVE_ALL: c_uint = 0xFFFFFFFF;
@@ -15,6 +16,8 @@ pub const LAS_TOOLS_IO_IBUFFER_SIZE: c_int = 262144;
 
 pub use root::LASreaderLAS;
 pub use root::LASreader;
+pub use root::LASpoint;
+pub use root::LASquantizer;
 
 impl LASreaderLAS {
     fn destruct(&mut self) {
