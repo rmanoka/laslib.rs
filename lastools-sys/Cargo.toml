@@ -1,12 +1,12 @@
 [package]
-name = "lastools"
+name = "lastools-sys"
 version = "0.1.0"
 authors = ["Rajsekar Manokaran <rajsekar@gmail.com>"]
 edition = "2018"
-license = "MIT"
+build = "src/build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-lastools-sys = { path = "lastools-sys" }
-failure = "0.1.6"
+[build-dependencies]
+bindgen = "0.53.0"
+cmake = "0.1"

@@ -1,5 +1,13 @@
-/target
-/build
-/wrapper/build
-/compile_commands.json
+target/
+build/
+compile_commands.json
 Cargo.lock
+
+
+#Added by cargo
+#
+#already existing elements were commented out
+
+#/target
+#Cargo.lock
+/tmp

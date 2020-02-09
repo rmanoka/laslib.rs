@@ -5,7 +5,10 @@ fn main() {
     let dst = cmake::build("wrapper");
 
     println!("cargo:rustc-link-search=native={}", dst.join("lib").display());
+    println!("cargo:rustc-link-search=native={}", "/usr/local/lib");
+    println!("cargo:rustc-link-lib=static=las");
     println!("cargo:rustc-link-lib=static=laslib-wrapper");
+    println!("cargo:rustc-link-lib=stdc++");
     println!("cargo:rerun-if-changed=wrapper/cwrapper.h");
 
     let header = dst.join("include").join("cwrapper.h");
