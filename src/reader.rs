@@ -41,11 +41,14 @@ impl LasReader {
             self.handle,
         )}
     }
-    pub fn next_point(&mut self) -> Option<LasPoint> {
-        let flag = unsafe{LASreader_read_point(
+    pub fn read_point(&mut self) -> bool {
+        unsafe{LASreader_read_point(
             self.handle
-        )};
-        if flag {
+        )}
+    }
+
+    pub fn next_point(&mut self) -> Option<LasPoint> {
+        if self.read_point() {
             Some(LasPoint::from_reader_ptr(
                 &*self,
                 unsafe {LASreader_field_point(
@@ -97,15 +100,29 @@ mod tests {
     #[test]
     #[ignore]
     fn iterate_las() {
-        let path = std::env::var_os("LASFILE")
-            .expect("env LASFILE not set");
-        let mut reader = LasReader::open(Path::new(&path))
-            .expect("open las");
 
+        use std::path::PathBuf;
+        use std::time::Instant;
+        let path: PathBuf = std::env::var_os("LASFILE")
+            .expect("env LASFILE not set").into();
+
+        let start = Instant::now();
+
+        let mut reader = LasReader::open(&path)
+            .expect("open las");
         let num = reader.len();
-        let last = 100.max(num);
-        reader.seek(num - last);
-        let count = reader.iter().count() as i64;
-        assert_eq!(count, last);
+
+        eprintln!("Loaded {} with {} points", path.display(), num);
+        eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
+
+        let last = 100.min(num);
+        reader.seek(last);
+        eprintln!("Seeked to idx {}", last);
+        let mut count = 0;
+        while reader.read_point() { count += 1; }
+        eprintln!("Read {} points", count);
+        eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
+        assert_eq!(last + count, num);
+
     }
 }
