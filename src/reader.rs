@@ -4,13 +4,13 @@ use std::os::unix::ffi::*;
 
 use std::path::Path;
 
-use super::{LasPoint, PointsIter};
+use super::{Point, PointsIter};
 
-pub struct LasReader {
+pub struct Reader {
     handle: LASreaderLAS,
     point_index: u64,
 }
-impl LasReader {
+impl Reader {
     pub fn open(path: &Path) -> Option<Self> {
         let path_str = CString::new(
             path.as_os_str().as_bytes()).unwrap();
@@ -23,7 +23,7 @@ impl LasReader {
             LASZIP_DECOMPRESS_SELECTIVE_ALL,
         )};
         if result {
-            Some(LasReader{
+            Some(Reader{
                 handle,
                 point_index: 0,
             })
@@ -55,10 +55,10 @@ impl LasReader {
         flag
     }
 
-    pub fn point(&self) -> &LasPoint {
+    pub fn point(&self) -> &Point {
         &self.handle._base.point
     }
-    pub fn point_mut(&mut self) -> &mut LasPoint {
+    pub fn point_mut(&mut self) -> &mut Point {
         &mut self.handle._base.point
     }
     pub fn point_index(&self) -> u64 {
@@ -66,7 +66,7 @@ impl LasReader {
     }
 
     pub fn points_iter<'a, F, T>(&'a mut self, f: &'a mut F) -> PointsIter<'a, F, T>
-    where F: for<'b> FnMut(&'b LasPoint) -> T {
+    where F: for<'b> FnMut(&'b Point) -> T {
         PointsIter::from(self, f)
     }
 
@@ -80,42 +80,9 @@ impl LasReader {
         }
     }
 }
-impl Drop for LasReader {
+impl Drop for Reader {
     fn drop(&mut self) {
         self.close(true);
     }
 }
-unsafe impl Send for LasReader {}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    #[ignore]
-    fn iterate_las() {
-        use std::path::PathBuf;
-        use std::time::Instant;
-        let path: PathBuf = std::env::var_os("LASFILE")
-            .expect("env LASFILE not set").into();
-
-        let start = Instant::now();
-
-        let mut reader = LasReader::open(&path)
-            .expect("open las failed");
-        let num = reader.len();
-
-        eprintln!("Loaded {} with {} points", path.display(), num);
-
-        let idx = 9_000_000.min(num);
-        reader.seek(idx);
-        eprintln!("Seeked to idx {}", idx);
-        eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
-
-        let count = reader.points_iter(&mut |_| ()).count()
-            as u64;
-        eprintln!("Read {} points", count);
-        eprintln!("  in {:.2} s", start.elapsed().as_secs_f32());
-
-        assert_eq!(count, num - idx);
-    }
-}
+unsafe impl Send for Reader {}

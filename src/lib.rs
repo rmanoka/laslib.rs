@@ -1,7 +1,10 @@
-pub type LasPoint = lastools_sys::LASpoint;
+pub type Point = lastools_sys::LASpoint;
 
 pub mod reader;
-pub use reader::LasReader;
+pub use reader::Reader;
 
 pub mod iter;
 pub use iter::PointsIter;
+
+#[cfg(test)]
+mod tests;

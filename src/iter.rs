@@ -1,21 +1,21 @@
-use super::{LasReader, LasPoint};
+use super::{Reader, Point};
 
 use std::marker::PhantomData;
 pub struct PointsIter<'a, F, T> {
-    reader: &'a mut LasReader,
+    reader: &'a mut Reader,
     producer: &'a mut F,
     _phantom: PhantomData<fn(T) -> T>
 }
 
 impl<'a, F, T> PointsIter<'a, F, T>
-where F: for<'b> FnMut(&'b LasPoint) -> T {
-    pub fn from(reader: &'a mut LasReader, producer: &'a mut F) -> Self {
+where F: for<'b> FnMut(&'b Point) -> T {
+    pub fn from(reader: &'a mut Reader, producer: &'a mut F) -> Self {
         PointsIter {reader, producer, _phantom: PhantomData}
     }
 }
 
 impl<'a, F, T> Iterator for PointsIter<'a, F, T>
-where F: for<'b> FnMut(&'b LasPoint) -> T {
+where F: for<'b> FnMut(&'b Point) -> T {
     type Item = T;
     fn next(&mut self) -> Option<T> {
         if self.reader.read_point() {
@@ -32,4 +32,4 @@ where F: for<'b> FnMut(&'b LasPoint) -> T {
 }
 
 impl<'a, F, T> ExactSizeIterator for PointsIter<'a, F, T>
-where F: for<'b> FnMut(&'b LasPoint) -> T {}
+where F: for<'b> FnMut(&'b Point) -> T {}
