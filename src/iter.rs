@@ -1,20 +1,18 @@
 use super::{Reader, Point};
 
-use std::marker::PhantomData;
-pub struct PointsIter<'a, F, T> {
+pub struct PointsIter<'a, F> {
     reader: &'a mut Reader,
     producer: &'a mut F,
-    _phantom: PhantomData<fn(T) -> T>
 }
 
-impl<'a, F, T> PointsIter<'a, F, T>
+impl<'a, F, T> PointsIter<'a, F>
 where F: for<'b> FnMut(&'b Point) -> T {
     pub fn from(reader: &'a mut Reader, producer: &'a mut F) -> Self {
-        PointsIter {reader, producer, _phantom: PhantomData}
+        PointsIter {reader, producer}
     }
 }
 
-impl<'a, F, T> Iterator for PointsIter<'a, F, T>
+impl<'a, F, T> Iterator for PointsIter<'a, F>
 where F: for<'b> FnMut(&'b Point) -> T {
     type Item = T;
     fn next(&mut self) -> Option<T> {
@@ -31,5 +29,5 @@ where F: for<'b> FnMut(&'b Point) -> T {
     }
 }
 
-impl<'a, F, T> ExactSizeIterator for PointsIter<'a, F, T>
+impl<'a, F, T> ExactSizeIterator for PointsIter<'a, F>
 where F: for<'b> FnMut(&'b Point) -> T {}

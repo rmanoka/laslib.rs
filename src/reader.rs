@@ -37,13 +37,16 @@ impl Reader {
             idx as i64,
         )};
         if flag {
-            self.point_index += idx;
+            self.point_index = (self.point_index + idx) as u64;
         }
         flag
     }
+
+    #[inline]
     pub fn len(&self) -> u64 {
         self.handle._base.npoints as u64
     }
+
     pub fn read_point(&mut self) -> bool {
         let flag = unsafe {
             hacks::LASreader_read_point(
@@ -55,17 +58,20 @@ impl Reader {
         flag
     }
 
+    #[inline]
     pub fn point(&self) -> &Point {
         &self.handle._base.point
     }
+    #[inline]
     pub fn point_mut(&mut self) -> &mut Point {
         &mut self.handle._base.point
     }
+    #[inline]
     pub fn point_index(&self) -> u64 {
         self.point_index
     }
 
-    pub fn points_iter<'a, F, T>(&'a mut self, f: &'a mut F) -> PointsIter<'a, F, T>
+    pub fn points_iter<'a, F, T>(&'a mut self, f: &'a mut F) -> PointsIter<'a, F>
     where F: for<'b> FnMut(&'b Point) -> T {
         PointsIter::from(self, f)
     }

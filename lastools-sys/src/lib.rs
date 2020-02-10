@@ -19,16 +19,17 @@ pub use root::LASreader;
 pub use root::LASpoint;
 pub use root::LASquantizer;
 
-impl LASreaderLAS {
-    fn destruct(&mut self) {
-        unsafe {
-            root::LASreaderLAS_LASreaderLAS_destructor(self);
-        }
-    }
-}
-impl Drop for LASreaderLAS {
-    fn drop(&mut self) { self.destruct() }
-}
+// Calling destructor leads to in-explicable segfaults
+// impl LASreaderLAS {
+//     fn destruct(&mut self) {
+//         unsafe {
+//             root::LASreaderLAS_LASreaderLAS_destructor(self as *mut LASreaderLAS);
+//         }
+//     }
+// }
+// impl Drop for LASreaderLAS {
+//     fn drop(&mut self) { self.destruct() }
+// }
 
 // Apparently the derived class destructor calls the parent class
 // Calling this too leads to SIGABRT

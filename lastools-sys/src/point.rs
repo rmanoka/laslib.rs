@@ -19,16 +19,16 @@ impl LASquantizer {
 impl LASpoint {
     #[inline]
     pub fn get_x(&self) -> f64 {
-        unsafe { &*self.quantizer } .get_x(self.X)
+        unsafe { &*self.quantizer }.get_x(self.X)
     }
 
     #[inline]
     pub fn get_y(&self) -> f64 {
-        unsafe { &*self.quantizer } .get_y(self.Y)
+        unsafe { &*self.quantizer }.get_y(self.Y)
     }
 
     #[inline]
     pub fn get_z(&self) -> f64 {
-        unsafe { &*self.quantizer } .get_z(self.Z)
+        unsafe { &*self.quantizer }.get_z(self.Z)
     }
 }
