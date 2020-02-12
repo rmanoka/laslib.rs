@@ -1,4 +1,4 @@
-use lastools_sys::*;
+use laslib_sys::*;
 use std::ffi::*;
 use std::os::unix::ffi::*;
 
